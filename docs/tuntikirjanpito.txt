@@ -1,0 +1,2 @@
+11.1. 2h ohjeiden läpikäyntiä ja repon perustaminen
+15.1. 2h ohjeiden kertausta, säädöt myös läppärille ja netbeans-aloitus
