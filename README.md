@@ -1,4 +1,4 @@
 ﻿Javalabra
 =========
 
-aihe muuttunut laivanupotuksesta pubiörvellykseen
+Ohjaajat, aihe muuttunut laivanupotuksesta pubiörvellykseen
