@@ -1,7 +1,7 @@
 
-package kayttoliittyma;
+package OhHa;
 
-import ymparisto.Pubi;
+import OhHa.ymparisto.Pubi;
 
 public class Paaohjelma {
 
