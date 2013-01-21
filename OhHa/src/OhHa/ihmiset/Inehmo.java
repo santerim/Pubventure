@@ -47,8 +47,7 @@ public class Inehmo {
         this.y = y;
     }
     
-    //ei vielä käytössä
-    public void asetaSijainti(int x, int y) {
+    public void setSijainti(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -61,6 +60,9 @@ public class Inehmo {
         this.liikkuvuus = liikkuva;
     }
     
+    public void setTyyppi(String tyyppi) {
+        this.tyyppi = tyyppi;
+    }
     
     
     // tarkastamatta

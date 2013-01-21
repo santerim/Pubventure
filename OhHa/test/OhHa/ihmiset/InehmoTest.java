@@ -1,29 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package OhHa.ihmiset;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Santeri
- */
+
 public class InehmoTest {
     
-    public InehmoTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+    private Inehmo inehmo;
     
+    public InehmoTest() {
+        this.inehmo = new Inehmo(2, 3, "@", "S", true);
+    }
+
     @Before
     public void setUp() {
     }
@@ -32,16 +21,40 @@ public class InehmoTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of liiku method, of class Inehmo.
-     */
-//    @Test
-//    public void testLiiku() {
-//        System.out.println("liiku");
-//        String suunta = "";
-//        Inehmo instance = new Inehmo();
-//        instance.liiku(suunta);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+
+    @Test
+    public void onkoLuodullaHahmollaOikeaSijainti() {
+        assertEquals(inehmo.x, 2);
+        assertEquals(inehmo.y, 3);
+    }
+    
+    @Test
+    public void onkoLuodullaHahmollaOikeaUlkonako() {
+        assertEquals(inehmo.ulkomuoto, "@");
+    }
+    
+    @Test
+    public void onkoLuodunHahmonTyyppiOikea() {
+        assertEquals(inehmo.tyyppi, "S");
+    }
+    
+    @Test
+    public void onkoLuodunHahmonLiikkuvuusparametriOikein() {
+        assertEquals(inehmo.liikkuvuus, true);
+    }
+    
+    //Tässä tarkoituksella kaikki hyvän tavan vastaisesti. Koska olen turtana.
+    @Test
+    public void toimivatkoSetterit() {
+        inehmo.setSijainti(5, 5);
+        inehmo.setLiikkuva(false);
+        inehmo.setUlkomuoto("8");
+        inehmo.setTyyppi("A");
+        
+        assertEquals(inehmo.x, 5);
+        assertEquals(inehmo.y, 5);
+        assertEquals(inehmo.liikkuvuus, false);
+        assertEquals(inehmo.ulkomuoto, "8");
+        assertEquals(inehmo.tyyppi, "A");
+    }
 }

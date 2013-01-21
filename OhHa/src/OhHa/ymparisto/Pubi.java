@@ -15,9 +15,9 @@ public class Pubi {
     private int korkeus;
     private int asiakkaita;
     private int siirtoja;
-    private boolean hirviotLiikkuvat;
+    private boolean asiakkaatLiikkuvat;
     private Scanner lukija = new Scanner(System.in);
-    private ArrayList<Inehmo> henkilot = new ArrayList<Inehmo>();
+    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Inehmo sankari;
     private Random luku = new Random();
 
@@ -26,7 +26,7 @@ public class Pubi {
         this.korkeus = korkeus;
         this.asiakkaita = asiakkaita;
         this.siirtoja = siirtoja;
-        this.hirviotLiikkuvat = asiakkaatLiikkuvat;
+        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
     }
 
     public void run() {
@@ -37,7 +37,7 @@ public class Pubi {
 //        jantteri.setX(5);
         
         while (true) {
-            System.out.println(siirtoja);
+            //System.out.println(siirtoja);
             System.out.println("");
             //tulostaOlennot();
             System.out.println("");
@@ -68,7 +68,7 @@ public class Pubi {
         for (String string : komennot) {
             siirraSankaria(string);
             //osuiko();
-            if (hirviotLiikkuvat) {
+            if (asiakkaatLiikkuvat) {
                 //liikutaAsiakkaita();
                 //osuiko();
             }
@@ -142,13 +142,13 @@ public class Pubi {
 //        System.out.println("");
 //    }
 //
-//    public int arvoX() {
-//        return luku.nextInt(leveys);
-//    }
-//
-//    public int arvoY() {
-//        return luku.nextInt(korkeus);
-//    }
+    public int arvoX() {
+        return luku.nextInt(leveys);
+    }
+
+    public int arvoY() {
+        return luku.nextInt(korkeus);
+    }
 //
 //    public void osuiko() {
 //        for (int i = 1; i < henkilot.size(); i++) {
@@ -159,14 +159,14 @@ public class Pubi {
 //        }
 //    }
 //
-//    public boolean tormaako(int x, int y) {
-//        for (Henkilo henkilo : henkilot) {
-//            if (henkilo.getX() == x && henkilo.getY() == y) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public boolean tormaako(int x, int y) {
+        for (Inehmo inehmo : inehmot) {
+            if (inehmo.getX() == x && inehmo.getY() == y) {
+                return true;
+            }
+        }
+        return false;
+    }
 //
 //    public void liikutaAsiakkaita() {
 //        for (Henkilo henkilo : henkilot) {
@@ -197,5 +197,21 @@ public class Pubi {
         String[] suunnat = {"w", "a", "s", "d"};
         int satunnainen = luku.nextInt(4);
         return suunnat[satunnainen];
+    }
+    
+    public int getLeveys() {
+        return this.leveys;
+    }
+    
+    public int getKorkeus() {
+        return this.korkeus;
+    }
+    
+    public int getAsiakkaita() {
+        return this.asiakkaita;
+    }
+    
+    public boolean getAsiakkaatLiikkuvat() {
+        return this.asiakkaatLiikkuvat;
     }
 }

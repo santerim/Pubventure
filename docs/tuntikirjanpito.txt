@@ -1,6 +1,11 @@
 11.1. 2h ohjeiden läpikäyntiä ja repon perustaminen
+
 15.1. 2h ohjeiden kertausta, säädöt myös läppärille ja netbeans-aloitus
 
 19.1. 4h ideointia oluen voimalla ja sen myötä aiheen vaihto
+
 20.1. 2h luokkakaavion miettimistä
+
 21.1. 2h ohjelman luokkien pohjustusta, sekä rakenteen suunnittelua
+
+22.1. 6h testien kirjoittelua ja legacy-koodin muokkausta vastaamaan tulevaa tarvetta, ruoanlaiton, musiikin ja nettisurffailun lomassa. Välissä puolen minuutin ahdistuksia tulevasta Logiikka I:n deadlinesta
