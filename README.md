@@ -1,8 +1,4 @@
 ﻿Javalabra
 =========
 
-repo ohjelmoinnin harjoitustyötä varten
-
-testimuutos
-
-testimuutos varjorepoa varten
+aihe muuttunut laivanupotuksesta pubiörvellykseen
