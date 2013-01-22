@@ -83,6 +83,19 @@ public class Inehmo {
         if (obj == null) {
             return false;
         }
+        
+        if (obj.getClass() == Asiakas.class) {
+            return false;
+        }
+        
+        if (obj.getClass() == Sankari.class) {
+            return false;
+        }
+        
+        if (obj.getClass() == Portsari.class) {
+            return false;
+        }
+        
         if (getClass() != obj.getClass()) {
             return false;
         }

@@ -65,7 +65,7 @@ public class Pubi {
             komennot[i] = Character.toString(syote.charAt(i));
         }
         //suoritetaan komennot ja jokaisen jälkeen tutkitaan osuiko,
-        //minkä jälkeen liikutetaan hirviöitä (jos sallittu) ja vähennetään
+        //minkä jälkeen liikutetaan asiakkaita (jos sallittu) ja vähennetään
         //yhdellä jäljellä olevia siirtovuoroja
         for (String string : komennot) {
             siirraSankaria(string);
@@ -79,31 +79,45 @@ public class Pubi {
     }
 
     public void siirraSankaria(String suunta) {
-        if (suunta.equals("w")) {
-            if (sankari.getY() > 0) {
-                sankari.setY(sankari.getY() - 1);
-            }
-        } else if (suunta.equals("a")) {
-            if (sankari.getX() > 0) {
-                sankari.setX(sankari.getX() - 1);
-            }
-        } else if (suunta.equals("s")) {
-            if (sankari.getY() < korkeus - 1) {
-                sankari.setY(sankari.getY() + 1);
-            }
-        } else if (suunta.equals("d")) {
-            if (sankari.getX() < leveys - 1) {
-                sankari.setX(sankari.getX() + 1);
-            }
+        switch (suunta) {
+            case "w":
+                if (!tormaako(sankari.x, sankari.y + 1)) {
+                    if (sankari.getY() > 0) {
+                    sankari.setY(sankari.getY() - 1);
+                }
+                }
+                
+                break;
+            case "a":
+                if (sankari.getX() > 0) {
+                    sankari.setX(sankari.getX() - 1);
+                }
+                break;
+            case "s":
+                if (sankari.getY() < korkeus - 1) {
+                    sankari.setY(sankari.getY() + 1);
+                }
+                break;
+            case "d":
+                if (sankari.getX() < leveys - 1) {
+                    sankari.setX(sankari.getX() + 1);
+                }
+                break;
         }
     }
 
     //KESKEN!
     public void luoOlennot() {
         // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
-        this.sankari = new Sankari(0, 0, "@", "S", true);
+        this.sankari = new Sankari(1, 1, "@", "S", true);
         this.inehmot.add(sankari);
         // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla
+        
+        
+        //debug-jantteri
+        Asiakas jantteri = new Asiakas(1, 0, "a", "A", true);
+        inehmot.add(jantteri);
+        
         for (int i = 0; i < asiakkaita; i++) {
             Asiakas uusi = new Asiakas(arvoX(), arvoY(), "a", "A", true);
             while (true) {
