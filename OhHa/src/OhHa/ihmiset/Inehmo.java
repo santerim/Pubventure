@@ -31,12 +31,24 @@ public class Inehmo {
         return this.y;
     }
     
+    public boolean getSankaruus() {
+        if (this.tyyppi.equals("S")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public boolean getLiikkuva() {
         return this.liikkuvuus;
     }
     
     public String getTyyppi() {
         return this.tyyppi;
+    }
+    
+    public String getUlkomuoto() {
+        return this.ulkomuoto;
     }
     
     public void setX(int x) {

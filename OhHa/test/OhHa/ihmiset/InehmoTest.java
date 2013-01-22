@@ -43,18 +43,5 @@ public class InehmoTest {
         assertEquals(inehmo.liikkuvuus, true);
     }
     
-    //Tässä tarkoituksella kaikki hyvän tavan vastaisesti. Koska olen turtana.
-    @Test
-    public void toimivatkoSetterit() {
-        inehmo.setSijainti(5, 5);
-        inehmo.setLiikkuva(false);
-        inehmo.setUlkomuoto("8");
-        inehmo.setTyyppi("A");
-        
-        assertEquals(inehmo.x, 5);
-        assertEquals(inehmo.y, 5);
-        assertEquals(inehmo.liikkuvuus, false);
-        assertEquals(inehmo.ulkomuoto, "8");
-        assertEquals(inehmo.tyyppi, "A");
-    }
+
 }
