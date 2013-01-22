@@ -1,5 +1,3 @@
-
-
 package OhHa.ymparisto;
 
 import OhHa.ihmiset.Asiakas;
@@ -8,7 +6,6 @@ import OhHa.ihmiset.Sankari;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
 
 public class Pubi {
 
@@ -36,7 +33,7 @@ public class Pubi {
 //        testiä
 //        Asiakas jantteri = new Asiakas(2, 2, "@", "S", true);
 //        jantteri.setX(5);
-        
+
         while (true) {
             System.out.println("Siirtoja: " + siirtoja);
             System.out.println("Asiakkaita: " + asiakkaita);
@@ -81,12 +78,12 @@ public class Pubi {
     public void siirraSankaria(String suunta) {
         switch (suunta) {
             case "w":
-                if (!tormaako(sankari.x, sankari.y + 1)) {
+                if (!tormaako(sankari.x, sankari.y - 1)) {
                     if (sankari.getY() > 0) {
-                    sankari.setY(sankari.getY() - 1);
+                        sankari.setY(sankari.getY() - 1);
+                    }
                 }
-                }
-                
+
                 break;
             case "a":
                 if (sankari.getX() > 0) {
@@ -94,9 +91,12 @@ public class Pubi {
                 }
                 break;
             case "s":
-                if (sankari.getY() < korkeus - 1) {
-                    sankari.setY(sankari.getY() + 1);
+                if (!tormaako(sankari.x, sankari.y + 1)) {
+                    if (sankari.getY() < korkeus - 1) {
+                        sankari.setY(sankari.getY() + 1);
+                    }
                 }
+
                 break;
             case "d":
                 if (sankari.getX() < leveys - 1) {
@@ -112,12 +112,12 @@ public class Pubi {
         this.sankari = new Sankari(1, 1, "@", "S", true);
         this.inehmot.add(sankari);
         // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla
-        
-        
+
+
         //debug-jantteri
         Asiakas jantteri = new Asiakas(1, 0, "a", "A", true);
         inehmot.add(jantteri);
-        
+
         for (int i = 0; i < asiakkaita; i++) {
             Asiakas uusi = new Asiakas(arvoX(), arvoY(), "a", "A", true);
             while (true) {
@@ -220,19 +220,19 @@ public class Pubi {
         int satunnainen = luku.nextInt(4);
         return suunnat[satunnainen];
     }
-    
+
     public int getLeveys() {
         return this.leveys;
     }
-    
+
     public int getKorkeus() {
         return this.korkeus;
     }
-    
+
     public int getAsiakkaita() {
         return this.asiakkaita;
     }
-    
+
     public boolean getAsiakkaatLiikkuvat() {
         return this.asiakkaatLiikkuvat;
     }

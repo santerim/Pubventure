@@ -4,8 +4,11 @@
  */
 package OhHa.ymparisto;
 
+import OhHa.ihmiset.Asiakas;
+import OhHa.ihmiset.Sankari;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -17,6 +20,7 @@ public class PubiTest {
     
     public PubiTest() {
         pubi = new Pubi(20, 20, 5, 100, true);
+        
     }
 
     @BeforeClass
@@ -49,5 +53,13 @@ public class PubiTest {
     @Test
     public void asiakkaidenLiikkuvuusOikein() {
         assertTrue(pubi.getAsiakkaatLiikkuvat());
+    }
+    
+    @Test
+    public void toimiikoTormaystesti() {
+        Sankari sankari = new Sankari(0, 0, "@", "S", true);
+        Asiakas asiakas = new Asiakas(0, 0, "a", "A", false);
+        assertTrue(pubi.tormaako(0, 0));
+        
     }
 }
