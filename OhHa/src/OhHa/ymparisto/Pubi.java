@@ -86,9 +86,12 @@ public class Pubi {
 
                 break;
             case "a":
-                if (sankari.getX() > 0) {
+                if (!tormaako(sankari.x - 1, sankari.y)) {
+                    if (sankari.getX() > 0) {
                     sankari.setX(sankari.getX() - 1);
                 }
+                }
+                
                 break;
             case "s":
                 if (!tormaako(sankari.x, sankari.y + 1)) {
@@ -99,9 +102,12 @@ public class Pubi {
 
                 break;
             case "d":
-                if (sankari.getX() < leveys - 1) {
+                if (!tormaako(sankari.x + 1, sankari.y)) {
+                    if (sankari.getX() < leveys - 1) {
                     sankari.setX(sankari.getX() + 1);
                 }
+                }
+                
                 break;
         }
     }
@@ -167,6 +173,7 @@ public class Pubi {
         return luku.nextInt(korkeus);
     }
 
+    // MUUTETTAVA!
     public void osuiko() {
         for (int i = 1; i < inehmot.size(); i++) {
             if (sankari.equals(inehmot.get(i))) {
