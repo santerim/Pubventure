@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package OhHa.ymparisto;
 
 import OhHa.ihmiset.Asiakas;
@@ -19,7 +16,7 @@ public class PubiTest {
     private Pubi pubi;
     
     public PubiTest() {
-        pubi = new Pubi(20, 20, 5, 100, true);
+        pubi = new Pubi(20, 20);
         
     }
 
@@ -43,23 +40,5 @@ public class PubiTest {
     public void saakoPubiOikeanKoon() {
         assertEquals(pubi.getKorkeus(), 20);
         assertEquals(pubi.getLeveys(), 20);
-    }
-
-    @Test
-    public void asiakkaidenMaaraOikein() {
-        assertEquals(pubi.getAsiakkaita(), 5);
-    }
-    
-    @Test
-    public void asiakkaidenLiikkuvuusOikein() {
-        assertTrue(pubi.getAsiakkaatLiikkuvat());
-    }
-    
-    @Test
-    public void toimiikoTormaystesti() {
-        Sankari sankari = new Sankari(0, 0, "@", "S", true);
-        Asiakas asiakas = new Asiakas(0, 0, "a", "A", false);
-        assertTrue(pubi.tormaako(0, 0));
-        
     }
 }
