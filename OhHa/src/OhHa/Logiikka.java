@@ -5,7 +5,6 @@ import OhHa.ihmiset.Asiakas;
 import OhHa.ihmiset.Inehmo;
 import OhHa.ihmiset.Sankari;
 import OhHa.ymparisto.Pubi;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -92,8 +91,8 @@ public class Logiikka {
 
 
         //debug-jantteri
-        Asiakas jantteri = new Asiakas(1, 0, "a", "A", true);
-        inehmot.add(jantteri);
+//        Asiakas jantteri = new Asiakas(1, 0, "a", "A", true);
+//        inehmot.add(jantteri);
 
         for (int i = 0; i < asiakkaita; i++) {
             Asiakas uusi = new Asiakas(arvoX(), arvoY(), "a", "A", true);
@@ -146,7 +145,7 @@ public class Logiikka {
     }
 
     
-
+    //KORJAUSTA VAILLA!
     public void tulostaOlennot() {
         for (Inehmo inehmo : inehmot) {
             System.out.println(inehmo.getUlkomuoto() + " "
@@ -269,5 +268,9 @@ public class Logiikka {
     
     public void setAsiakkaatLiikkuvat(boolean juuTaiEi) {
         this.asiakkaatLiikkuvat = juuTaiEi;
+    }
+    
+    public Inehmo getInehmo(int luku) {
+        return inehmot.get(luku);
     }
 }

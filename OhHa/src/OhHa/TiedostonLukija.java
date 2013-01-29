@@ -10,7 +10,7 @@ public class TiedostonLukija {
     private Scanner lukija;
     private int pubinLeveys;
     private int pubinKorkeus;
-    private String merkit;
+    private String merkkijono = "";
     private boolean leveysLoydetty = false;
 
     public TiedostonLukija() {
@@ -26,14 +26,11 @@ public class TiedostonLukija {
             System.out.println("Tiedoston lukeminen epäonnistui.\n" + ex.getMessage());
         }
 
-
-
-        //KORJ!
         while (lukija.hasNextLine()) {
             if (!leveysLoydetty) {
                 sb.append(lukija.nextLine());
                 pubinLeveys = sb.length();
-                System.out.println("Pubin leveys: " + pubinLeveys);
+                //System.out.println("Pubin leveys: " + pubinLeveys);
                 sb.append("\n");
                 pubinKorkeus++;
                 leveysLoydetty = true;
@@ -44,8 +41,8 @@ public class TiedostonLukija {
             }
 
         }
-        System.out.println("Pubin korkeus: " + pubinKorkeus);
-        this.merkit = sb.toString();
+        //System.out.println("Pubin korkeus: " + pubinKorkeus);
+        this.merkkijono = sb.toString();
         return sb.toString();
     }
 
@@ -55,5 +52,9 @@ public class TiedostonLukija {
 
     public int getPubinKorkeus() {
         return this.pubinKorkeus;
+    }
+    
+    public String getMerkkijono() {
+        return this.merkkijono;
     }
 }
