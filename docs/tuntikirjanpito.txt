@@ -9,3 +9,9 @@
 21.1. 2h ohjelman luokkien pohjustusta, sekä rakenteen suunnittelua
 
 22.1. 6h testien kirjoittelua ja legacy-koodin muokkausta vastaamaan tulevaa tarvetta, ruoanlaiton, musiikin ja nettisurffailun lomassa. Välissä puolen minuutin ahdistuksia tulevasta Logiikka I:n deadlinesta
+
+24.1. 3h oikean toteutustavan miettimistä ja pientä muokkausta
+
+28.1. 3h luokkien muokkausta ja koodin kirjoittamista
+
+29.1. 6h toiminnallisuuden ja rakenteen selvittelyä, testien kirjoittelua ja parannetun luokkakaavion sorvausta

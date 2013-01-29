@@ -5,6 +5,7 @@ import OhHa.ihmiset.Asiakas;
 import OhHa.ihmiset.Inehmo;
 import OhHa.ihmiset.Sankari;
 import OhHa.ymparisto.Pubi;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,12 +21,16 @@ public class Logiikka {
     private Inehmo sankari;
     private ArrayList<Inehmo> inehmot = new ArrayList<>();
     private Random luku = new Random();
+    private TiedostonLukija tiedostonLukija;
+    private String luolanUlkonako;
     
     public Logiikka(Pubi pubi, int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
         this.pubi = pubi;
         this.asiakkaita = asiakkaita;
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
+        this.tiedostonLukija = new TiedostonLukija();
+        this.luolanUlkonako = tiedostonLukija.lueTiedosto();
     }
     
     public void run() {
@@ -35,6 +40,8 @@ public class Logiikka {
 //        Asiakas jantteri = new Asiakas(2, 2, "@", "S", true);
 //        jantteri.setX(5);
 
+        
+        
         while (true) {
             System.out.println("Siirtoja: " + siirtoja);
             System.out.println("Asiakkaita: " + asiakkaita);
@@ -148,6 +155,11 @@ public class Logiikka {
     }
 
     public void tulostaLuola() {
+        
+        //tulostetaan debuggausta varten ensin suunniteltu pubi
+        //suoraan tekstitiedostosta
+        System.out.println(luolanUlkonako);
+        
         for (int i = 0; i < pubi.getKorkeus(); i++) {
             piirraRivi(i);
         }
