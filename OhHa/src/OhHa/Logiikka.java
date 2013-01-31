@@ -24,8 +24,10 @@ public class Logiikka {
     
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
-        this.pubi = new Pubi(26, 12);
+        this.pubi = new Pubi();
         pubi.luoKentta();
+        System.out.println("Pubin leveys: " + pubi.getLeveys());
+        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
         this.asiakkaita = asiakkaita;
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;

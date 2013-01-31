@@ -12,17 +12,43 @@ public class Pubi {
     private String luolanUlkonako;
     private Scanner lukija;
 
-    public Pubi(int leveys, int korkeus) {
-        this.leveys = leveys;
-        this.korkeus = korkeus;
-        this.kentta = new Pubiobjekti[leveys][korkeus];
+    public Pubi() {
         this.tiedostonLukija = new TiedostonLukija();
         this.luolanUlkonako = tiedostonLukija.lueTiedosto();
         this.lukija = new Scanner(luolanUlkonako);
-    }
-
-    public Pubiobjekti[][] luoKentta() {
+        etsiMittasuhteet();
+        this.kentta = new Pubiobjekti[leveys][korkeus];
         
+    }
+    
+//    public Pubi(int leveys, int korkeus) {
+//        this.leveys = leveys;
+//        this.korkeus = korkeus;
+//        this.kentta = new Pubiobjekti[leveys][korkeus];
+//        this.tiedostonLukija = new TiedostonLukija();
+//        this.luolanUlkonako = tiedostonLukija.lueTiedosto();
+//        this.lukija = new Scanner(luolanUlkonako);
+//    }
+
+    public void etsiMittasuhteet() {
+        int riveja = 0;
+        int riviKayty = 0;
+        
+        while (lukija.hasNext()) {
+            String nykRivi = lukija.next();
+            if (riviKayty == 0) {
+                this.leveys = nykRivi.length();
+                riviKayty = 1;
+            }
+            riveja++;
+        }
+        
+        this.korkeus = riveja;
+        this.lukija.close();
+    }
+    
+    public Pubiobjekti[][] luoKentta() {
+        this.lukija = new Scanner(luolanUlkonako);
         int rivi = 0;
         while (lukija.hasNext()) {
             String merkkirivi = lukija.next();
