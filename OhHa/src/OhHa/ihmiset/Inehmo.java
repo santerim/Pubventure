@@ -32,7 +32,7 @@ public class Inehmo {
     }
     
     public boolean getSankaruus() {
-        if (this.tyyppi.equals("S")) {
+        if (this.tyyppi.equals("sankari")) {
             return true;
         } else {
             return false;

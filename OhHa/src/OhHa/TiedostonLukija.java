@@ -8,10 +8,10 @@ public class TiedostonLukija {
 
     private File tiedosto;
     private Scanner lukija;
-    private int pubinLeveys;
-    private int pubinKorkeus;
+//    private int pubinLeveys;
+//    private int pubinKorkeus;
     private String merkkijono = "";
-    private boolean leveysLoydetty = false;
+//    private boolean leveysLoydetty = false;
 
     public TiedostonLukija() {
         this.tiedosto = new File("src/OhHa/pub.txt");
@@ -27,18 +27,18 @@ public class TiedostonLukija {
         }
 
         while (lukija.hasNextLine()) {
-            if (!leveysLoydetty) {
+//            if (!leveysLoydetty) {
+//                sb.append(lukija.nextLine());
+//                pubinLeveys = sb.length();
+//                //System.out.println("Pubin leveys: " + pubinLeveys);
+//                sb.append("\n");
+//                pubinKorkeus++;
+//                leveysLoydetty = true;
+//            } else {
                 sb.append(lukija.nextLine());
-                pubinLeveys = sb.length();
-                //System.out.println("Pubin leveys: " + pubinLeveys);
                 sb.append("\n");
-                pubinKorkeus++;
-                leveysLoydetty = true;
-            } else {
-                sb.append(lukija.nextLine());
-                sb.append("\n");
-                pubinKorkeus++;
-            }
+//                pubinKorkeus++;
+//            }
 
         }
         //System.out.println("Pubin korkeus: " + pubinKorkeus);
@@ -46,13 +46,13 @@ public class TiedostonLukija {
         return sb.toString();
     }
 
-    public int getPubinLeveys() {
-        return this.pubinLeveys;
-    }
-
-    public int getPubinKorkeus() {
-        return this.pubinKorkeus;
-    }
+//    public int getPubinLeveys() {
+//        return this.pubinLeveys;
+//    }
+//
+//    public int getPubinKorkeus() {
+//        return this.pubinKorkeus;
+//    }
     
     public String getMerkkijono() {
         return this.merkkijono;

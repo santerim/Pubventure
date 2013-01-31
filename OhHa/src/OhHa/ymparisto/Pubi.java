@@ -9,13 +9,13 @@ public class Pubi {
     private int korkeus;
     private Pubiobjekti[][] kentta;
     private TiedostonLukija tiedostonLukija;
-    private String luolanUlkonako;
+    private String pubiMerkkijonona;
     private Scanner lukija;
 
     public Pubi() {
         this.tiedostonLukija = new TiedostonLukija();
-        this.luolanUlkonako = tiedostonLukija.lueTiedosto();
-        this.lukija = new Scanner(luolanUlkonako);
+        this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
+        this.lukija = new Scanner(pubiMerkkijonona);
         etsiMittasuhteet();
         this.kentta = new Pubiobjekti[leveys][korkeus];
         
@@ -30,7 +30,7 @@ public class Pubi {
 //        this.lukija = new Scanner(luolanUlkonako);
 //    }
 
-    public void etsiMittasuhteet() {
+    public final void etsiMittasuhteet() {
         int riveja = 0;
         int riviKayty = 0;
         
@@ -48,16 +48,19 @@ public class Pubi {
     }
     
     public Pubiobjekti[][] luoKentta() {
-        this.lukija = new Scanner(luolanUlkonako);
+        this.lukija = new Scanner(pubiMerkkijonona);
         int rivi = 0;
         while (lukija.hasNext()) {
             String merkkirivi = lukija.next();
             //System.out.println("Skannerin sisältö: " + merkkirivi);
             for (int i = 0; i < merkkirivi.length(); i++) {
                 switch (merkkirivi.charAt(i)) {
+                    case 'Y':
+                        kentta[i][rivi] = new Pubiobjekti(".", true);
+                        break;
                     case 'E':
                         kentta[i][rivi] = new Pubiobjekti(".", false);
-                    
+                        break;
                     case '-':
                         kentta[i][rivi] = new Pubiobjekti("-", true);
                         break;
@@ -74,7 +77,8 @@ public class Pubi {
                         kentta[i][rivi] = new Pubiobjekti("#", true);
                         break;
                     case 'w':
-                        kentta[i][rivi] = new Pubiobjekti("w", false);
+                        kentta[i][rivi] = new Pubiobjekti("w", true);
+                        break;
                 }
             }
             rivi++;
