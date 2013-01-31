@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class LogiikkaTest {
     
     Pubi pubi = new Pubi(15, 15);
-    Logiikka log = new Logiikka(pubi, 5, 999, true);
+    Logiikka log = new Logiikka(5, 999, true);
     
     public LogiikkaTest() {
     }

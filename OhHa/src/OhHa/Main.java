@@ -12,14 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
         
-        Pubi pubi = new Pubi(15, 15);
-        new Logiikka(pubi, 5, 999, true).run();
+        
+        new Logiikka(5, 999, true).run();
     }
 }
 
 
-//avoimia kysymyksiä:
-//
-// -kannattaako paikkatietoja seurata pubi-luokassa, vai niin että jokainen
-// inehmo-olio pitää kirjaa omasta sijainnistaan?
-//
+

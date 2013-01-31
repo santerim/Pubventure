@@ -5,6 +5,7 @@ import OhHa.ihmiset.Asiakas;
 import OhHa.ihmiset.Inehmo;
 import OhHa.ihmiset.Sankari;
 import OhHa.ymparisto.Pubi;
+import OhHa.ymparisto.Pubiobjekti;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,16 +21,15 @@ public class Logiikka {
     private Inehmo sankari;
     private ArrayList<Inehmo> inehmot = new ArrayList<>();
     private Random luku = new Random();
-    private TiedostonLukija tiedostonLukija;
-    private String luolanUlkonako;
     
-    public Logiikka(Pubi pubi, int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
-        this.pubi = pubi;
+
+    public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
+        this.pubi = new Pubi(26, 12);
+        pubi.luoKentta();
         this.asiakkaita = asiakkaita;
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
-        this.tiedostonLukija = new TiedostonLukija();
-        this.luolanUlkonako = tiedostonLukija.lueTiedosto();
+        
     }
     
     public void run() {
@@ -45,10 +45,11 @@ public class Logiikka {
             System.out.println("Siirtoja: " + siirtoja);
             System.out.println("Asiakkaita: " + asiakkaita);
             System.out.println("");
-            tulostaOlennot();
+            //tulostaOlennot();
             System.out.println("");
-            tulostaLuola();
+            tulostaPubi();
             System.out.println("");
+            System.out.print("Anna komento> ");
             kasitteleSyote(lukija.nextLine());
 
             if (siirtoja == 0 && asiakkaita > 0) {
@@ -153,15 +154,20 @@ public class Logiikka {
         }
     }
 
-    public void tulostaLuola() {
-        
-        //tulostetaan debuggausta varten ensin suunniteltu pubi
-        //suoraan tekstitiedostosta
-        System.out.println(luolanUlkonako);
+    public void tulostaPubi() {
         
         for (int i = 0; i < pubi.getKorkeus(); i++) {
-            piirraRivi(i);
+            for (int j = 0; j < pubi.getLeveys(); j++) {
+                System.out.print(pubi.annaObjekti(j, i).getUlkonako());
+            }
+            System.out.println("");
         }
+        
+        //pubi.tulostaPubi();
+        //allaoleva poistumassa
+//        for (int i = 0; i < pubi.getKorkeus(); i++) {
+//            piirraRivi(i);
+//        }
     }
 
     public void piirraRivi(int y) {
