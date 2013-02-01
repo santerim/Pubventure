@@ -43,8 +43,14 @@ public class Logiikka {
             System.out.println("");
             tulostaPubi();
             System.out.println("");
+
             System.out.print("Anna komento> ");
-            kasitteleSyote(lukija.nextLine());
+            String komento = lukija.nextLine();
+            kasitteleKomento(komento);
+
+            if (asiakkaatLiikkuvat) {
+                liikutaAsiakkaita();
+            }
 
             if (siirtoja == 0 && asiakkaita > 0) {
                 System.out.println("\nHÄVISIT");
@@ -57,26 +63,28 @@ public class Logiikka {
 
     }
 
-    public void kasitteleSyote(String syote) {
-        //pilkotaan syöte taulukkoon
-        String[] komennot = new String[syote.length()];
-        for (int i = 0; i < syote.length(); i++) {
-            komennot[i] = Character.toString(syote.charAt(i));
-        }
-        //suoritetaan komennot ja jokaisen jälkeen tutkitaan osuiko,
-        //minkä jälkeen liikutetaan asiakkaita (jos sallittu) ja vähennetään
-        //yhdellä jäljellä olevia siirtovuoroja
-        for (String string : komennot) {
-            siirraSankaria(string);
-            osuiko();
-            if (asiakkaatLiikkuvat) {
-                liikutaAsiakkaita();
-                osuiko();
-            }
-        }
-        this.siirtoja--;
-    }
-
+    //POISTUMASSA
+//    public void kasitteleSyote(String syote) {
+//        
+//               
+//        //pilkotaan syöte taulukkoon
+//        String[] komennot = new String[syote.length()];
+//        for (int i = 0; i < syote.length(); i++) {
+//            komennot[i] = Character.toString(syote.charAt(i));
+//        }
+//        //suoritetaan komennot ja jokaisen jälkeen tutkitaan osuiko,
+//        //minkä jälkeen liikutetaan asiakkaita (jos sallittu) ja vähennetään
+//        //yhdellä jäljellä olevia siirtovuoroja
+//        for (String string : komennot) {
+//            kasitteleKomento(string);
+////            osuiko();
+//            if (asiakkaatLiikkuvat) {
+//                liikutaAsiakkaita();
+////                osuiko();
+//            }
+//        }
+//        this.siirtoja--;
+//    }
     public void luoOlennot() {
         // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
         this.sankari = new Sankari(13, 1, "@", "sankari", true);
@@ -117,36 +125,42 @@ public class Logiikka {
         }
     }
 
-    public void siirraSankaria(String suunta) {
-        switch (suunta) {
-            case "w":
-                if (!tormaako(sankari.x, sankari.y - 1)) {
-                    if (sankari.getY() > 0) {
-                        sankari.setY(sankari.getY() - 1);
+    public void kasitteleKomento(String komento) {
+
+        if (komento.isEmpty()) {
+//            System.out.println("Odotat hetken");
+        } else {
+            char ekaKirjain = komento.charAt(0);
+            switch (ekaKirjain) {
+                case 'w':
+                    if (!tormaako(sankari.x, sankari.y - 1)) {
+                        if (sankari.getY() > 0) {
+                            sankari.setY(sankari.getY() - 1);
+                        }
                     }
-                }
-                break;
-            case "a":
-                if (!tormaako(sankari.x - 1, sankari.y)) {
-                    if (sankari.getX() > 0) {
-                        sankari.setX(sankari.getX() - 1);
+                    break;
+                case 'a':
+                    if (!tormaako(sankari.x - 1, sankari.y)) {
+                        if (sankari.getX() > 0) {
+                            sankari.setX(sankari.getX() - 1);
+                        }
                     }
-                }
-                break;
-            case "s":
-                if (!tormaako(sankari.x, sankari.y + 1)) {
-                    if (sankari.getY() < pubi.getKorkeus() - 1) {
-                        sankari.setY(sankari.getY() + 1);
+                    break;
+                case 's':
+                    if (!tormaako(sankari.x, sankari.y + 1)) {
+                        if (sankari.getY() < pubi.getKorkeus() - 1) {
+                            sankari.setY(sankari.getY() + 1);
+                        }
                     }
-                }
-                break;
-            case "d":
-                if (!tormaako(sankari.x + 1, sankari.y)) {
-                    if (sankari.getX() < pubi.getLeveys() - 1) {
-                        sankari.setX(sankari.getX() + 1);
+                    break;
+                case 'd':
+                    if (!tormaako(sankari.x + 1, sankari.y)) {
+                        if (sankari.getX() < pubi.getLeveys() - 1) {
+                            sankari.setX(sankari.getX() + 1);
+                        }
                     }
-                }
-                break;
+                    break;
+            }
         }
     }
 
@@ -161,14 +175,6 @@ public class Logiikka {
 
         }
         return false;
-    }
-
-    //POISTUMASSA
-    public void tulostaOlennot() {
-        for (Inehmo inehmo : inehmot) {
-            System.out.println(inehmo.getUlkomuoto() + " "
-                    + inehmo.getX() + " " + inehmo.getY());
-        }
     }
 
     public void tulostaPubi() {
@@ -199,16 +205,15 @@ public class Logiikka {
     }
 
     // MUUTETTAVA!
-    public void osuiko() {
-        for (int i = 1; i < inehmot.size(); i++) {
-            if (sankari.equals(inehmot.get(i))) {
-                inehmot.remove(i);
-                asiakkaita--;
-            }
-        }
-    }
-
-    //KORJATTAVA!
+//    public void osuiko() {
+//        for (int i = 1; i < inehmot.size(); i++) {
+//            if (sankari.equals(inehmot.get(i))) {
+//                inehmot.remove(i);
+//                asiakkaita--;
+//            }
+//        }
+//    }
+    //MUUTETTAVA!
     public void liikutaAsiakkaita() {
         for (Inehmo inehmo : inehmot) {
             if (!inehmo.getSankaruus() && inehmo.getLiikkuva()) {
