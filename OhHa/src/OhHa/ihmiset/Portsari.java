@@ -1,8 +1,10 @@
 package OhHa.ihmiset;
 
+import OhHa.Sijainti;
+
 public class Portsari extends Inehmo {
 
-    public Portsari(int x, int y, String ulkomuoto, String tyyppi, boolean liikkuva) {
-        super(x, y, ulkomuoto, tyyppi, liikkuva);
+    public Portsari(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuva) {
+        super(sijainti, ulkomuoto, tyyppi, liikkuva);
     }
 }

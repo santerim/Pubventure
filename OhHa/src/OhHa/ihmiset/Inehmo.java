@@ -1,34 +1,32 @@
 package OhHa.ihmiset;
 
+import OhHa.Sijainti;
+
 public class Inehmo {
 
-    public int x;
-    public int y;
-    public String ulkomuoto;
-    public String tyyppi;
-    public boolean liikkuvuus;
+    private String ulkomuoto;
+    private String tyyppi;
+    private boolean liikkuvuus;
+    private int asennePelaajaan;
+    private Sijainti sijainti;
     
 
-    public Inehmo(int x, int y, String ulkomuoto, String tyyppi, boolean liikkuvuus) {
-        this.x = x;
-        this.y = y;
+    public Inehmo(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuvuus) {
+        this.sijainti = sijainti;
         this.ulkomuoto = ulkomuoto;
         this.tyyppi = tyyppi;
         this.liikkuvuus = liikkuvuus;
     }
     
+    //ehkä ei
     public void liiku(String suunta) {
         if (liikkuvuus) {
             
         }
     }
     
-    public int getX() {
-        return this.x;
-    }
-    
-    public int getY() {
-        return this.y;
+    public Sijainti getSijainti() {
+        return this.sijainti;
     }
     
     public boolean getSankaruus() {
@@ -39,7 +37,7 @@ public class Inehmo {
         }
     }
     
-    public boolean getLiikkuva() {
+    public boolean getLiikkuvuus() {
         return this.liikkuvuus;
     }
     
@@ -51,17 +49,12 @@ public class Inehmo {
         return this.ulkomuoto;
     }
     
-    public void setX(int x) {
-        this.x = x;
+    public int getAsenne() {
+        return this.asennePelaajaan;
     }
     
-    public void setY(int y) {
-        this.y = y;
-    }
-    
-    public void setSijainti(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setAsenne(int muutos) {
+        this.asennePelaajaan += muutos;
     }
     
     public void setUlkomuoto(String ulkomuoto) {
@@ -100,10 +93,10 @@ public class Inehmo {
             return false;
         }
         final Inehmo other = (Inehmo) obj;
-        if (this.x != other.x) {
+        if (this.sijainti.getX() != other.getSijainti().getX()) {
             return false;
         }
-        if (this.y != other.y) {
+        if (this.sijainti.getY() != other.getSijainti().getY()) {
             return false;
         }
         return true;
@@ -113,8 +106,8 @@ public class Inehmo {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + this.x;
-        hash = 37 * hash + this.y;
+        hash = 37 * hash + this.sijainti.getX();
+        hash = 37 * hash + this.sijainti.getY();
         return hash;
     }
 }
