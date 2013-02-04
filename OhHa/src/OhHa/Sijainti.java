@@ -26,4 +26,21 @@ public class Sijainti {
     public void setY(int y) {
         this.y = y;
     }
+    
+    @Override
+    public boolean equals(Object object) {
+        Sijainti sijainti = (Sijainti) object;
+        
+        if (object == null) {
+            System.out.println("Sijainti-luokassa nullpointer");
+            return false;
+        } else if (this.getClass() != sijainti.getClass()) {
+            System.out.println("Väärän tyyppisen luokan vertaileminen Sijainti-luokassa");
+            return false;
+        } else if (this.x == sijainti.getX() && this.y == sijainti.getY()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

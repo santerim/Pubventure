@@ -1,10 +1,13 @@
 
 package OhHa.gui;
 
+import OhHa.ihmiset.Inehmo;
+import OhHa.ymparisto.Pubi;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
@@ -14,15 +17,23 @@ public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
     private Piirtoalusta piirtoalusta;
+    private int leveys;
+    private int korkeus;
+    private Pubi pubi;
+    private ArrayList<Inehmo> inehmot;
     
-    public Kayttoliittyma() {
-        
+    public Kayttoliittyma(Pubi pubi, ArrayList<Inehmo> inehmot) {
+        this.pubi = pubi;
+        this.inehmot = inehmot;
+        this.leveys = pubi.getLeveys();
+        this.korkeus = pubi.getKorkeus();
     }
     
     @Override
     public void run() {
         this.frame = new JFrame("Pubventure");
-        frame.setPreferredSize(new Dimension(500, 500));
+        System.out.println("Pubin leveys ja korkeus: " + this.leveys + " " + this.korkeus);
+        frame.setPreferredSize(new Dimension(pubi.getLeveys() * 8, pubi.getKorkeus() * 20));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         luoKomponentit(frame.getContentPane());
@@ -32,28 +43,20 @@ public class Kayttoliittyma implements Runnable {
     }
 
     private void luoKomponentit(Container contentPane) {
-        this.piirtoalusta = new Piirtoalusta();
+        this.piirtoalusta = new Piirtoalusta(pubi, inehmot);
         contentPane.add(piirtoalusta);
         this.frame.addKeyListener(new NappaimistonKuuntelija());
         
-        JLabel l = new JLabel();
-        l.setOpaque(true);
-        l.setBackground(Color.red);
-        l.setPreferredSize(new Dimension(15, 15));
+        JLabel kentta = new JLabel();
+        JLabel tiedot = new JLabel();
+        JLabel viesti = new JLabel();
         
-        JLabel l2 = new JLabel();
-        l2.setOpaque(true);
-        l2.setBackground(Color.yellow);
-        l2.setPreferredSize(new Dimension(15, 15));
+        contentPane.add(kentta, BorderLayout.CENTER);
+        contentPane.add(tiedot, BorderLayout.EAST);
+        contentPane.add(viesti, BorderLayout.SOUTH);
         
-        JLabel l3 = new JLabel();
-        l3.setOpaque(true);
-        l3.setBackground(Color.BLACK);
-        l3.setPreferredSize(new Dimension(15, 15));
-        
-        frame.getContentPane().add(l, BorderLayout.WEST);
-        frame.getContentPane().add(l2, BorderLayout.SOUTH);
-        frame.getContentPane().add(l3, BorderLayout.PAGE_START);
+        this.piirtoalusta.setPiirtoalusta(kentta, tiedot);
+        this.piirtoalusta.piirraAlue();
     }
     
 }

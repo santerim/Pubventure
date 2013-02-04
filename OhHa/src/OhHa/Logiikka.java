@@ -17,30 +17,34 @@ public class Logiikka implements Runnable {
     private int siirtoja;
     private boolean asiakkaatLiikkuvat;
     private Scanner lukija = new Scanner(System.in);
-    private Inehmo sankari;
-    private ArrayList<Inehmo> inehmot = new ArrayList<>();
+    
+    private ArrayList<Inehmo> inehmot;
     private Random luku = new Random();
     
     private Kayttoliittyma kl;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
-        this.pubi = new Pubi();
+        this.asiakkaita = asiakkaita;
+        this.pubi = new Pubi(asiakkaita);
         pubi.luoKentta();
+        pubi.luoOlennot();
+        this.inehmot = pubi.getInehmot();
 //        System.out.println("Pubin leveys: " + pubi.getLeveys());
 //        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
-        this.asiakkaita = asiakkaita;
+        
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
 
-        this.kl = new Kayttoliittyma();
+        
         
     }
 
     @Override
     public void run() {
-        luoOlennot();
+
 
         //käyttöliittymätestausta
+        this.kl = new Kayttoliittyma(pubi, inehmot);
         kl.run();
         
         while (true) {
@@ -72,31 +76,10 @@ public class Logiikka implements Runnable {
 
     }
 
-    public void luoOlennot() {
-        // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
-        int itsetunto = luku.nextInt(100);
-        this.sankari = new Sankari(new Sijainti(13, 2), "@", "sankari", true, itsetunto);
-        this.inehmot.add(sankari);
-
-        int asennePelaajaan = luku.nextInt(100);
-        //luodaan tarjoilija
-        this.inehmot.add(new Tarjoilija(new Sijainti(5, 2), "t", "tarjoilija", false, asennePelaajaan));
-
-        // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla
-        // tai seinissä yms
-        int asiakkaitaJaljella = this.asiakkaita;
-
-        while (asiakkaitaJaljella > 0) {
-            int uusiX = this.arvoX();
-            int uusiY = this.arvoY();
-            asennePelaajaan = luku.nextInt(100);
-
-            if (!tormaako(uusiX, uusiY)) {
-                inehmot.add(new Asiakas(new Sijainti(uusiX, uusiY), "a", "asiakas", true, asennePelaajaan));
-                asiakkaitaJaljella--;
-            }
-        }
+    public Sijainti getSankarinSijainti() {
+        return pubi.getInehmot().get(0).getSijainti();
     }
+    
 
     public void kasitteleKomento(String komento) {
 
@@ -106,30 +89,30 @@ public class Logiikka implements Runnable {
             char ekaKirjain = komento.charAt(0);
             switch (ekaKirjain) {
                 case 'w':
-                    if (!tormaako(sankari.getSijainti().getX(), sankari.getSijainti().getY() - 1)) {
-                        if (sankari.getSijainti().getY() > 0) {
-                            sankari.getSijainti().setY(sankari.getSijainti().getY() - 1);
+                    if (!tormaako(getSankarinSijainti().getX(), getSankarinSijainti().getY() - 1)) {
+                        if (getSankarinSijainti().getY() > 0) {
+                            getSankarinSijainti().setY(getSankarinSijainti().getY() - 1);
                         }
                     }
                     break;
                 case 'a':
-                    if (!tormaako(sankari.getSijainti().getX() - 1, sankari.getSijainti().getY())) {
-                        if (sankari.getSijainti().getX() > 0) {
-                            sankari.getSijainti().setX(sankari.getSijainti().getX() - 1);
+                    if (!tormaako(getSankarinSijainti().getX() - 1, getSankarinSijainti().getY())) {
+                        if (getSankarinSijainti().getX() > 0) {
+                            getSankarinSijainti().setX(getSankarinSijainti().getX() - 1);
                         }
                     }
                     break;
                 case 's':
-                    if (!tormaako(sankari.getSijainti().getX(), sankari.getSijainti().getY() + 1)) {
-                        if (sankari.getSijainti().getY() < pubi.getKorkeus() - 1) {
-                            sankari.getSijainti().setY(sankari.getSijainti().getY() + 1);
+                    if (!tormaako(getSankarinSijainti().getX(), getSankarinSijainti().getY() + 1)) {
+                        if (getSankarinSijainti().getY() < pubi.getKorkeus() - 1) {
+                            getSankarinSijainti().setY(getSankarinSijainti().getY() + 1);
                         }
                     }
                     break;
                 case 'd':
-                    if (!tormaako(sankari.getSijainti().getX() + 1, sankari.getSijainti().getY())) {
-                        if (sankari.getSijainti().getX() < pubi.getLeveys() - 1) {
-                            sankari.getSijainti().setX(sankari.getSijainti().getX() + 1);
+                    if (!tormaako(getSankarinSijainti().getX() + 1, getSankarinSijainti().getY())) {
+                        if (getSankarinSijainti().getX() < pubi.getLeveys() - 1) {
+                            getSankarinSijainti().setX(getSankarinSijainti().getX() + 1);
                         }
                     }
                     break;
@@ -138,7 +121,7 @@ public class Logiikka implements Runnable {
     }
 
     public boolean tormaako(int x, int y) {
-        if (pubi.annaObjekti(x, y).getEste()) {
+        if (pubi.getObjekti(x, y).getEste()) {
             return true;
         }
         for (Inehmo inehmo : inehmot) {
@@ -162,20 +145,14 @@ public class Logiikka implements Runnable {
                     }
                 }
                 if (!kohdassaOnInehmo) {
-                    System.out.print(pubi.annaObjekti(j, i).getUlkonako());
+                    System.out.print(pubi.getObjekti(j, i).getUlkonako());
                 }
             }
             System.out.println("");
         }
     }
 
-    public int arvoX() {
-        return luku.nextInt(pubi.getLeveys());
-    }
 
-    public int arvoY() {
-        return luku.nextInt(pubi.getKorkeus());
-    }
 
     // MUUTETTAVA!
 //    public void osuiko() {
@@ -235,9 +212,7 @@ public class Logiikka implements Runnable {
         return this.pubi;
     }
 
-    public int getAsiakkaita() {
-        return this.asiakkaita;
-    }
+    
 
     public int getSiirtoja() {
         return this.siirtoja;
@@ -261,5 +236,9 @@ public class Logiikka implements Runnable {
 
     public Inehmo getInehmo(int luku) {
         return inehmot.get(luku);
+    }
+    
+    public ArrayList<Inehmo> getInehmot() {
+        return this.inehmot;
     }
 }
