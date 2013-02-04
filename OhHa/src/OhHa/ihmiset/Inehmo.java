@@ -1,6 +1,7 @@
 package OhHa.ihmiset;
 
 import OhHa.Sijainti;
+import java.util.Random;
 
 public class Inehmo {
 
@@ -9,9 +10,13 @@ public class Inehmo {
     private boolean liikkuvuus;
     private int asennePelaajaan;
     private Sijainti sijainti;
+    private int humala;
+    private int rakko;
+    private Random arpoja = new Random();
     
 
-    public Inehmo(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuvuus) {
+    public Inehmo(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuvuus, int asennePelaajaan) {
+        this.asennePelaajaan = asennePelaajaan;
         this.sijainti = sijainti;
         this.ulkomuoto = ulkomuoto;
         this.tyyppi = tyyppi;
@@ -20,8 +25,11 @@ public class Inehmo {
     
     //ehkä ei
     public void liiku(String suunta) {
+        int luku = arpoja.nextInt(10);
         if (liikkuvuus) {
-            
+            if (luku < 2) {
+                
+            }
         }
     }
     
@@ -71,43 +79,43 @@ public class Inehmo {
     
     
     // tarkastamatta
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        
-        if (obj.getClass() == Asiakas.class) {
-            return false;
-        }
-        
-        if (obj.getClass() == Sankari.class) {
-            return false;
-        }
-        
-        if (obj.getClass() == Portsari.class) {
-            return false;
-        }
-        
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Inehmo other = (Inehmo) obj;
-        if (this.sijainti.getX() != other.getSijainti().getX()) {
-            return false;
-        }
-        if (this.sijainti.getY() != other.getSijainti().getY()) {
-            return false;
-        }
-        return true;
-    }
-    
-    //tarkastamatta
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + this.sijainti.getX();
-        hash = 37 * hash + this.sijainti.getY();
-        return hash;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (obj == null) {
+//            return false;
+//        }
+//        
+//        if (obj.getClass() == Asiakas.class) {
+//            return false;
+//        }
+//        
+//        if (obj.getClass() == Sankari.class) {
+//            return false;
+//        }
+//        
+//        if (obj.getClass() == Portsari.class) {
+//            return false;
+//        }
+//        
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Inehmo other = (Inehmo) obj;
+//        if (this.sijainti.getX() != other.getSijainti().getX()) {
+//            return false;
+//        }
+//        if (this.sijainti.getY() != other.getSijainti().getY()) {
+//            return false;
+//        }
+//        return true;
+//    }
+//    
+//    //tarkastamatta
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 37 * hash + this.sijainti.getX();
+//        hash = 37 * hash + this.sijainti.getY();
+//        return hash;
+//    }
 }

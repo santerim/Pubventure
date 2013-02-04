@@ -8,8 +8,9 @@ import OhHa.ymparisto.Pubi;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import OhHa.gui.Kayttoliittyma;
 
-public class Logiikka {
+public class Logiikka implements Runnable {
 
     private Pubi pubi;
     private int asiakkaita;
@@ -19,6 +20,8 @@ public class Logiikka {
     private Inehmo sankari;
     private ArrayList<Inehmo> inehmot = new ArrayList<>();
     private Random luku = new Random();
+    
+    private Kayttoliittyma kl;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
         this.pubi = new Pubi();
@@ -29,11 +32,17 @@ public class Logiikka {
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
 
+        this.kl = new Kayttoliittyma();
+        
     }
 
+    @Override
     public void run() {
         luoOlennot();
 
+        //käyttöliittymätestausta
+        kl.run();
+        
         while (true) {
             System.out.println("Siirtoja: " + siirtoja);
             System.out.println("Asiakkaita: " + asiakkaita);
@@ -65,11 +74,13 @@ public class Logiikka {
 
     public void luoOlennot() {
         // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
-        this.sankari = new Sankari(new Sijainti(13, 1), "@", "sankari", true);
+        int itsetunto = luku.nextInt(100);
+        this.sankari = new Sankari(new Sijainti(13, 2), "@", "sankari", true, itsetunto);
         this.inehmot.add(sankari);
 
+        int asennePelaajaan = luku.nextInt(100);
         //luodaan tarjoilija
-        this.inehmot.add(new Tarjoilija(new Sijainti(5, 1), "t", "tarjoilija", false));
+        this.inehmot.add(new Tarjoilija(new Sijainti(5, 2), "t", "tarjoilija", false, asennePelaajaan));
 
         // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla
         // tai seinissä yms
@@ -78,9 +89,10 @@ public class Logiikka {
         while (asiakkaitaJaljella > 0) {
             int uusiX = this.arvoX();
             int uusiY = this.arvoY();
+            asennePelaajaan = luku.nextInt(100);
 
             if (!tormaako(uusiX, uusiY)) {
-                inehmot.add(new Asiakas(new Sijainti(uusiX, uusiY), "a", "asiakas", true));
+                inehmot.add(new Asiakas(new Sijainti(uusiX, uusiY), "a", "asiakas", true, asennePelaajaan));
                 asiakkaitaJaljella--;
             }
         }
@@ -175,13 +187,14 @@ public class Logiikka {
 //        }
 //    }
     
-    //MUUTETTAVA - lisättävä satunnaisuus ja lopulta kohteeseen suunnistus
+    //MUUTETTAVA - lisättävä satunnaisuutta ja lopulta kohteeseen suunnistus
     public void liikutaAsiakkaita() {
         for (Inehmo inehmo : inehmot) {
             if (!inehmo.getSankaruus() && inehmo.getLiikkuvuus()) {
                 String suunta = arvoLiikesuunta();
                 switch (suunta) {
                     case "w":
+                        //jos ei törmää, muutetaan inehmon sijaintia
                         if (inehmo.getSijainti().getY() > 0 && tormaako(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1) == false) {
                             inehmo.getSijainti().setY(inehmo.getSijainti().getY() - 1);
                         }
