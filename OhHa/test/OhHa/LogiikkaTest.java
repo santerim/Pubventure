@@ -28,93 +28,52 @@ public class LogiikkaTest {
     public void testRun() {
     }
 
-    @Test
-    public void testKasitteleSyote() {
-        
-    }
-
-    @Test
-    public void testLuoOlennot() {
-    }
 
     @Test
     public void testSiirraSankaria() {
     }
 
-    @Test
-    public void testTulostaOlennot() {
-    }
-
-    @Test
-    public void testTulostaLuola() {
-    }
-
-    @Test
-    public void testPiirraRivi() {
-    }
-
-    @Test
-    public void testArvoX() {
-    }
-
-    @Test
-    public void testArvoY() {
-    }
-
-    @Test
-    public void testOsuiko() {
-    }
+    // nämä neljä testiä vanhentuneita - ainakin tällä hetkellä
+//    @Test
+//    public void testTulostaOlennot() {
+//    }
+//
+//    @Test
+//    public void testTulostaLuola() {
+//    }
+//
+//    @Test
+//    public void testPiirraRivi() {
+//    }
+//
+//
+//    @Test
+//    public void testOsuiko() {
+//    }
 
     @Test
     public void testTormaako() {
+        Logiikka log2 = new Logiikka(5, 999, false);
+        log2.getInehmo(2).getSijainti().setX(log2.getInehmo(0).getSijainti().getX());
     }
 
     @Test
     public void testLiikutaAsiakkaita() {
-        int inehmonX = log.getInehmo(1).x;
-        int inehmonY = log.getInehmo(1).y;
+        int inehmonX = log.getInehmo(2).getSijainti().getX();
+        int inehmonY = log.getInehmo(2).getSijainti().getY();
 //        System.out.println("Inehmon X: " + inehmonX);
 //        System.out.println("Inehmon Y: " + inehmonY);
         log.liikutaAsiakkaita();
-        assertTrue(inehmonX != log.getInehmo(1).x || inehmonY != log.getInehmo(1).y);
+        assertTrue(inehmonX != log.getInehmo(2).getSijainti().getX() || inehmonY != log.getInehmo(2).getSijainti().getY());
     }
 
     @Test
     public void testArvoLiikesuunta() {
-        String suunta = "";
-        assertTrue(!log.arvoLiikesuunta().isEmpty());
+        String suunta = log.arvoLiikesuunta();
+        assertTrue(!suunta.isEmpty());
     }
 
-    @Test
-    public void testGetPubi() {
-        Pubi pupi;
-        pupi = log.getPubi();
-        assertTrue(pupi != null);
-    }
 
-    @Test
-    public void testGetAsiakkaita() {
-        assertEquals(log.getAsiakkaita(), 5);
-    }
 
-    @Test
-    public void testGetSiirtoja() {
-        assertTrue(log.getSiirtoja() == 999);
-    }
 
-    @Test
-    public void testGetAsiakkaatLiikkuvat() {
-    }
-
-    @Test
-    public void testSetAsiakkaita() {
-    }
-
-    @Test
-    public void testSetSiirtoja() {
-    }
-
-    @Test
-    public void testSetAsiakkaatLiikkuvat() {
-    }
 }

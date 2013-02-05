@@ -99,6 +99,12 @@ public class Inehmo {
         this.tyyppi = tyyppi;
     }
     
+    //tämä ei vielä käytössä - muutettava!!
+    public void setSijainti(int x, int y) {
+        this.sijainti.setX(x);
+        this.sijainti.setY(y);
+    }
+    
     
     // tarkastamatta
 //    @Override
