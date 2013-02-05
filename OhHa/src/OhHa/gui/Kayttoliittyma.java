@@ -12,6 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
+/**
+ * 
+ * Kayttoliittyma-luokka hoitaa swing-ikkunan luomisen ja hallinnoi sen toimintaa.
+ */
 
 public class Kayttoliittyma implements Runnable {
 

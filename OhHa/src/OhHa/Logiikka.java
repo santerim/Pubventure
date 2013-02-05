@@ -1,15 +1,19 @@
 package OhHa;
 
-import OhHa.ihmiset.Asiakas;
 import OhHa.ihmiset.Inehmo;
-import OhHa.ihmiset.Sankari;
-import OhHa.ihmiset.Tarjoilija;
 import OhHa.ymparisto.Pubi;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import OhHa.gui.Kayttoliittyma;
 
+
+/**
+ * 
+ * Luokka toimii pääasiallisena ohjelman toiminnan ohjaajana.
+ * Se luo Pubi-luokan ja suorittaa sen ne metodit, jotka luovat pelikentän,
+ * sekä luo swing-ikkunaa hallitsevan Kayttoliittyma-luokan.
+ */
 public class Logiikka implements Runnable {
 
     private Pubi pubi;

@@ -4,8 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class TiedostonLukija {
+/**
+ * 
+ * TiedostonLukija-luokka hoitaa nimensä mukaisesti tiedoston lukemisen kovakoodatusta
+ * kohteesta.
+ */   
 
+
+public class TiedostonLukija { 
+    
     private File tiedosto;
     private Scanner lukija;
 //    private int pubinLeveys;

@@ -1,5 +1,9 @@
 package OhHa.ymparisto;
 
+/**
+ * 
+ * Tämä luokka tarjoaa Pubi-luokan käyttämät ei-ihmisoliot.
+ */
 public class Pubiobjekti {
 
     private boolean onkoEste;

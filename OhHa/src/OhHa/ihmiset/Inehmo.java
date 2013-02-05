@@ -3,6 +3,12 @@ package OhHa.ihmiset;
 import OhHa.Sijainti;
 import java.util.Random;
 
+/**
+ * 
+ * Pelin ns. ihmisluokka. Tarjoaa konstruktorin hahmojen luomiseen, sekä
+ * metodit hahmojen ominaisuuksien kyselyyn ja asettamiseen
+ */
+
 public class Inehmo {
 
     private String ulkomuoto;

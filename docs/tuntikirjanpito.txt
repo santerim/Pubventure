@@ -15,3 +15,15 @@
 28.1. 3h luokkien muokkausta ja koodin kirjoittamista
 
 29.1. 6h toiminnallisuuden ja rakenteen selvittelyä, testien kirjoittelua ja parannetun luokkakaavion sorvausta
+
+30.1. 2h muokkausta
+
+31.1. 3h muokkausta
+
+1.2. 2h logiikan muokkausta
+
+2.2. 3h koodin järkevöitystä
+
+3.2. 4h swingin ihmettelyä, googlausta ja graafisen käyttöliittymän aloitus
+
+4.3. 4h koodin laajentamista, sekä joidenkin toiminnallisuuksien uudelleensijoitus

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * Luokka piirtää pelikentän tarjoamillaan metodeilla
+ */
 public class Piirtoalusta extends JPanel {
 
     private JLabel kentta;

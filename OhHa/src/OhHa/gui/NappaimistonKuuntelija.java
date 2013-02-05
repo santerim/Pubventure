@@ -4,6 +4,11 @@ package OhHa.gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * 
+ * Luokka hoitaa näppäinkomentojen sieppaamisen
+ */
+
 public class NappaimistonKuuntelija implements KeyListener {
 
     @Override

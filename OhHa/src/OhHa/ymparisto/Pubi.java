@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * 
+ * Luokka hallinnoi pelikenttää ja myös luo sen TiedostonLukija-luokan avulla,
+ * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit).
+ * Se tarjoaa metodit em. toimintoja varten, sekä metodin pelikentän mittasuhteiden
+ * selvittämiseen ja mahdollisten törmäystilanteiden selvittämiseen.
+ */
 public class Pubi {
 
     private int leveys;

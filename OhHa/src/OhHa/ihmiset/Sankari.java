@@ -3,6 +3,10 @@ package OhHa.ihmiset;
 
 import OhHa.Sijainti;
 
+/**
+ * 
+ * Inehmo-luokan laajennus, jonka tarkoitus on...laajentaa sen toimintaa.
+ */
 
 public class Sankari extends Inehmo {
 

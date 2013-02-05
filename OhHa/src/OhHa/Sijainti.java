@@ -1,6 +1,12 @@
 
 package OhHa;
 
+/**
+ * 
+ * Sijainti-luokka tarjoaa olion, joka pitää kirjaa sijainnista ja tarjoaa
+ * sen kysymis- ja asetusmetodit.
+ */
+
 public class Sijainti {
     
     private int x;
