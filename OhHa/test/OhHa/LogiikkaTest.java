@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 
 public class LogiikkaTest {
     
-    Pubi pubi = new Pubi(15, 15);
     Logiikka log = new Logiikka(5, 999, true);
     
     public LogiikkaTest() {
@@ -72,7 +71,6 @@ public class LogiikkaTest {
 
     @Test
     public void testLiikutaAsiakkaita() {
-        log.luoOlennot();
         int inehmonX = log.getInehmo(1).x;
         int inehmonY = log.getInehmo(1).y;
 //        System.out.println("Inehmon X: " + inehmonX);

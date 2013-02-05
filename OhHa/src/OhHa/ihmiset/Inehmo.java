@@ -30,14 +30,14 @@ public class Inehmo {
     }
     
     //ehkä ei
-    public void liiku(String suunta) {
-        int luku = arpoja.nextInt(10);
-        if (liikkuvuus) {
-            if (luku < 2) {
-                
-            }
-        }
-    }
+//    public void liiku(String suunta) {
+//        int luku = arpoja.nextInt(10);
+//        if (liikkuvuus) {
+//            if (luku < 2) {
+//                
+//            }
+//        }
+//    }
     
     public Sijainti getSijainti() {
         return this.sijainti;
@@ -65,6 +65,22 @@ public class Inehmo {
     
     public int getAsenne() {
         return this.asennePelaajaan;
+    }
+    
+    public int getHumala() {
+        return this.humala;
+    }
+    
+    public int getRakko() {
+        return this.rakko;
+    }
+    
+    public void setHumala(int humala) {
+        this.humala = humala;
+    }
+    
+    public void setRakko(int rakko) {
+        this.rakko = rakko;
     }
     
     public void setAsenne(int muutos) {

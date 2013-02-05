@@ -34,13 +34,14 @@ public class Pubi {
         this.asiakkaita = asiakkaita;
         this.tiedostonLukija = new TiedostonLukija();
         this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
-        this.lukija = new Scanner(pubiMerkkijonona);
+        
         etsiMittasuhteet();
         this.kentta = new Pubiobjekti[leveys][korkeus];
 
     }
 
     public final void etsiMittasuhteet() {
+        this.lukija = new Scanner(pubiMerkkijonona);
         int riveja = 0;
         int riviKayty = 0;
 

@@ -42,25 +42,4 @@ public class TiedostonLukijaTest {
         assertTrue(!testiMerkkijono.isEmpty());
     }
 
-    @Test
-    public void testaaGetPubinLeveysEnnenTiedostonLukemista() {
-        assertEquals(tlukija.getPubinLeveys(), 0);
-    }
-    
-    @Test
-    public void testaaGetPubinLeveysTiedostonLukemisenJalkeen() {
-        tlukija.lueTiedosto();
-        assertTrue(tlukija.getPubinLeveys() > 0);
-    }
-
-    @Test
-    public void testaaGetPubinKorkeusEnnenTiedostonLukemista() {
-        assertEquals(tlukija.getPubinKorkeus(), 0);
-    }
-    
-    @Test
-    public void testaaGetPubinKorkeusTiedostonLukemisenJalkeen() {
-        tlukija.lueTiedosto();
-        assertTrue(tlukija.getPubinKorkeus() > 0);
-    }
 }

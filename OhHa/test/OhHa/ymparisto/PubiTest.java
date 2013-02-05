@@ -1,8 +1,8 @@
 
 package OhHa.ymparisto;
 
-import OhHa.ihmiset.Asiakas;
-import OhHa.ihmiset.Sankari;
+import OhHa.ihmiset.Inehmo;
+import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
@@ -14,18 +14,11 @@ import org.junit.*;
 public class PubiTest {
 
     private Pubi pubi;
+//    private TiedostonLukija tl;
     
     public PubiTest() {
-        pubi = new Pubi(20, 20);
-        
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
+        pubi = new Pubi(5);
+//        tl = new TiedostonLukija();
     }
 
     @Before
@@ -38,7 +31,22 @@ public class PubiTest {
 
     @Test
     public void saakoPubiOikeanKoon() {
-        assertEquals(pubi.getKorkeus(), 20);
-        assertEquals(pubi.getLeveys(), 20);
+        assertEquals(pubi.getKorkeus(), 13);
+        assertEquals(pubi.getLeveys(), 26);
+    }
+    
+    @Test
+    public void onnistuukoKentanLuominen() {
+        Pubiobjekti[][] kentta = pubi.luoKentta();
+        Pubiobjekti po = kentta[0][0];
+        assertTrue(po != null);
+    }
+    
+    @Test
+    public void onnistuukoOlentojenLuominen() {
+        pubi.luoKentta();
+        pubi.luoOlennot();
+        ArrayList<Inehmo> lista = pubi.getInehmot();
+        assertTrue(!lista.isEmpty());
     }
 }

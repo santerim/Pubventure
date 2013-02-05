@@ -37,10 +37,7 @@ public class Logiikka implements Runnable {
 //        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
         
         this.siirtoja = siirtoja;
-        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
-
-        
-        
+        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat; 
     }
 
     @Override
@@ -158,7 +155,7 @@ public class Logiikka implements Runnable {
 
 
 
-    // MUUTETTAVA!
+    // POISTUMASSA
 //    public void osuiko() {
 //        for (int i = 1; i < inehmot.size(); i++) {
 //            if (sankari.equals(inehmot.get(i))) {

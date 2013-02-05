@@ -1,6 +1,7 @@
 
 package OhHa.ihmiset;
 
+import OhHa.Sijainti;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -10,7 +11,7 @@ public class InehmoTest {
     private Inehmo inehmo;
     
     public InehmoTest() {
-        this.inehmo = new Inehmo(2, 3, "@", "S", true);
+        this.inehmo = new Inehmo(new Sijainti(2, 3), "@", "S", true, 75);
     }
 
     @Before
@@ -24,24 +25,27 @@ public class InehmoTest {
 
     @Test
     public void onkoLuodullaHahmollaOikeaSijainti() {
-        assertEquals(inehmo.x, 2);
-        assertEquals(inehmo.y, 3);
+        assertEquals(inehmo.getSijainti().getX(), 2);
+        assertEquals(inehmo.getSijainti().getY(), 3);
     }
     
     @Test
     public void onkoLuodullaHahmollaOikeaUlkonako() {
-        assertEquals(inehmo.ulkomuoto, "@");
+        assertEquals(inehmo.getUlkomuoto(), "@");
     }
     
     @Test
     public void onkoLuodunHahmonTyyppiOikea() {
-        assertEquals(inehmo.tyyppi, "S");
+        assertEquals(inehmo.getTyyppi(), "S");
     }
     
     @Test
     public void onkoLuodunHahmonLiikkuvuusparametriOikein() {
-        assertEquals(inehmo.liikkuvuus, true);
+        assertEquals(inehmo.getLiikkuvuus(), true);
     }
     
-
+    @Test
+    public void onkoAsenneAsetettuOikein() {
+        assertEquals(inehmo.getAsenne(), 75);
+    }
 }
