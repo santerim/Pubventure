@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import OhHa.gui.Kayttoliittyma;
+import OhHa.gui.Piirtoalusta;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -45,35 +47,36 @@ public class Logiikka implements Runnable {
 
 
         //käyttöliittymätestausta
-        this.kl = new Kayttoliittyma(pubi, inehmot);
-        kl.run();
+        this.kl = new Kayttoliittyma(pubi, inehmot, this);
+        SwingUtilities.invokeLater(kl);
+//        kl.run();
         
-        while (true) {
-            System.out.println("Siirtoja: " + siirtoja);
-            System.out.println("Asiakkaita: " + asiakkaita);
-            System.out.println("");
-            //tulostaOlennot();
-            System.out.println("");
-            tulostaPubi();
-            System.out.println("");
-
-            System.out.print("Anna komento> ");
-            String komento = lukija.nextLine();
-            kasitteleKomento(komento);
-
-            if (asiakkaatLiikkuvat) {
-                liikutaAsiakkaita();
-            }
+//        while (true) {
+//            System.out.println("Siirtoja: " + siirtoja);
+//            System.out.println("Asiakkaita: " + asiakkaita);
+//            System.out.println("");
+//            //tulostaOlennot();
+//            System.out.println("");
+//            tulostaPubi();
+//            System.out.println("");
+//
+//            System.out.print("Anna komento> ");
+//            String komento = lukija.nextLine();
+//            kasitteleKomento(komento);
+//
+//            if (asiakkaatLiikkuvat) {
+//                liikutaAsiakkaita();
+//            }
 
             // tehtävä uusiksi
-            if (siirtoja == 0 && asiakkaita > 0) {
-                System.out.println("\nHÄVISIT");
-                break;
-            } else if (asiakkaita == 0) {
-                System.out.println("\nVOITIT");
-                break;
-            }
-        }
+//            if (siirtoja == 0 && asiakkaita > 0) {
+//                System.out.println("\nHÄVISIT");
+//                break;
+//            } else if (asiakkaita == 0) {
+//                System.out.println("\nVOITIT");
+//                break;
+//            }
+//        }
 
     }
 
@@ -85,6 +88,7 @@ public class Logiikka implements Runnable {
     public void kasitteleKomento(String komento) {
 
         if (komento.isEmpty()) {
+            kl.getPiirtoalusta().setViestiKentanSisalto("Odotat hetken");
 //            System.out.println("Odotat hetken");
         } else {
             char ekaKirjain = komento.charAt(0);
@@ -119,6 +123,8 @@ public class Logiikka implements Runnable {
                     break;
             }
         }
+        liikutaAsiakkaita();
+        kl.getPiirtoalusta().piirraAlue();
     }
 
     public boolean tormaako(int x, int y) {
@@ -153,18 +159,6 @@ public class Logiikka implements Runnable {
         }
     }
 
-
-
-    // POISTUMASSA
-//    public void osuiko() {
-//        for (int i = 1; i < inehmot.size(); i++) {
-//            if (sankari.equals(inehmot.get(i))) {
-//                inehmot.remove(i);
-//                asiakkaita--;
-//            }
-//        }
-//    }
-    
     //MUUTETTAVA - lisättävä satunnaisuutta ja lopulta kohteeseen suunnistus
     public void liikutaAsiakkaita() {
         for (Inehmo inehmo : inehmot) {
@@ -191,6 +185,8 @@ public class Logiikka implements Runnable {
                         if (inehmo.getSijainti().getX() < pubi.getLeveys() - 1 && tormaako(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY()) == false) {
                             inehmo.getSijainti().setX(inehmo.getSijainti().getX() + 1);
                         }
+                        break;
+                    case "":
                         break;
                 }
             }

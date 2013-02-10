@@ -14,25 +14,35 @@ import javax.swing.JPanel;
  * 
  * Luokka piirtää pelikentän tarjoamillaan metodeilla
  */
-public class Piirtoalusta extends JPanel {
+public class Piirtoalusta {
 
     private JLabel kentta;
     private JLabel tiedot;
+    private JLabel viesti;
     private Pubi pubi;
     private ArrayList<Inehmo> inehmot;
     private StringBuilder sb;
     private Font fontti = new Font("monospaced", Font.PLAIN, 12);
     
     public Piirtoalusta(Pubi pubi, ArrayList<Inehmo> inehmot) {
-        super.setBackground(Color.WHITE);
+        //super.setBackground(Color.WHITE);
         this.pubi = pubi;
         this.inehmot = inehmot;
         this.sb = new StringBuilder("");
     }
 
-    public void setPiirtoalusta(JLabel kentta, JLabel tiedot) {
+    public void setPiirtoalusta(JLabel kentta, JLabel tiedot, JLabel viesti) {
         this.kentta = kentta;
         this.tiedot = tiedot;
+        this.viesti = viesti;
+    }
+    
+    public void setViestiKentanSisalto(String sisalto) {
+        this.viesti.setText(sisalto);
+    }
+    
+    public void setTietoKentanSisalto(String sisalto) {
+        this.tiedot.setText(sisalto);
     }
     
     public void piirraAlue() {
@@ -69,8 +79,4 @@ public class Piirtoalusta extends JPanel {
         this.kentta.setText(sb.toString());
     }
     
-    @Override
-    protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-    }
 }

@@ -1,6 +1,7 @@
 
 package OhHa.gui;
 
+import OhHa.Logiikka;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,20 +11,36 @@ import java.awt.event.KeyListener;
  */
 
 public class NappaimistonKuuntelija implements KeyListener {
+    
+    Kayttoliittyma kl;
+    
+    public NappaimistonKuuntelija(Kayttoliittyma kl) {
+        this.kl = kl;
+    }
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+            kl.komento("w");
+        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+            kl.komento("d");
+        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+            kl.komento("s");
+        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+            kl.komento("a");
+        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD5) {
+            kl.komento("");
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
     }
     
 }
