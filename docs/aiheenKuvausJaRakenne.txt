@@ -1,0 +1,11 @@
+Aihe: Eräänlainen survival-peli pubiympäristössä.
+
+Tarkoitus on ainakin aluksi toteuttaa tämä vain miesnäkökulmasta ja pelkästään merkkigrafiikalla.
+
+Pelissä olisi tarkoitus kerätä mahdollisimman suuri pistesaalis yhdestä baari-illasta
+juomalla, vonkaamalla naisia ja muilla tavoin. Pistemenetyksiin johtavat oksentelut, (hävityt)
+tappelut, ulosheitetyksi tuleminen yms.
+
+Käyttäjät: Kuka nyt vain haluaakin kokeilla.
+
+Pelaajan toiminnot: Liikkuminen pubissa, juomien ostaminen ja juominen, abstrakti keskustelu, rakon tyhjentäminen

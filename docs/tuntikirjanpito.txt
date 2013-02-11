@@ -29,3 +29,7 @@
 4.2. 4h koodin laajentamista, sekä joidenkin toiminnallisuuksien uudelleensijoitus
 
 5.2. 5h tehotonta vääntöä
+
+9.2. 2h päivänselvän bugin metsästystä
+
+10.2. 2h pieniä muutoksia ja uudelleennimeämisiä
