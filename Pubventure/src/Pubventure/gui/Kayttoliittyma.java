@@ -49,11 +49,18 @@ public class Kayttoliittyma implements Runnable {
         frame.setVisible(true);
     }
 
-    //debug-metodi
-    public void komento(String komento) {
-        logiikka.kasitteleKomento(komento);
+    /**
+     * 
+     * Välittää liikenäppäimien syötteen eteenpäin logiikalle
+     */
+    public void liikeKomento(String komento) {
+        logiikka.kasitteleLiikekomento(komento);
     }
 
+    /**
+     * 
+     * Luo käyttöliittymän komponentit
+     */
     private void luoKomponentit(Container contentPane) {
         BorderLayout layout = new BorderLayout();
         contentPane.setLayout(layout);

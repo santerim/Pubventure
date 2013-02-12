@@ -1,6 +1,7 @@
 
 package Pubventure.ymparisto;
 
+import Pubventure.enumit.InehmoEnum;
 import Pubventure.ymparisto.Pubiobjekti;
 import Pubventure.ymparisto.Pubi;
 import Pubventure.ihmiset.Inehmo;
@@ -20,6 +21,7 @@ public class PubiTest {
     
     public PubiTest() {
         pubi = new Pubi(5);
+        pubi.luoKentta();
 //        tl = new TiedostonLukija();
     }
 
@@ -47,8 +49,20 @@ public class PubiTest {
     @Test
     public void onnistuukoOlentojenLuominen() {
         pubi.luoKentta();
-        pubi.luoOlennot();
+        pubi.luoHahmot();
         ArrayList<Inehmo> lista = pubi.getInehmot();
         assertTrue(!lista.isEmpty());
+    }
+    
+    @Test
+    public void toimiikoLuoInehmoMetodi() {
+        Inehmo testiInehmo = pubi.luoInehmo(InehmoEnum.ASIAKAS, null);
+        assertTrue(testiInehmo != null);
+    }
+    
+    @Test
+    public void toimiikoTormaaMetodiOikein() {
+        assertTrue(pubi.tormaako(0, 0));
+        assertEquals(pubi.tormaako(1, 4), false);
     }
 }

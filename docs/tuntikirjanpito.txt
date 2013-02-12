@@ -33,3 +33,7 @@
 9.2. 2h päivänselvän bugin metsästystä
 
 10.2. 2h pieniä muutoksia ja uudelleennimeämisiä
+
+11.2. 4h kolmen enum-luokan muodostaminen, sekä koodin laajamittaista muuttelua
+
+12.2. 3h testien rukkausta ja dokumentaation päivittämistä

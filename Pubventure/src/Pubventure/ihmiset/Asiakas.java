@@ -2,6 +2,7 @@
 package Pubventure.ihmiset;
 
 import Pubventure.Sijainti;
+import Pubventure.enumit.InehmoEnum;
 
 /**
  * 
@@ -10,8 +11,8 @@ import Pubventure.Sijainti;
 
 public class Asiakas extends Inehmo {
 
-    public Asiakas(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuva, int asennePelaajaan) {
-        super(sijainti, ulkomuoto, tyyppi, liikkuva, asennePelaajaan);
+    public Asiakas(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
+        super(sijainti, ulkomuoto, tyyppi, liikkuva);
     }
     
 }

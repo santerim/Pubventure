@@ -1,6 +1,6 @@
 XXXXXXXXXXXXXXXXXXXXXXXXXX
 -------------E--XXXXXXXXXX
-|YYYY.YYY#.....|XXXXXXXXXX
+|....Y...#.....|XXXXXXXXXX
 |#########.....|XXXXXXXXXX
 |..............|X---------
 |..............|X|.......|

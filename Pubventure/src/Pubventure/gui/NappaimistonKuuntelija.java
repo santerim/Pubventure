@@ -7,7 +7,8 @@ import java.awt.event.KeyListener;
 
 /**
  * 
- * Luokka hoitaa näppäinkomentojen sieppaamisen
+ * Luokka hoitaa näppäinkomentojen sieppaamisen ja välittää ne
+ * käyttöliittymä-luokalle
  */
 
 public class NappaimistonKuuntelija implements KeyListener {
@@ -25,16 +26,16 @@ public class NappaimistonKuuntelija implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) {
-            kl.komento("w");
-        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) {
-            kl.komento("d");
-        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) {
-            kl.komento("s");
-        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4) {
-            kl.komento("a");
-        } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD5) {
-            kl.komento("");
+        if (ke.getKeyCode() == KeyEvent.VK_W) {
+            kl.liikeKomento("w");
+        } else if (ke.getKeyCode() == KeyEvent.VK_D) {
+            kl.liikeKomento("d");
+        } else if (ke.getKeyCode() == KeyEvent.VK_S) {
+            kl.liikeKomento("s");
+        } else if (ke.getKeyCode() == KeyEvent.VK_A) {
+            kl.liikeKomento("a");
+        } else if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
+            kl.liikeKomento("");
         }
     }
 

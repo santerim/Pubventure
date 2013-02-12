@@ -30,7 +30,7 @@ public class Logiikka {
         this.asiakkaita = asiakkaita;
         this.pubi = new Pubi(asiakkaita);
         pubi.luoKentta();
-        pubi.luoOlennot();
+        pubi.luoHahmot();
         this.inehmot = pubi.getInehmot();
 //        System.out.println("Pubin leveys: " + pubi.getLeveys());
 //        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
@@ -38,6 +38,9 @@ public class Logiikka {
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
     }
 
+    /**
+     * Aloittaa pelin suorittamisen luomalla käyttöliittymän
+     */
     public void aloita() {
         this.kl = new Kayttoliittyma(pubi, inehmot, this);
         SwingUtilities.invokeLater(kl);
@@ -74,10 +77,12 @@ public class Logiikka {
     }
 
     /**
-     * käsittelee käyttöliittymän lähettämän komennon
-     *
+     * Käsittelee käyttöliittymän lähettämän liikekomennon. Mikäli halutussa
+     * liikkumissuunnassa ei ole estettä, muutetaan koordinaatteja vastaavasti.
+     * Mikäli suunnassa on este, sijaintia ei muuteta, mutta yksi vuoro kuluu.
+     * @param komento on haluttu liikkumissuunta
      */
-    public void kasitteleKomento(String komento) {
+    public void kasitteleLiikekomento(String komento) {
 
         if (komento.isEmpty()) {
             kl.getPiirtoalusta().setViestiKentanSisalto("Odotat hetken");
@@ -120,8 +125,19 @@ public class Logiikka {
     }
 
     /**
-     * testaa josko annetuissa koordinaateissa on este ja palauttaa true mikäli
+     * Käsitellään ei-liikekomennot
+     * @param komento 
+     */
+    public void kasitteleMuuKomento(String komento) {
+        
+    }
+    
+    /**
+     * Testaa josko annetuissa koordinaateissa on este ja palauttaa true mikäli
      * näin on
+     * @param x x-akselin koordinaatti
+     * @param y y-akselin koordinaatti
+     * @return true tai false sen mukaan oliko koordinaateissa este vai ei
      */
     public boolean tormaako(int x, int y) {
         if (pubi.getObjekti(x, y).getEste()) {

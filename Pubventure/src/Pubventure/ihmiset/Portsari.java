@@ -1,6 +1,7 @@
 package Pubventure.ihmiset;
 
 import Pubventure.Sijainti;
+import Pubventure.enumit.InehmoEnum;
 
 /**
  * 
@@ -9,7 +10,7 @@ import Pubventure.Sijainti;
 
 public class Portsari extends Inehmo {
 
-    public Portsari(Sijainti sijainti, String ulkomuoto, String tyyppi, boolean liikkuva, int asennePelaajaan) {
-        super(sijainti, ulkomuoto, tyyppi, liikkuva, asennePelaajaan);
+    public Portsari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
+        super(sijainti, ulkomuoto, tyyppi, liikkuva);
     }
 }

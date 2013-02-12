@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 public class LogiikkaTest {
     
     Logiikka log = new Logiikka(5, 999, true);
+    Pubi pubi = log.getPubi();
     
     public LogiikkaTest() {
     }
@@ -25,14 +26,24 @@ public class LogiikkaTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testRun() {
-    }
-
-
-    @Test
-    public void testSiirraSankaria() {
-    }
+    // ei vielä toiminnassa - vaatii muutoksia logiikka-luokassa
+//    @Test
+//    public void testSiirraSankaria() {
+//        boolean siirtoOnnistui = false;
+//        int i = 1;
+//        while (i < 10) {
+//            Sijainti vanhaSijainti = pubi.getInehmot().get(0).getSijainti();
+//            log.kasitteleLiikekomento("s");
+//            Sijainti uusiSijainti = pubi.getInehmot().get(0).getSijainti();
+//            if (uusiSijainti.getY()-vanhaSijainti.getY() == 1) {
+//                siirtoOnnistui = true;
+//                break;
+//            } else {
+//                i++;
+//            }
+//        }
+//        assertTrue(siirtoOnnistui);
+//    }
 
     // nämä neljä testiä vanhentuneita - ainakin tällä hetkellä
 //    @Test

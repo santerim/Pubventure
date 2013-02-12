@@ -1,6 +1,7 @@
 
 package Pubventure.ymparisto;
 
+import Pubventure.enumit.PubiobjektiEnum;
 import Pubventure.ymparisto.Pubiobjekti;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class PubiobjektiTest {
     
-    private Pubiobjekti po = new Pubiobjekti("X", true);
+    private Pubiobjekti po = new Pubiobjekti("X", true, PubiobjektiEnum.NAKYMATON);
     
     public PubiobjektiTest() {
     }
