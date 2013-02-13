@@ -2,6 +2,7 @@
 package Pubventure;
 
 import Pubventure.Logiikka;
+import Pubventure.enumit.KomentoEnum;
 import Pubventure.ymparisto.Pubi;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -81,8 +82,8 @@ public class LogiikkaTest {
 
     @Test
     public void testArvoLiikesuunta() {
-        String suunta = log.arvoLiikesuunta();
-        assertTrue(!suunta.isEmpty());
+        KomentoEnum suunta = log.arvoLiikesuunta();
+        assertTrue(suunta != null);
     }
 
 

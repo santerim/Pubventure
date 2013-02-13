@@ -21,9 +21,13 @@ public class TiedostonLukija {
 //    private boolean leveysLoydetty = false;
 
     public TiedostonLukija() {
-        this.tiedosto = new File("src/Pubventure/pub.txt");
+        this.tiedosto = new File("pub.txt");
     }
 
+    /**
+     * lukee tiedoston File-muuttujan osoitteesta
+     * @return palauttaa merkkijonon
+     */
     public String lueTiedosto() {
         StringBuilder sb = new StringBuilder();
 
@@ -52,14 +56,6 @@ public class TiedostonLukija {
         this.merkkijono = sb.toString();
         return sb.toString();
     }
-
-//    public int getPubinLeveys() {
-//        return this.pubinLeveys;
-//    }
-//
-//    public int getPubinKorkeus() {
-//        return this.pubinKorkeus;
-//    }
     
     public String getMerkkijono() {
         return this.merkkijono;

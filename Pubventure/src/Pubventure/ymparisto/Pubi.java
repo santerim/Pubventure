@@ -1,9 +1,9 @@
 package Pubventure.ymparisto;
 
-import Pubventure.enumit.PubiobjektiEnum;
 import Pubventure.Sijainti;
 import Pubventure.TiedostonLukija;
 import Pubventure.enumit.InehmoEnum;
+import Pubventure.enumit.PubiobjektiEnum;
 import Pubventure.ihmiset.Asiakas;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ihmiset.Portsari;
@@ -29,7 +29,7 @@ public class Pubi {
     private String pubiMerkkijonona;
     private Scanner lukija;
     private int asiakkaita;
-    private ArrayList<Inehmo> inehmot = new ArrayList<>();
+    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Random luku = new Random();
     private Inehmo sankari;
 

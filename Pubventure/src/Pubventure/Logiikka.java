@@ -1,5 +1,6 @@
 package Pubventure;
 
+import Pubventure.enumit.KomentoEnum;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ymparisto.Pubi;
 import java.util.ArrayList;
@@ -23,10 +24,12 @@ public class Logiikka {
     private boolean asiakkaatLiikkuvat;
 //    private Scanner lukija = new Scanner(System.in);
     private ArrayList<Inehmo> inehmot;
-    private Random luku = new Random();
+    private Random arpoja = new Random();
     private Kayttoliittyma kl;
+    private KomentoEnum[] komennot;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
+        this.komennot = KomentoEnum.values();
         this.asiakkaita = asiakkaita;
         this.pubi = new Pubi(asiakkaita);
         pubi.luoKentta();
@@ -77,49 +80,60 @@ public class Logiikka {
     }
 
     /**
+     * Kutsuu komennon tyypin edellyttämää metodia, sekä piirtää kentän uudestaan.
+     * @param komento 
+     */
+    public void kasitteleKomento(KomentoEnum komento) {
+        if (komento == KomentoEnum.POHJOINEN || komento == KomentoEnum.ITA
+                || komento == KomentoEnum.ETELA || komento == KomentoEnum.LANSI) {
+            kasitteleLiikekomento(komento);
+        }
+    }
+    
+    public void liikutaHahmoa() {
+        
+    }
+    
+    /**
      * Käsittelee käyttöliittymän lähettämän liikekomennon. Mikäli halutussa
      * liikkumissuunnassa ei ole estettä, muutetaan koordinaatteja vastaavasti.
      * Mikäli suunnassa on este, sijaintia ei muuteta, mutta yksi vuoro kuluu.
      * @param komento on haluttu liikkumissuunta
      */
-    public void kasitteleLiikekomento(String komento) {
-
-        if (komento.isEmpty()) {
-            kl.getPiirtoalusta().setViestiKentanSisalto("Odotat hetken");
-//            System.out.println("Odotat hetken");
-        } else {
-            char ekaKirjain = komento.charAt(0);
-            switch (ekaKirjain) {
-                case 'w':
+    public void kasitteleLiikekomento(KomentoEnum komento) {
+            switch (komento) {
+                case POHJOINEN:
                     if (!tormaako(getSankarinSijainti().getX(), getSankarinSijainti().getY() - 1)) {
                         if (getSankarinSijainti().getY() > 0) {
                             getSankarinSijainti().setY(getSankarinSijainti().getY() - 1);
                         }
                     }
                     break;
-                case 'a':
+                case LANSI:
                     if (!tormaako(getSankarinSijainti().getX() - 1, getSankarinSijainti().getY())) {
                         if (getSankarinSijainti().getX() > 0) {
                             getSankarinSijainti().setX(getSankarinSijainti().getX() - 1);
                         }
                     }
                     break;
-                case 's':
+                case ETELA:
                     if (!tormaako(getSankarinSijainti().getX(), getSankarinSijainti().getY() + 1)) {
                         if (getSankarinSijainti().getY() < pubi.getKorkeus() - 1) {
                             getSankarinSijainti().setY(getSankarinSijainti().getY() + 1);
                         }
                     }
                     break;
-                case 'd':
+                case ITA:
                     if (!tormaako(getSankarinSijainti().getX() + 1, getSankarinSijainti().getY())) {
                         if (getSankarinSijainti().getX() < pubi.getLeveys() - 1) {
                             getSankarinSijainti().setX(getSankarinSijainti().getX() + 1);
                         }
                     }
                     break;
+                case ODOTUS:
+                    break;
             }
-        }
+        
         liikutaAsiakkaita();
         kl.getPiirtoalusta().piirraAlue();
     }
@@ -182,44 +196,47 @@ public class Logiikka {
     public void liikutaAsiakkaita() {
         for (Inehmo inehmo : inehmot) {
             if (!inehmo.getSankaruus() && inehmo.getLiikkuvuus()) {
-                String suunta = arvoLiikesuunta();
+                KomentoEnum suunta = arvoLiikesuunta();
                 switch (suunta) {
-                    case "w":
+                    case POHJOINEN:
                         //jos ei törmää, muutetaan inehmon sijaintia
                         if (inehmo.getSijainti().getY() > 0
                                 && tormaako(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1) == false) {
                             inehmo.getSijainti().setY(inehmo.getSijainti().getY() - 1);
                         }
                         break;
-                    case "a":
+                    case LANSI:
                         if (inehmo.getSijainti().getX() > 0
                                 && tormaako(inehmo.getSijainti().getX() - 1, inehmo.getSijainti().getY()) == false) {
                             inehmo.getSijainti().setX(inehmo.getSijainti().getX() - 1);
                         }
                         break;
-                    case "s":
+                    case ETELA:
                         if (inehmo.getSijainti().getY() < pubi.getKorkeus() - 1
                                 && tormaako(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() + 1) == false) {
                             inehmo.getSijainti().setY(inehmo.getSijainti().getY() + 1);
                         }
                         break;
-                    case "d":
+                    case ITA:
                         if (inehmo.getSijainti().getX() < pubi.getLeveys() - 1
                                 && tormaako(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY()) == false) {
                             inehmo.getSijainti().setX(inehmo.getSijainti().getX() + 1);
                         }
                         break;
-                    case "":
+                    case ODOTUS:
                         break;
                 }
             }
         }
     }
 
-    public String arvoLiikesuunta() {
-        String[] suunnat = {"w", "a", "s", "d"};
-        int satunnainen = luku.nextInt(4);
-        return suunnat[satunnainen];
+    /**
+     * Otetaan satunnainen liikesuunta
+     * @return palauttaa arvotun suunnan
+     */
+    public KomentoEnum arvoLiikesuunta() {
+        int satunnainen = arpoja.nextInt(3);
+        return komennot[satunnainen];
     }
 
     /**

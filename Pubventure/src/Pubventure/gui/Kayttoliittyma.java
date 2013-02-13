@@ -1,6 +1,8 @@
 package Pubventure.gui;
 
 import Pubventure.Logiikka;
+import Pubventure.enumit.KomentoEnum;
+import Pubventure.enumit.KomentoEnum;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ymparisto.Pubi;
 import java.awt.BorderLayout;
@@ -53,8 +55,8 @@ public class Kayttoliittyma implements Runnable {
      * 
      * Välittää liikenäppäimien syötteen eteenpäin logiikalle
      */
-    public void liikeKomento(String komento) {
-        logiikka.kasitteleLiikekomento(komento);
+    public void valitaKomento(KomentoEnum komento) {
+        logiikka.kasitteleKomento(komento);
     }
 
     /**

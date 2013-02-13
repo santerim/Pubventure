@@ -2,7 +2,7 @@ package Pubventure.ihmiset;
 
 import Pubventure.Sijainti;
 import Pubventure.enumit.InehmoEnum;
-import Pubventure.enumit.SuuntaEnum;
+import Pubventure.enumit.KomentoEnum;
 import java.util.Random;
 
 /**
