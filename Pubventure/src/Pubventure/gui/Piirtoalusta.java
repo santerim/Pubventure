@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  * 
  * Luokka piirtää pelikentän tarjoamillaan metodeilla
  */
-public class Piirtoalusta {
+public class Piirtoalusta extends JPanel {
 
     private JLabel kentta;
     private JLabel tiedot;
@@ -25,7 +25,6 @@ public class Piirtoalusta {
     private Font fontti = new Font("monospaced", Font.PLAIN, 12);
     
     public Piirtoalusta(Pubi pubi, ArrayList<Inehmo> inehmot) {
-        //super.setBackground(Color.WHITE);
         this.pubi = pubi;
         this.inehmot = inehmot;
         this.sb = new StringBuilder("");
@@ -52,7 +51,7 @@ public class Piirtoalusta {
         for (int i = 0; i < pubi.getKorkeus(); i++) {
             for (int j = 0; j < pubi.getLeveys(); j++) {
                 Sijainti nykSijainti = new Sijainti(j, i);
-                if (pubi.tormaako(j, i)) {
+                if (pubi.tormaako(nykSijainti)) {
                     int inehmoLoydetty = 0;
                     for (Inehmo inehmo : inehmot) {
                         if (inehmo.getSijainti().equals(nykSijainti)) {
@@ -64,10 +63,10 @@ public class Piirtoalusta {
                         }
                     }
                     if (inehmoLoydetty == 0) {
-                        sb.append(pubi.getObjekti(j, i).getUlkonako());
+                        sb.append(pubi.getObjekti(nykSijainti).getUlkonako());
                     }
                 } else {
-                    sb.append(pubi.getObjekti(j, i).getUlkonako());
+                    sb.append(pubi.getObjekti(nykSijainti).getUlkonako());
                 }
                 if (j == pubi.getLeveys() - 1) {
                     sb.append("<br>");

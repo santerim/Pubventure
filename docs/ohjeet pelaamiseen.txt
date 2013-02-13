@@ -1,0 +1,6 @@
+Pelaajahahmoa (@) voi ohjata seuraavilla näppäimillä:
+
+Nuolinäppäimet	 = liikuttaa hahmoa vastaavaan suuntaan
+Numpad 		 = nuolinäppäimiä vastaavat näppäimet toimivat samalla tavalla
+Välilyönti	 = kuluttaa yhden vuoron tekemättä mitään
+Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi suunnan mihin 		   		   toiminto kohdistetaan, <Esc> palauttaa normaalitilaan

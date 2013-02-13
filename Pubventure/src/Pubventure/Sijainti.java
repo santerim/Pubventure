@@ -33,6 +33,13 @@ public class Sijainti {
         this.y = y;
     }
     
+    
+    //RUKATTAVA!
+    /**
+     * Tarkistaa kahden Sijanti-olion samuuden luokan osalta.
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         Sijainti sijainti = (Sijainti) object;
@@ -48,5 +55,13 @@ public class Sijainti {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.x;
+        hash = 97 * hash + this.y;
+        return hash;
     }
 }

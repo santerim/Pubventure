@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
 /**
  *
@@ -72,7 +73,7 @@ public class Kayttoliittyma implements Runnable {
         JLabel kentta = new JLabel();
         JLabel tiedot = new JLabel();
         JLabel viesti = new JLabel();
-
+        
         contentPane.add(kentta, BorderLayout.CENTER);
         contentPane.add(tiedot, BorderLayout.EAST);
         contentPane.add(viesti, BorderLayout.SOUTH);
@@ -80,7 +81,7 @@ public class Kayttoliittyma implements Runnable {
         this.piirtoalusta.setPiirtoalusta(kentta, tiedot, viesti);
         this.piirtoalusta.piirraAlue();
 
-        piirtoalusta.setViestiKentanSisalto("tieto-label");
+        logiikka.kirjoitaPelaajanTiedot();
 //        tiedot.setText("tieto-label");
         viesti.setText("viesti-label");
         

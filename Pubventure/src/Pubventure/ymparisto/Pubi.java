@@ -14,10 +14,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * 
+ *
  * Luokka hallinnoi pelikenttää ja myös luo sen TiedostonLukija-luokan avulla,
- * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit).
- * Se tarjoaa metodit em. toimintoja varten, sekä metodin pelikentän mittasuhteiden
+ * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit). Se
+ * tarjoaa metodit em. toimintoja varten, sekä metodin pelikentän mittasuhteiden
  * ja mahdollisten törmäystilanteiden selvittämiseen.
  */
 public class Pubi {
@@ -37,7 +37,7 @@ public class Pubi {
         this.asiakkaita = asiakkaita;
         this.tiedostonLukija = new TiedostonLukija();
         this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
-        
+
         etsiMittasuhteet();
         this.kentta = new Pubiobjekti[leveys][korkeus];
 
@@ -68,6 +68,7 @@ public class Pubi {
      * Luo pubiobjekteista kentän kaksiulotteiseen taulukkoon käyttäen skannerin
      * avulla hyväksi tiedostonlukija-olion tekstitiedostosta pub.txt lukemaa
      * merkkijonoa.
+     *
      * @return palauttaa valmiin pubiobjektitaulukon
      */
     public Pubiobjekti[][] luoKentta() {
@@ -113,9 +114,9 @@ public class Pubi {
 
     /**
      * Luo pubissa olevat ihmiset. Sankari asetetaan uloskäyntiin ikäänkuin
-     * vasta paikalle saapuneeksi. Tarjoilija luodaan sellaisen pubiobjektin kohdalle,
-     * joka on tarjoilijoita varten tarkoitettu. Asiakkaat luodaan vapaalle lattia-
-     * alueelle.
+     * vasta paikalle saapuneeksi. Tarjoilija luodaan sellaisen pubiobjektin
+     * kohdalle, joka on tarjoilijoita varten tarkoitettu. Asiakkaat luodaan
+     * vapaalle lattia- alueelle.
      */
     public void luoHahmot() {
 
@@ -132,23 +133,25 @@ public class Pubi {
         int asiakkaitaJaljella = this.asiakkaita;
 
         while (asiakkaitaJaljella > 0) {
-            int uusiX = this.arvoX();
-            int uusiY = this.arvoY();
+            uusiSijainti = arvoSijainti();
 
             //mikäli arvotuissa koordinaateissa ei ole estettä, tai mikäli se ei
             //ole tarjoilijoille varattua aluetta, luodaan siihen uusi asiakas
-            if (!tormaako(uusiX, uusiY) && getObjekti(uusiX, uusiY).getTyyppi() != PubiobjektiEnum.TARJOILIJANALUE) {
-                uusiSijainti = new Sijainti(uusiX, uusiY);
-                inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
-                asiakkaitaJaljella--;
+            if (!tormaako(uusiSijainti)) {
+                if (getObjekti(uusiSijainti).getTyyppi() != PubiobjektiEnum.TARJOILIJANALUE) {
+                    inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
+                    asiakkaitaJaljella--;
+                }
             }
         }
     }
 
     /**
-     * Etsii annetun tyyppisen pubiobjekti-luokan olion ja palauttaa sen sijainnin
-     * 
-     * @param haettuTyyppi metodian kutsutaan sillä tyypillä, mitä ollaan etsimässä
+     * Etsii annetun tyyppisen pubiobjekti-luokan olion ja palauttaa sen
+     * sijainnin
+     *
+     * @param haettuTyyppi metodian kutsutaan sillä tyypillä, mitä ollaan
+     * etsimässä
      * @return palautetaan joko pubiobjekti, tai null, mikäli haluttua tyyppiä
      * ei löytynyt
      */
@@ -163,13 +166,13 @@ public class Pubi {
         System.out.println("Virhe: Pubiobjektia ei löytynyt.");
         return null;
     }
-    
 
     /**
      * Luo hahmon peliin annettujen parametrien mukaan
+     *
      * @param tyyppi InehmoEnum-luokan enum
      * @param sijainti
-     * @return 
+     * @return
      */
     public Inehmo luoInehmo(InehmoEnum tyyppi, Sijainti sijainti) {
         switch (tyyppi) {
@@ -184,35 +187,43 @@ public class Pubi {
         }
         return null;
     }
-    
-    
+
     /**
      * Tutkitaan onko annetuissa koordinaateissa este
+     *
      * @param x on leveyssuuntainen koordinaatti
      * @param y on korkeussuuntainen koordinaatti
      * @return palauttaa true, mikäli parametrien mukaisessa paikassa on este,
      * muuten false
      */
-    public boolean tormaako(int x, int y) {
-        if (getObjekti(x, y).getEste()) {
+    public boolean tormaako(Sijainti sijainti) {
+        if (getObjekti(sijainti).getEste()) {
             return true;
         }
         for (Inehmo inehmo : inehmot) {
-            if (inehmo.getSijainti().getX() == x && inehmo.getSijainti().getY() == y) {
+            if (inehmo.getSijainti().getX() == sijainti.getX() 
+                    && inehmo.getSijainti().getY() == sijainti.getY()) {
                 return true;
             }
 
         }
         return false;
     }
-    
+
     /**
      * Toimii luokan satunnaislukugeneraattorina
+     *
      * @param maksimi on maksimiarvo, jonka satunnaisluku voi saada
      * @return palauttaa arvotun kokonaisluvun
      */
     public int arvoLuku(int maksimi) {
         return luku.nextInt(maksimi);
+    }
+
+    public Sijainti arvoSijainti() {
+        int x = arvoLuku(leveys - 1);
+        int y = arvoLuku(korkeus - 1);
+        return new Sijainti(x, y);
     }
     
     //kaksi alempaa metodia poistumassa
@@ -224,8 +235,8 @@ public class Pubi {
         return luku.nextInt(this.korkeus);
     }
 
-    public Pubiobjekti getObjekti(int x, int y) {
-        return kentta[x][y];
+    public Pubiobjekti getObjekti(Sijainti sijainti) {
+        return kentta[sijainti.getX()][sijainti.getY()];
     }
 
     public int getLeveys() {

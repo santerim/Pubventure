@@ -16,4 +16,10 @@ public class Main {
 }
 
 
+// avoimet kysymykset:
+//      - miten txt-tiedostoa tulee käsitellä niin että koodi löytää sen
+//      jar-paketin sisältä?
 
+//      - miksi JLabelien värin muuttaminen ei onnistu?
+
+//      - miksi enumien vertailu ei toimi?

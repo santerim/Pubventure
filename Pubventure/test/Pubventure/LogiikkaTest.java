@@ -76,7 +76,7 @@ public class LogiikkaTest {
         int inehmonY = log.getInehmo(2).getSijainti().getY();
 //        System.out.println("Inehmon X: " + inehmonX);
 //        System.out.println("Inehmon Y: " + inehmonY);
-        log.liikutaAsiakkaita();
+        log.liikutaInehmoja();
         assertTrue(inehmonX != log.getInehmo(2).getSijainti().getX() || inehmonY != log.getInehmo(2).getSijainti().getY());
     }
 
