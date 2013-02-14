@@ -132,7 +132,7 @@ public class Logiikka {
                 break;
             case LYO:
                 break;
-            case VIRTSAA:
+            case KUSE:
                 break;
             case PUHU:
                 break;

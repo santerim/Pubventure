@@ -60,7 +60,7 @@ public class NappaimistonKuuntelija implements KeyListener {
                 kl.valitaKomento(KomentoEnum.LYO);
                 setOdotetaanKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_V) {
-                kl.valitaKomento(KomentoEnum.VIRTSAA);
+                kl.valitaKomento(KomentoEnum.KUSE);
                 setOdotetaanKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_P) {
                 kl.valitaKomento(KomentoEnum.PUHU);
