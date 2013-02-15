@@ -138,7 +138,7 @@ public class Pubi {
             //mikäli arvotuissa koordinaateissa ei ole estettä, tai mikäli se ei
             //ole tarjoilijoille varattua aluetta, luodaan siihen uusi asiakas
             if (!tormaako(uusiSijainti)) {
-                if (getObjekti(uusiSijainti).getTyyppi() != PubiobjektiEnum.TARJOILIJANALUE) {
+                if (!getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.TARJOILIJANALUE)) {
                     inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
                     asiakkaitaJaljella--;
                 }

@@ -1,14 +1,12 @@
 package Pubventure;
 
 import Pubventure.enumit.KomentoEnum;
+import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ihmiset.Inehmo;
+import Pubventure.ihmiset.Sankari;
 import Pubventure.ymparisto.Pubi;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-import Pubventure.gui.Kayttoliittyma;
-import Pubventure.gui.Piirtoalusta;
-import Pubventure.ihmiset.Sankari;
 import javax.swing.SwingUtilities;
 
 /**
@@ -28,7 +26,7 @@ public class Logiikka {
     private Random arpoja = new Random();
     private Kayttoliittyma kl;
     private KomentoEnum[] komennot;
-    private Inehmo sankari;
+    private Sankari sankari;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
         this.komennot = KomentoEnum.values();
@@ -37,7 +35,7 @@ public class Logiikka {
         pubi.luoKentta();
         pubi.luoHahmot();
         this.inehmot = pubi.getInehmot();
-        this.sankari = inehmot.get(0);
+        this.sankari = (Sankari) inehmot.get(0);
 //        System.out.println("Pubin leveys: " + pubi.getLeveys());
 //        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
         this.siirtoja = siirtoja;
@@ -61,18 +59,19 @@ public class Logiikka {
                 || komento == KomentoEnum.ETELA || komento == KomentoEnum.LANSI
                 || komento == KomentoEnum.ODOTUS) {
             kasitteleLiikekomento(komento, inehmot.get(0));
-            kl.getPiirtoalusta().setViestiKentanSisalto("  ");
+            kl.setViestiKentanSisalto("  ");
         }
         
         // jos odotetaan, lisätään viestikenttään teksti "odotat"
         if (komento == KomentoEnum.ODOTUS) {
-            kl.getPiirtoalusta().setViestiKentanSisalto("Odotat hetken.");
+            kl.setViestiKentanSisalto("Odotat hetken.");
         }
         
         //tähän kaksivaiheisten komentojen IF
         if (komento == KomentoEnum.TEEJOTAIN) {
-            kl.getPiirtoalusta().setViestiKentanSisalto("<html>Paina (o)sta, (a)nna, (l)yö, (v)irtsaa, (p)uhu"
-                    + "<br>(j)uo, (k)atso, tai &lt;Esc&gt; peruaksesi</html>");
+            kl.setViestiKentanSisalto("<html><table cellpadding='10'>"
+                    + "Paina (o)sta, (a)nna, (l)yö, (k)use, (p)uhu"
+                    + "<br>(j)uo, (t)utki, tai &lt;Esc&gt; peruaksesi</table></html>");
             kasitteleMuuKomento(komento);
         }
         
@@ -82,7 +81,7 @@ public class Logiikka {
                 kasitteleLiikekomento(arvoLiikesuunta(), inehmo);
             }
         }
-        kl.getPiirtoalusta().piirraAlue();
+        kl.piirraAlue();
     }
     
     /**
@@ -126,7 +125,7 @@ public class Logiikka {
     public void kasitteleMuuKomento(KomentoEnum komento) {
         switch (komento) {
             case OSTA:
-                kl.getPiirtoalusta().setViestiKentanSisalto(" ");
+                kl.setViestiKentanSisalto(" ");
                 break;
             case ANNA:
                 break;
@@ -138,19 +137,20 @@ public class Logiikka {
                 break;
             case JUO:
                 break;
-            case KATSO:
+            case TUTKI:
                 break;
             case PERU:
-                kl.getPiirtoalusta().setViestiKentanSisalto("");
+                kl.setViestiKentanSisalto("");
                 break;
         }
     }
     
     public void kirjoitaPelaajanTiedot() {
-        kl.getPiirtoalusta().setTietoKentanSisalto("<html>"
+        kl.getPiirtaja().tietoLabel.setText("<html><table cellpadding='10'>"
                 + "Itsetunto: " + sankari.getAsenne() + "<br>"
                 + "Humala: " + sankari.getHumala() + "<br>"
-                + "Rakko: " + sankari.getRakko() + "<br>");
+                + "Rakko: " + sankari.getRakko() + "<br>"
+                +"</table></html>");
     }
     
     /**

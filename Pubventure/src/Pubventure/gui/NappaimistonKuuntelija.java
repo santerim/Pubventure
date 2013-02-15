@@ -59,7 +59,7 @@ public class NappaimistonKuuntelija implements KeyListener {
             } else if (ke.getKeyCode() == KeyEvent.VK_L) {
                 kl.valitaKomento(KomentoEnum.LYO);
                 setOdotetaanKomentoa(false);
-            } else if (ke.getKeyCode() == KeyEvent.VK_V) {
+            } else if (ke.getKeyCode() == KeyEvent.VK_K) {
                 kl.valitaKomento(KomentoEnum.KUSE);
                 setOdotetaanKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_P) {
@@ -68,8 +68,8 @@ public class NappaimistonKuuntelija implements KeyListener {
             } else if (ke.getKeyCode() == KeyEvent.VK_J) {
                 kl.valitaKomento(KomentoEnum.JUO);
                 setOdotetaanKomentoa(false);
-            } else if (ke.getKeyCode() == KeyEvent.VK_K) {
-                kl.valitaKomento(KomentoEnum.KATSO);
+            } else if (ke.getKeyCode() == KeyEvent.VK_T) {
+                kl.valitaKomento(KomentoEnum.TUTKI);
                 setOdotetaanKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 kl.valitaKomento(KomentoEnum.PERU);

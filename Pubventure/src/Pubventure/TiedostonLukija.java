@@ -21,7 +21,7 @@ public class TiedostonLukija {
 //    private boolean leveysLoydetty = false;
 
     public TiedostonLukija() {
-        this.tiedosto = new File("pub.txt");
+        this.tiedosto = new File("pubi.txt");
     }
 
     /**
