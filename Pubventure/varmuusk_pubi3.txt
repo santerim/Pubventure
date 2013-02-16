@@ -8,7 +8,7 @@ X|###..-----|ttt.......BYYYY|.......|
 X|ttt..ttt|X|###..J....BYYYY|-------|
 X|.....###|X|ttt.|--|..BYYYYoXXXXXXX|
 X|t#t..ttt|-----o|--|..-------------|
-X|t#t.....|LLLMMM||tt..t#|wNoNLLLNow|
+X|t#t.....|MLLMMM||tt..t#|wNoNLLLNow|
 X|---..---|MMMM|o||##...t|---NNNNN--|
 X|#t...t#t|ppp||w||tt.......oNNNNNow|
 X|----....|------||.........--------|

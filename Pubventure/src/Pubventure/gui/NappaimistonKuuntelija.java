@@ -1,6 +1,5 @@
 package Pubventure.gui;
 
-import Pubventure.Logiikka;
 import Pubventure.enumit.KomentoEnum;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,12 +7,15 @@ import java.awt.event.KeyListener;
 /**
  *
  * Luokka hoitaa näppäinkomentojen sieppaamisen ja välittää ne
- * käyttöliittymä-luokalle
+ * käyttöliittymä-luokalle.
+ * Oleellinen toiminto on myös komentojen odotustilannetta määrittävien
+ * boolean-muuttujien päivittäminen.
  */
 public class NappaimistonKuuntelija implements KeyListener {
 
     Kayttoliittyma kl;
     private boolean odotetaanKomentoa;
+    private boolean odotetaanSuuntaKomentoa;
 
     public NappaimistonKuuntelija(Kayttoliittyma kl) {
         this.kl = kl;
@@ -49,7 +51,7 @@ public class NappaimistonKuuntelija implements KeyListener {
                 setOdotetaanKomentoa(true);
             }
         }
-        if (odotetaanKomentoa) {
+        if (odotetaanKomentoa && !odotetaanSuuntaKomentoa) {
             if (ke.getKeyCode() == KeyEvent.VK_O) {
                 kl.valitaKomento(KomentoEnum.OSTA);
                 setOdotetaanKomentoa(false);
@@ -82,11 +84,19 @@ public class NappaimistonKuuntelija implements KeyListener {
     public void keyReleased(KeyEvent ke) {
     }
 
-    public void setOdotetaanKomentoa(boolean juuTaiEi) {
-        this.odotetaanKomentoa = juuTaiEi;
+    public void setOdotetaanKomentoa(boolean trueTaiFalse) {
+        this.odotetaanKomentoa = trueTaiFalse;
+    }
+    
+    public void setOdotetaanSuuntaKomentoa(boolean trueTaiFalse) {
+        this.odotetaanSuuntaKomentoa = trueTaiFalse;
     }
 
     public boolean getOdotetaanKomentoa() {
         return this.odotetaanKomentoa;
+    }
+    
+    public boolean getOdotetaanSuuntaKomentoa() {
+        return this.odotetaanSuuntaKomentoa;
     }
 }

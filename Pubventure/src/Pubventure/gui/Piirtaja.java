@@ -37,9 +37,10 @@ public class Piirtaja extends javax.swing.JFrame {
         viestiLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pubventure");
         setBackground(new java.awt.Color(255, 255, 255));
 
-        kenttaPaneeli.setBackground(new java.awt.Color(102, 102, 102));
+        kenttaPaneeli.setBackground(new java.awt.Color(0, 0, 0));
 
         kenttaLabel.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
 
@@ -54,7 +55,7 @@ public class Piirtaja extends javax.swing.JFrame {
             .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
-        tietoPaneeli.setBackground(new java.awt.Color(102, 102, 102));
+        tietoPaneeli.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout tietoPaneeliLayout = new javax.swing.GroupLayout(tietoPaneeli);
         tietoPaneeli.setLayout(tietoPaneeliLayout);
@@ -67,7 +68,7 @@ public class Piirtaja extends javax.swing.JFrame {
             .addComponent(tietoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        viestiPaneeli.setBackground(new java.awt.Color(102, 102, 102));
+        viestiPaneeli.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout viestiPaneeliLayout = new javax.swing.GroupLayout(viestiPaneeli);
         viestiPaneeli.setLayout(viestiPaneeliLayout);

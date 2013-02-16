@@ -3,4 +3,15 @@ Pelaajahahmoa (@) voi ohjata seuraavilla näppäimillä:
 Nuolinäppäimet	 = liikuttaa hahmoa vastaavaan suuntaan
 Numpad 		 = nuolinäppäimiä vastaavat näppäimet toimivat samalla tavalla
 Välilyönti	 = kuluttaa yhden vuoron tekemättä mitään
-Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi suunnan mihin 		   		   toiminto kohdistetaan, <Esc> palauttaa normaalitilaan
+Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi 		   suunnan mihin toiminto kohdistetaan, <Esc> palauttaa
+		   normaalitilaan
+
+Pelaajahahmolla on myös tiettyjä ominaisuuksia:
+
+Itsetunto	= mitä suurempi itsetunto, sitä rohkeampaa kanssakäyminen
+		  muiden ihmisten kanssa on
+Humala		= humala korreloi jossain määrin itsetunnon kanssa, mutta
+		  liian kova humala haittaa niin liikkumista kuin muutakin
+		  menoa
+Rakko		= jossain vaiheessa on parempi käydä keventämässä
+Rahat		= lisää juotavaa on vaikea saada, mikäli on aivan p.a.

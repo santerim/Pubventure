@@ -18,10 +18,8 @@ import javax.swing.SwingUtilities;
 public class Logiikka {
 
     private Pubi pubi;
-//    private int asiakkaita;
     private int siirtoja;
     private boolean asiakkaatLiikkuvat;
-//    private Scanner lukija = new Scanner(System.in);
     private ArrayList<Inehmo> inehmot;
     private Random arpoja = new Random();
     private Kayttoliittyma kl;
@@ -29,17 +27,16 @@ public class Logiikka {
     private Sankari sankari;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
+        this.siirtoja = siirtoja;
+        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
         this.komennot = KomentoEnum.values();
-//        this.asiakkaita = asiakkaita;
+        
         this.pubi = new Pubi(asiakkaita);
         pubi.luoKentta();
         pubi.luoHahmot();
+        
         this.inehmot = pubi.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);
-//        System.out.println("Pubin leveys: " + pubi.getLeveys());
-//        System.out.println("Pubin korkeus: " + pubi.getKorkeus());
-        this.siirtoja = siirtoja;
-        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
     }
 
     /**
@@ -72,44 +69,65 @@ public class Logiikka {
             kl.setViestiKentanSisalto("<html><table cellpadding='10'>"
                     + "Paina (o)sta, (a)nna, (l)yö, (k)use, (p)uhu"
                     + "<br>(j)uo, (t)utki, tai &lt;Esc&gt; peruaksesi</table></html>");
+            
+            
+            // tähän korjaus!!! loogisesti väärässä paikassa
             kasitteleMuuKomento(komento);
         }
         
-        //liikutetaan muita kuin sankaria
-        for (Inehmo inehmo : inehmot) {
+        //liikutetaan muita kuin sankaria, mikäli ei odoteta jatkokomentoa
+        if (!kl.getNappaimistonKuuntelija().getOdotetaanKomentoa()) {
+            for (Inehmo inehmo : inehmot) {
             if (inehmo.getSankaruus() == false) {
                 kasitteleLiikekomento(arvoLiikesuunta(), inehmo);
             }
         }
+        }
+        
         kl.piirraAlue();
     }
     
     /**
      * Käsittelee liikekomennon. Mikäli halutussa liikkumissuunnassa ei ole
-     * estettä, muutetaan koordinaatteja vastaavasti. Mikäli suunnassa on este,
-     * sijaintia ei muuteta, mutta yksi vuoro kuluu.
-     * @param komento on haluttu liikkumissuunta
+     * estettä, tarkistetaan josko siinä on joku inehmo. Mikäli kumpikaan
+     * ehdoista ei täyty, muutetaan ko. inehmon sijaintia.
+     * Poikkeuksen tekee komento-enum ODOTUS, joka ei muuta sijaintia mitenkään.
+     * 
+     * @param komento on halutun liikkumissuunnan komentoenum
      */
     public void kasitteleLiikekomento(KomentoEnum komento, Inehmo inehmo) {
+        Sijainti sijaintiAnnetussaSuunnassa = null;
             switch (komento) {
                 case POHJOINEN:
-                    if (!tormaako(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1)) {
-                            inehmo.getSijainti().setY(inehmo.getSijainti().getY() - 1);
+                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1);
+                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
+                        }
                     }
                     break;
                 case LANSI:
-                    if (!tormaako(inehmo.getSijainti().getX() - 1, inehmo.getSijainti().getY())) {
-                            inehmo.getSijainti().setX(inehmo.getSijainti().getX() - 1);
+                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() - 1, inehmo.getSijainti().getY());
+                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
+                        }
                     }
                     break;
                 case ETELA:
-                    if (!tormaako(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() + 1)) {
-                            inehmo.getSijainti().setY(inehmo.getSijainti().getY() + 1);
+                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() + 1);
+                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
+                        }
                     }
                     break;
                 case ITA:
-                    if (!tormaako(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY())) {
-                            inehmo.getSijainti().setX(inehmo.getSijainti().getX() + 1);
+                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY());
+                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
+                        }
                     }
                     break;
                 case ODOTUS:
@@ -143,6 +161,7 @@ public class Logiikka {
                 kl.setViestiKentanSisalto("");
                 break;
         }
+        kl.getNappaimistonKuuntelija().setOdotetaanKomentoa(false);
     }
     
     public void kirjoitaPelaajanTiedot() {
@@ -150,6 +169,7 @@ public class Logiikka {
                 + "Itsetunto: " + sankari.getAsenne() + "<br>"
                 + "Humala: " + sankari.getHumala() + "<br>"
                 + "Rakko: " + sankari.getRakko() + "<br>"
+                + "Rahaa: " + sankari.getRahat()
                 +"</table></html>");
     }
     
@@ -168,18 +188,13 @@ public class Logiikka {
     }
     
     /**
-     * Testaa josko annetuissa koordinaateissa on este ja palauttaa true mikäli
-     * näin on
-     * @param x x-akselin koordinaatti
-     * @param y y-akselin koordinaatti
+     * Testaa josko annetussta sijainnista löytyvän pubiobjektin
+     * esteattribuutti on true.
+     * @param sijainti on sijainti jonka esteellisyyttä tutkitaan
      * @return true tai false sen mukaan oliko koordinaateissa este vai ei
      */
-    public boolean tormaako(int x, int y) {
-        Sijainti sijainti = new Sijainti(x, y);
+    public boolean tormaakoEsteeseen(Sijainti sijainti) {
         if (pubi.getObjekti(sijainti).getEste()) {
-            return true;
-        }
-        if (onkoSiinaJoku(sijainti)) {
             return true;
         }
         return false;

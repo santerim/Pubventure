@@ -26,17 +26,22 @@ public class Kayttoliittyma implements Runnable {
     private StringBuilder sb;
     private Logiikka logiikka;
     private Font fontti;
+    private NappaimistonKuuntelija kuuntelija;
 
     public Kayttoliittyma(Pubi pubi, ArrayList<Inehmo> inehmot, Logiikka log) {
-        this.piirtaja = new Piirtaja();
         this.pubi = pubi;
         this.inehmot = inehmot;
+        this.logiikka = log;
+        
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
-        this.logiikka = log;
+        
         this.sb = new StringBuilder();
         
-        this.piirtaja.addKeyListener(new NappaimistonKuuntelija(this));
+        this.piirtaja = new Piirtaja();
+        this.kuuntelija = new NappaimistonKuuntelija(this);
+        this.piirtaja.addKeyListener(kuuntelija);
+        
         this.fontti = new Font("monospaced", Font.PLAIN, 12);
         this.piirtaja.kenttaLabel.setFont(fontti);
         this.piirtaja.kenttaLabel.setForeground(Color.WHITE);
@@ -123,6 +128,10 @@ public class Kayttoliittyma implements Runnable {
     
     public JLabel getPeliKentta() {
         return piirtaja.kenttaLabel;
+    }
+    
+    public NappaimistonKuuntelija getNappaimistonKuuntelija() {
+        return this.kuuntelija;
     }
     
     public void setViestiKentanSisalto(String sisalto) {

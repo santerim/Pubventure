@@ -27,11 +27,17 @@ public class Inehmo {
         this.ulkomuoto = ulkomuoto;
         this.tyyppi = tyyppi;
         this.liikkuvuus = liikkuvuus;
-        this.humala = arpoja.nextInt(100);
-        this.rakko = arpoja.nextInt(100);
-        this.asenne = arpoja.nextInt(100);
+        
+        this.humala = arpoja.nextInt(51);
+        this.rakko = arpoja.nextInt(101);
+        this.asenne = arpoja.nextInt(51);
     }
 
+    /**
+     * Luo satunnaisluvun
+     * @param maksimi on maksimiarvo + 1 halutulle tulokselle
+     * @return palauttaa arvotun kokonaisluvun
+     */
     private int arvoLuku(int maksimi) {
         return arpoja.nextInt(maksimi);
     }
@@ -44,6 +50,10 @@ public class Inehmo {
         return this.sijainti;
     }
 
+    /**
+     * 
+     * @return palauttaa true, jos inehmo on enum-tyyppiä SANKARI
+     */
     public boolean getSankaruus() {
         if (this.tyyppi == InehmoEnum.SANKARI) {
             return true;
@@ -80,6 +90,7 @@ public class Inehmo {
         return this.edellinenSuunta;
     }
 
+    //ei vielä käytössä
     public void setEdellinenSuunta(String suunta) {
         this.edellinenSuunta = suunta;
     }
@@ -109,10 +120,11 @@ public class Inehmo {
     }
 
     //tämä ei vielä käytössä - muutettava!!
-    public void setSijainti(int x, int y) {
-        this.sijainti.setX(x);
-        this.sijainti.setY(y);
+    public void setSijainti(Sijainti uusiSijainti) {
+        this.sijainti = uusiSijainti;
     }
+    
+    
     // tarkastamatta
 //    @Override
 //    public boolean equals(Object obj) {

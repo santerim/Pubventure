@@ -21,12 +21,12 @@ public class TiedostonLukija {
 //    private boolean leveysLoydetty = false;
 
     public TiedostonLukija() {
-        this.tiedosto = new File("pubi.txt");
+        this.tiedosto = new File("pubi2.txt");
     }
 
     /**
      * lukee tiedoston File-muuttujan osoitteesta
-     * @return palauttaa merkkijonon
+     * @return palauttaa tiedostosta luetun merkkijonon
      */
     public String lueTiedosto() {
         StringBuilder sb = new StringBuilder();
