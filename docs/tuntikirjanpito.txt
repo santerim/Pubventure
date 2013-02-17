@@ -37,3 +37,9 @@
 11.2. 4h kolmen enum-luokan muodostaminen, sekä koodin laajamittaista muuttelua
 
 12.2. 3h testien rukkausta ja dokumentaation päivittämistä
+
+13.2. 2h lisää toiminnallisuutta
+
+14.2. 4h itse tehdyn grafiikan piirtävän luokan korvaus swingbuilderin tuottamalla + säätö
+
+16.2. 5h oluen juontia, myhäilyä ja ulkoasun sekä logiikan muuntelua/täydennystä
