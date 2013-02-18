@@ -43,3 +43,5 @@
 14.2. 4h itse tehdyn grafiikan piirtävän luokan korvaus swingbuilderin tuottamalla + säätö
 
 16.2. 5h oluen juontia, myhäilyä ja ulkoasun sekä logiikan muuntelua/täydennystä
+
+17.2. 4h erilaisia kokeiluja logiikan suhteen, sekä toiminnallisuuden kasvatusta
