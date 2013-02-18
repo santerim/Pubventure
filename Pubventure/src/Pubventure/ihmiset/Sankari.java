@@ -12,7 +12,7 @@ import Pubventure.enumit.InehmoEnum;
 public class Sankari extends Inehmo {
 
     private int rahat;
-    private int juotavaa;
+    private int juomat;
     
     public Sankari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva);
@@ -23,6 +23,10 @@ public class Sankari extends Inehmo {
         return this.rahat;
     }
     
+    public int getJuomat() {
+        return this.juomat;
+    }
+    
     public boolean setRahat(int muutos) {
         if (rahat + muutos < 0) {
             return false;
@@ -30,5 +34,9 @@ public class Sankari extends Inehmo {
             rahat = rahat + muutos;
             return true;
         }
+    }
+    
+    public void setJuomat(int juomat) {
+        this.juomat += juomat;
     }
 }

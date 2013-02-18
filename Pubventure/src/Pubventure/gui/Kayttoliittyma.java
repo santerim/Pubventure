@@ -114,6 +114,23 @@ public class Kayttoliittyma implements Runnable {
         logiikka.kasitteleKomento(komento);
     }
     
+    public void valitaKaksivaiheinenKomento(KomentoEnum komento, KomentoEnum suunta) {
+        switch (suunta) {
+            case POHJOINEN:
+                logiikka.kasitteleKaksivaiheinenKomento(komento, new Sijainti(logiikka.getSankarinSijainti().getX(), logiikka.getSankarinSijainti().getY() - 1));
+                break;
+            case ITA:
+                logiikka.kasitteleKaksivaiheinenKomento(komento, new Sijainti(logiikka.getSankarinSijainti().getX() + 1, logiikka.getSankarinSijainti().getY()));
+                break;
+            case ETELA:
+                logiikka.kasitteleKaksivaiheinenKomento(komento, new Sijainti(logiikka.getSankarinSijainti().getX(), logiikka.getSankarinSijainti().getY() + 1));
+                break;
+            case LANSI:
+                logiikka.kasitteleKaksivaiheinenKomento(komento, new Sijainti(logiikka.getSankarinSijainti().getX() - 1, logiikka.getSankarinSijainti().getY()));
+                break;
+        }
+    }
+    
     public Piirtaja getPiirtaja() {
         return this.piirtaja;
     }

@@ -10,16 +10,8 @@ package Pubventure;
 
 public class Main {
 
+    // siirtomäärällä ei nykyisellään merkitystä
     public static void main(String[] args) {
         new Logiikka(20, 999, true).aloita();
     }
 }
-
-
-// avoimet kysymykset:
-//      - miten txt-tiedostoa tulee käsitellä niin että koodi löytää sen
-//      jar-paketin sisältä?
-
-//      - miksi JLabelien värin muuttaminen ei onnistu?
-
-//      - miksi enumien vertailu ei toimi?

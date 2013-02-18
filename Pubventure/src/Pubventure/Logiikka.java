@@ -1,6 +1,7 @@
 package Pubventure;
 
 import Pubventure.enumit.KomentoEnum;
+import Pubventure.enumit.PubiobjektiEnum;
 import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ihmiset.Sankari;
@@ -30,11 +31,11 @@ public class Logiikka {
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
         this.komennot = KomentoEnum.values();
-        
+
         this.pubi = new Pubi(asiakkaita);
         pubi.luoKentta();
         pubi.luoHahmot();
-        
+
         this.inehmot = pubi.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);
     }
@@ -44,138 +45,196 @@ public class Logiikka {
      */
     public void aloita() {
         this.kl = new Kayttoliittyma(pubi, inehmot, this);
+        setViestiKentanSisalto(KomentoEnum.LIIKE);
         SwingUtilities.invokeLater(kl);
     }
 
+    public void setViestiKentanSisalto(KomentoEnum komento) {
+        switch (komento) {
+            case ODOTUS:
+                kl.setViestiKentanSisalto("Odotat hetken");
+                break;
+            case OHJE:
+                kl.setViestiKentanSisalto("<html><table cellpadding='10'>"
+                        + "Paina (o)sta, (a)nna, (l)yö, (k)use, (p)uhu"
+                        + "<br>(j)uo, (t)utki, tai &lt;esc&gt;&#47;&lt;space&gt; peruaksesi</table></html>");
+                break;
+            case LIIKE:
+                kl.setViestiKentanSisalto("<html>Liiku, anna komento, tai paina &lt;Enter&gt; näyttääksesi ohjeet</html>");
+                break;
+            case SUUNTA:
+                kl.setViestiKentanSisalto("<html>Anna suunta</html>");
+                break;
+            case PERU:
+                setViestiKentanSisalto(KomentoEnum.LIIKE);
+        }
+    }
+
     /**
-     * Kutsuu komennon tyypin edellyttämää metodia, sekä piirtää kentän uudestaan.
-     * @param komento 
+     * Kutsuu komennon tyypin edellyttämää metodia, sekä piirtää kentän
+     * uudestaan.
+     *
+     * @param komento on Nappaimistonkuuntelijalta Kayttoliittyman kautta tullut
+     * komento
      */
     public void kasitteleKomento(KomentoEnum komento) {
         if (komento == KomentoEnum.POHJOINEN || komento == KomentoEnum.ITA
                 || komento == KomentoEnum.ETELA || komento == KomentoEnum.LANSI
                 || komento == KomentoEnum.ODOTUS) {
             kasitteleLiikekomento(komento, inehmot.get(0));
-            kl.setViestiKentanSisalto("  ");
+            setViestiKentanSisalto(KomentoEnum.LIIKE);
         }
-        
-        // jos odotetaan, lisätään viestikenttään teksti "odotat"
+
+        // jos odotetaan, lisätään viestikenttään teksti "odotat hetken"
         if (komento == KomentoEnum.ODOTUS) {
-            kl.setViestiKentanSisalto("Odotat hetken.");
+            setViestiKentanSisalto(KomentoEnum.ODOTUS);
+        }
+
+        // näyttää ohjeen
+        if (komento == KomentoEnum.OHJE) {
+            setViestiKentanSisalto(KomentoEnum.OHJE);
         }
         
-        //tähän kaksivaiheisten komentojen IF
-        if (komento == KomentoEnum.TEEJOTAIN) {
-            kl.setViestiKentanSisalto("<html><table cellpadding='10'>"
-                    + "Paina (o)sta, (a)nna, (l)yö, (k)use, (p)uhu"
-                    + "<br>(j)uo, (t)utki, tai &lt;Esc&gt; peruaksesi</table></html>");
-            
-            
-            // tähän korjaus!!! loogisesti väärässä paikassa
-            kasitteleMuuKomento(komento);
+        if (komento == KomentoEnum.JUO) {
+            if (sankari.getJuomat() > 0) {
+                    sankari.setJuomat(-1);
+                    kirjoitaPelaajanTiedot();
+                    kl.setViestiKentanSisalto("Hörp.");
+                } else {
+                kl.setViestiKentanSisalto("Tuoppisi on tyhjä!");
+            }
         }
-        
+
         //liikutetaan muita kuin sankaria, mikäli ei odoteta jatkokomentoa
-        if (!kl.getNappaimistonKuuntelija().getOdotetaanKomentoa()) {
-            for (Inehmo inehmo : inehmot) {
+        if (!kl.getNappaimistonKuuntelija().getOdotetaanSuuntaKomentoa()) {
+            liikutaHahmoja();
+        }
+
+        kl.piirraAlue();
+    }
+
+    public void liikutaHahmoja() {
+        for (Inehmo inehmo : inehmot) {
             if (inehmo.getSankaruus() == false) {
                 kasitteleLiikekomento(arvoLiikesuunta(), inehmo);
             }
         }
-        }
-        
-        kl.piirraAlue();
     }
-    
+
     /**
      * Käsittelee liikekomennon. Mikäli halutussa liikkumissuunnassa ei ole
      * estettä, tarkistetaan josko siinä on joku inehmo. Mikäli kumpikaan
-     * ehdoista ei täyty, muutetaan ko. inehmon sijaintia.
-     * Poikkeuksen tekee komento-enum ODOTUS, joka ei muuta sijaintia mitenkään.
-     * 
+     * ehdoista ei täyty, muutetaan ko. inehmon sijaintia. Poikkeuksen tekee
+     * komento-enum ODOTUS, joka ei muuta sijaintia mitenkään.
+     *
      * @param komento on halutun liikkumissuunnan komentoenum
      */
     public void kasitteleLiikekomento(KomentoEnum komento, Inehmo inehmo) {
-        Sijainti sijaintiAnnetussaSuunnassa = null;
-            switch (komento) {
-                case POHJOINEN:
-                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1);
-                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
-                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
-                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
-                        }
+        Sijainti sijaintiAnnetussaSuunnassa;
+        switch (komento) {
+            case POHJOINEN:
+                sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() - 1);
+                if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                    if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                        inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
                     }
-                    break;
-                case LANSI:
-                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() - 1, inehmo.getSijainti().getY());
-                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
-                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
-                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
-                        }
+                }
+                break;
+            case LANSI:
+                sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() - 1, inehmo.getSijainti().getY());
+                if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                    if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                        inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
                     }
-                    break;
-                case ETELA:
-                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() + 1);
-                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
-                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
-                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
-                        }
+                }
+                break;
+            case ETELA:
+                sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX(), inehmo.getSijainti().getY() + 1);
+                if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                    if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                        inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
                     }
-                    break;
-                case ITA:
-                    sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY());
-                    if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
-                        if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
-                            inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
-                        }
+                }
+                break;
+            case ITA:
+                sijaintiAnnetussaSuunnassa = new Sijainti(inehmo.getSijainti().getX() + 1, inehmo.getSijainti().getY());
+                if (!tormaakoEsteeseen(sijaintiAnnetussaSuunnassa)) {
+                    if (!onkoSiinaJoku(sijaintiAnnetussaSuunnassa)) {
+                        inehmo.setSijainti(sijaintiAnnetussaSuunnassa);
                     }
-                    break;
-                case ODOTUS:
-                    break;
-            }
+                }
+                break;
+            case ODOTUS:
+                break;
+        }
     }
 
     /**
      * Käsitellään ei-liikekomennot
-     * @param komento on Nappaimistonkuuntelijalta Piirtoalustan kautta välitetty
-     * KomentoEnum
+     *
+     * @param komento on Nappaimistonkuuntelijalta Piirtoalustan kautta
+     * välitetty KomentoEnum
      */
-    public void kasitteleMuuKomento(KomentoEnum komento) {
+    public void kasitteleKaksivaiheinenKomento(KomentoEnum komento, Sijainti sijainti) {
         switch (komento) {
             case OSTA:
-                kl.setViestiKentanSisalto(" ");
+                if (pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.TISKI) {
+                    if (sankari.setRahat(-5)) {
+                        sankari.setJuomat(5);
+                        kirjoitaPelaajanTiedot();
+                        kl.setViestiKentanSisalto("Ostit oluen");
+                    } else {
+                        kl.setViestiKentanSisalto("Sinulla ei ole varaa!");
+                    }
+
+                }
                 break;
             case ANNA:
+
                 break;
             case LYO:
+
                 break;
             case KUSE:
+                if (pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.PISUAARI
+                        || pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.WCPYTTY) {
+                    if (sankari.getRakko() > 20) {
+                        sankari.setRakko(0);
+                        kirjoitaPelaajanTiedot();
+                        kl.setViestiKentanSisalto("Aaahh...");
+                    } else {
+                        kl.setViestiKentanSisalto("Nyt ei vielä oikein irtoa.");
+                    }
+
+                }
                 break;
             case PUHU:
-                break;
-            case JUO:
+
                 break;
             case TUTKI:
+
                 break;
             case PERU:
+
                 kl.setViestiKentanSisalto("");
                 break;
         }
-        kl.getNappaimistonKuuntelija().setOdotetaanKomentoa(false);
     }
-    
+
     public void kirjoitaPelaajanTiedot() {
         kl.getPiirtaja().tietoLabel.setText("<html><table cellpadding='10'>"
                 + "Itsetunto: " + sankari.getAsenne() + "<br>"
                 + "Humala: " + sankari.getHumala() + "<br>"
+                + "Juomat: " + sankari.getJuomat() + "<br>"
                 + "Rakko: " + sankari.getRakko() + "<br>"
                 + "Rahaa: " + sankari.getRahat()
-                +"</table></html>");
+                + "</table></html>");
     }
-    
+
     /**
      * Testaa josko annetussa sijainnissa on joku hahmo
-     * @param sijainti 
+     *
+     * @param sijainti
      * @return palauttaa true, mikäli sijainnissa on joku
      */
     public boolean onkoSiinaJoku(Sijainti sijainti) {
@@ -186,10 +245,11 @@ public class Logiikka {
         }
         return false;
     }
-    
+
     /**
-     * Testaa josko annetussta sijainnista löytyvän pubiobjektin
-     * esteattribuutti on true.
+     * Testaa josko annetussta sijainnista löytyvän pubiobjektin esteattribuutti
+     * on true.
+     *
      * @param sijainti on sijainti jonka esteellisyyttä tutkitaan
      * @return true tai false sen mukaan oliko koordinaateissa este vai ei
      */
@@ -202,6 +262,7 @@ public class Logiikka {
 
     /**
      * Poimitaan satunnainen liikesuunta
+     *
      * @return palauttaa arvotun suunnan
      */
     public KomentoEnum arvoLiikesuunta() {
@@ -228,7 +289,6 @@ public class Logiikka {
 //    public void setAsiakkaita(int asiakkaita) {
 //        this.asiakkaita = asiakkaita;
 //    }
-
     public void setSiirtoja(int siirtoja) {
         this.siirtoja = siirtoja;
     }
