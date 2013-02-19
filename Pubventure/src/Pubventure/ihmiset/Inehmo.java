@@ -12,29 +12,71 @@ import java.util.Random;
  */
 public class Inehmo {
 
+    /**
+     * Miltä inehmo näyttää pelikentällä
+     */
     private String ulkomuoto;
+    
+    /**
+     * Mihin suuntaan oltiin viimeksi menossa
+     */
+    private KomentoEnum edellinenSuunta;
+    
+    /**
+     * Teksti joka näkyy kun pelaajahahmo tutkii kohdetta
+     */
+    private String selite;
+    
+    /**
+     * Olion tyyppi
+     */
     private InehmoEnum tyyppi;
+    
+    /**
+     * Käytetään määrittelemään josko inehmo pysyy paikallaan
+     */
     private boolean liikkuvuus;
-    private int asenne;
-    private Sijainti sijainti;
-    private int humala;
-    private int rakko;
+    
+    /**
+     * Asenne pelaajaa kohtaan. Pelaaja-inehmon ollessa kyseessä toimii
+     * itsetunto-lukemana
+     */
+    private double asenne;
+    
+    /**
+     * Humalan aste
+     */
+    private double humala;
+    
+    /**
+     * Tarve käydä ns. heittämässä vettä
+     */
+    private double rakko;
+    
+    /**
+     * Satunnaislukujen luoja
+     */
     private Random arpoja = new Random();
-    private String edellinenSuunta;
+    
+    /**
+     * Hahmon sijainnista kirjaa pitävä olio
+     */
+    private Sijainti sijainti;
 
     public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus) {
         this.sijainti = sijainti;
         this.ulkomuoto = ulkomuoto;
         this.tyyppi = tyyppi;
         this.liikkuvuus = liikkuvuus;
-        
-        this.humala = arpoja.nextInt(51);
-        this.rakko = arpoja.nextInt(101);
-        this.asenne = arpoja.nextInt(51);
+
+        this.humala = (double) arpoja.nextInt(51);
+        this.rakko = (double) arpoja.nextInt(76);
+        this.asenne = (double) arpoja.nextInt(51);
     }
 
     /**
      * Luo satunnaisluvun
+     *
      * @param maksimi on maksimiarvo + 1 halutulle tulokselle
      * @return palauttaa arvotun kokonaisluvun
      */
@@ -42,16 +84,12 @@ public class Inehmo {
         return arpoja.nextInt(maksimi);
     }
 
-    //ehkä ei
-//    public void liiku(SuuntaEnum suunta) {
-//    }
-    
     public Sijainti getSijainti() {
         return this.sijainti;
     }
 
     /**
-     * 
+     *
      * @return palauttaa true, jos inehmo on enum-tyyppiä SANKARI
      */
     public boolean getSankaruus() {
@@ -74,36 +112,45 @@ public class Inehmo {
         return this.ulkomuoto;
     }
 
-    public int getAsenne() {
+    public double getAsenne() {
         return this.asenne;
     }
 
-    public int getHumala() {
+    public double getHumala() {
         return this.humala;
     }
 
-    public int getRakko() {
+    public double getRakko() {
         return this.rakko;
     }
 
-    public String getEdellinenSuunta() {
+    //ei vielä käytössä
+    public KomentoEnum getEdellinenSuunta() {
         return this.edellinenSuunta;
     }
 
+    public String getSelite() {
+        return this.selite;
+    }
+
+    public void setSelite(String selite) {
+        this.selite = selite;
+    }
+
     //ei vielä käytössä
-    public void setEdellinenSuunta(String suunta) {
+    public void setEdellinenSuunta(KomentoEnum suunta) {
         this.edellinenSuunta = suunta;
     }
 
-    public void setHumala(int humala) {
-        this.humala = humala;
+    public void setHumala(double muutos) {
+        this.humala = this.humala + muutos;
     }
 
-    public void setRakko(int rakko) {
-        this.rakko = rakko;
+    public void setRakko(double uusiArvo) {
+        this.rakko = uusiArvo;
     }
 
-    public void setAsenne(int muutos) {
+    public void setAsenne(double muutos) {
         this.asenne += muutos;
     }
 
@@ -119,13 +166,11 @@ public class Inehmo {
         this.tyyppi = tyyppi;
     }
 
-    //tämä ei vielä käytössä - muutettava!!
     public void setSijainti(Sijainti uusiSijainti) {
         this.sijainti = uusiSijainti;
     }
     
-    
-    // tarkastamatta
+    // tarkastamatta...eikä kenties tulekaan käyttöön
 //    @Override
 //    public boolean equals(Object obj) {
 //        if (obj == null) {
@@ -157,7 +202,7 @@ public class Inehmo {
 //        return true;
 //    }
 //    
-//    //tarkastamatta
+//    //tarkastamatta, sama kuin yllä
 //    @Override
 //    public int hashCode() {
 //        int hash = 3;

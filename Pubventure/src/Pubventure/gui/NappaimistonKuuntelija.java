@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
  *
  * Luokka hoitaa näppäinkomentojen sieppaamisen ja välittää ne
  * käyttöliittymä-luokalle. Oleellinen toiminto on myös komentojen
- * odotustilannetta määrittävien boolean-muuttujien päivittäminen.
+ * odotustilannetta määrittävän boolean-muuttujan päivittäminen.
  */
 public class NappaimistonKuuntelija implements KeyListener {
 
@@ -26,8 +26,10 @@ public class NappaimistonKuuntelija implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        // jos ollaan ns. normaalitilassa, kuunnellaan tavanomaisia
-        // näppäinkomentoja
+        /**
+         * jos ollaan ns. normaalitilassa, kuunnellaan tavanomaisia
+         * näppäinkomentoja
+         */
         if (!odotetaanSuuntaKomentoa) {
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
                 kl.valitaKomento(KomentoEnum.POHJOINEN);
@@ -51,39 +53,46 @@ public class NappaimistonKuuntelija implements KeyListener {
                 kl.valitaKomento(KomentoEnum.OHJE);
             }
 
+            /**
+             * mikäli annettu komento on kaksivaiheinen, rajoitetaan
+             * sallittuja näppäinkomentoja
+             */
             if (ke.getKeyCode() == KeyEvent.VK_O) {
                 komento = KomentoEnum.OSTA;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_A) {
                 komento = KomentoEnum.ANNA;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_L) {
                 komento = KomentoEnum.LYO;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_K) {
                 komento = KomentoEnum.KUSE;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_P) {
                 komento = KomentoEnum.PUHU;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_J) {
                 komento = KomentoEnum.JUO;
                 kl.valitaKomento(KomentoEnum.JUO);
             } else if (ke.getKeyCode() == KeyEvent.VK_T) {
                 komento = KomentoEnum.TUTKI;
                 setOdotetaanSuuntaKomentoa(true);
-                kl.setViestiKentanSisalto("Anna suunta...");
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
 //                kl.valitaKomento(KomentoEnum.PERU);
             }
         }
-        // välitetään annettu suunta ja edellisessä vaiheessa saatu komento
-        // eteenpäin
+        /**
+         * Välitetään annettu suunta ja edellisessä vaiheessa saatu komento
+         * eteenpäin. Muutetaan muuttujan arvoa niin, että näppäinkomentojen
+         * vastaanottaminen toimii taas normaalisti.
+         */
         if (odotetaanSuuntaKomentoa) {
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
                 kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.POHJOINEN);

@@ -10,6 +10,7 @@ import Pubventure.ihmiset.Portsari;
 import Pubventure.ihmiset.Sankari;
 import Pubventure.ihmiset.Tarjoilija;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -32,9 +33,11 @@ public class Pubi {
     private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Random luku = new Random();
     private Inehmo sankari;
+    private InehmoEnum[] inehmoEnumit;
 
     public Pubi(int asiakkaita) {
         this.asiakkaita = asiakkaita;
+        this.inehmoEnumit = InehmoEnum.values();
         this.tiedostonLukija = new TiedostonLukija();
         this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
 
@@ -80,55 +83,55 @@ public class Pubi {
             for (int i = 0; i < merkkirivi.length(); i++) {
                 switch (merkkirivi.charAt(i)) {
                     case 'Y':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.TALUE);
+                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.TALUE, "tarjoilijan alue");
                         break;
                     case 'E':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#2E8B57'>E</font>", false, PubiobjektiEnum.ULOSKAYNTI);
+                        kentta[i][rivi] = new Pubiobjekti("<font color='#2E8B57'>E</font>", false, PubiobjektiEnum.ULOSKAYNTI, "uloskäynti");
                         break;
                     case '-':
-                        kentta[i][rivi] = new Pubiobjekti("-", true, PubiobjektiEnum.SEINA);
+                        kentta[i][rivi] = new Pubiobjekti("<font face='monospaced' size='1'>\u2501</font>", true, PubiobjektiEnum.SEINA, "seinä");
                         break;
                     case '.':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.LATTIA);
+                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.LATTIA, "lattia");
                         break;
                     case 'X':
-                        kentta[i][rivi] = new Pubiobjekti(" ", true, PubiobjektiEnum.NAKYMATON);
+                        kentta[i][rivi] = new Pubiobjekti(" ", true, PubiobjektiEnum.NAKYMATON, "TätäEiPitäisiNäkyä");
                         break;
                     case '|':
-                        kentta[i][rivi] = new Pubiobjekti("|", true, PubiobjektiEnum.SEINA);
+                        kentta[i][rivi] = new Pubiobjekti("|", true, PubiobjektiEnum.SEINA, "seinä");
                         break;
                     case '#':
-                        kentta[i][rivi] = new Pubiobjekti("#", true, PubiobjektiEnum.POYTA);
+                        kentta[i][rivi] = new Pubiobjekti("#", true, PubiobjektiEnum.POYTA, "pöytä");
                         break;
                     case 't':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#8B4513'>¤</font>", false, PubiobjektiEnum.TUOLI);
+                        kentta[i][rivi] = new Pubiobjekti("<font color='#8B4513'>¤</font>", false, PubiobjektiEnum.TUOLI, "tuoli");
                         break;
                     case 'w':
-                        kentta[i][rivi] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY);
+                        kentta[i][rivi] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY, "wc-pytty");
                         break;
                     case 'p':
-                        kentta[i][rivi] = new Pubiobjekti("p", true, PubiobjektiEnum.PISUAARI);
+                        kentta[i][rivi] = new Pubiobjekti("w", true, PubiobjektiEnum.PISUAARI, "pisuaari");
                         break;
                     case 'L':
-                        kentta[i][rivi] = new Pubiobjekti("L", true, PubiobjektiEnum.LAVUAARI);
+                        kentta[i][rivi] = new Pubiobjekti("L", true, PubiobjektiEnum.LAVUAARI, "lavuaari");
                         break;
                     case 'v':
-                        kentta[i][rivi] = new Pubiobjekti(" ", false, PubiobjektiEnum.VALUE);
+                        kentta[i][rivi] = new Pubiobjekti(" ", false, PubiobjektiEnum.VALUE, "lattia");
                         break;
                     case 'J':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#87CEFA'>J</font>", true, PubiobjektiEnum.JUKEBOKSI);
+                        kentta[i][rivi] = new Pubiobjekti("<font color='#FFD700'>J</font>", true, PubiobjektiEnum.JUKEBOKSI, "jukeboksi");
                         break;
                     case 'B':
-                        kentta[i][rivi] = new Pubiobjekti("B", true, PubiobjektiEnum.TISKI);
+                        kentta[i][rivi] = new Pubiobjekti("B", true, PubiobjektiEnum.TISKI, "baaritiski");
                         break;
                     case 'o':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#708090'>o</font>", false, PubiobjektiEnum.OVI);
+                        kentta[i][rivi] = new Pubiobjekti("<font color='#708090'>o</font>", false, PubiobjektiEnum.OVI, "ovi");
                         break;
                     case 'M':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.MVESSA);
+                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.MVESSA, "lattia");
                         break;
                     case 'N':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.NVESSA);
+                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.NVESSA, "lattia");
                         break;
                 }
             }
@@ -144,14 +147,32 @@ public class Pubi {
      * vapaalle lattia- alueelle.
      */
     public void luoHahmot() {
-
+        Sijainti uusiSijainti = null;
+        
         // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
-        Sijainti uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.ULOSKAYNTI);
-        this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, uusiSijainti));
+        List<Sijainti> lista = etsiPubiobjektit(PubiobjektiEnum.ULOSKAYNTI);
+        if (lista != null) {
+            this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, lista.get(0)));
+        }
+//        Sijainti uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.ULOSKAYNTI);
+//        this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, uusiSijainti));
 
         //luodaan tarjoilija
-        uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.TALUE);
-        this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, uusiSijainti));
+        lista = etsiPubiobjektit(PubiobjektiEnum.TALUE);
+        if (lista != null) {
+            this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, lista.get(0)));
+        }
+        
+//        uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.TALUE);
+//        this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, uusiSijainti));
+        
+        //luodaan portsarit
+        lista = etsiPubiobjektit(PubiobjektiEnum.VALUE);
+        if (lista != null) {
+            for (int i = 0; i < 2; i++) {
+                this.inehmot.add(luoInehmo(InehmoEnum.PORTSARI, lista.get(i)));
+            }
+        }
 
         // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla toistensa
         // kanssa, tai minkään esteeksi määritellyn pubiobjektin kohdalla
@@ -163,7 +184,8 @@ public class Pubi {
             //mikäli arvotuissa koordinaateissa ei ole estettä, tai mikäli se ei
             //ole tarjoilijoille varattua aluetta, luodaan siihen uusi asiakas
             if (!tormaako(uusiSijainti)) {
-                if (!getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.TALUE)) {
+                if (!getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.TALUE) 
+                        && !getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.OVI)) {
                     inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
                     asiakkaitaJaljella--;
                 }
@@ -180,16 +202,24 @@ public class Pubi {
      * @return palautetaan joko pubiobjekti, tai null, mikäli haluttua tyyppiä
      * ei löytynyt
      */
-    public Sijainti etsiPubiobjekti(PubiobjektiEnum haettuTyyppi) {
+    public List<Sijainti> etsiPubiobjektit(PubiobjektiEnum haettuTyyppi) {
+        List<Sijainti> lista = new ArrayList<Sijainti>();
         for (int y = 0; y < korkeus; y++) {
             for (int x = 0; x < leveys; x++) {
-                if (kentta[x][y].getTyyppi() == haettuTyyppi) {
-                    return new Sijainti(x, y);
+                if (kentta[x][y].getTyyppi().equals(haettuTyyppi)) {
+                    lista.add(new Sijainti(x, y));
+//                    return new Sijainti(x, y);
                 }
             }
         }
-        System.out.println("Virhe: Pubiobjektia ei löytynyt.");
-        return null;
+        if (lista.isEmpty()) {
+            return null;
+        } else {
+            return lista;
+        }
+
+//        System.out.println("Virhe: Pubiobjektia ei löytynyt.");
+//        return null;
     }
 
     /**
@@ -204,7 +234,7 @@ public class Pubi {
             case SANKARI:
                 return new Sankari(sijainti, "@", InehmoEnum.SANKARI, true);
             case ASIAKAS:
-                return new Asiakas(sijainti, "a", InehmoEnum.ASIAKAS, true);
+                return new Asiakas(sijainti, "a", InehmoEnum.ASIAKAS, true, arvoSukupuoli(), arvoIka());
             case PORTSARI:
                 return new Portsari(sijainti, "P", InehmoEnum.PORTSARI, false);
             case TARJOILIJA:
@@ -243,6 +273,16 @@ public class Pubi {
      */
     public int arvoLuku(int maksimi) {
         return luku.nextInt(maksimi);
+    }
+    
+    public InehmoEnum arvoIka() {
+        int satunnainen = arvoLuku(3);
+        return inehmoEnumit[satunnainen];
+    }
+    
+    public InehmoEnum arvoSukupuoli() {
+        int satunnainen = arvoLuku(2) + 7; 
+        return inehmoEnumit[satunnainen];
     }
 
     public Sijainti arvoSijainti() {

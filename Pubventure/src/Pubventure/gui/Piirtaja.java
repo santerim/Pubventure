@@ -42,17 +42,17 @@ public class Piirtaja extends javax.swing.JFrame {
 
         kenttaPaneeli.setBackground(new java.awt.Color(0, 0, 0));
 
-        kenttaLabel.setFont(new java.awt.Font("Verdana", 0, 11)); // NOI18N
+        kenttaLabel.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
 
         javax.swing.GroupLayout kenttaPaneeliLayout = new javax.swing.GroupLayout(kenttaPaneeli);
         kenttaPaneeli.setLayout(kenttaPaneeliLayout);
         kenttaPaneeliLayout.setHorizontalGroup(
             kenttaPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         kenttaPaneeliLayout.setVerticalGroup(
             kenttaPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
         );
 
         tietoPaneeli.setBackground(new java.awt.Color(0, 0, 0));

@@ -12,5 +12,7 @@ public class Portsari extends Inehmo {
 
     public Portsari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva);
+        super.setSelite("portsari");
+        super.setUlkomuoto("<font color='#FF8C00'>P</font>");
     }
 }
