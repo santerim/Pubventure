@@ -45,3 +45,5 @@
 16.2. 5h oluen juontia, myh‰ily‰ ja ulkoasun sek‰ logiikan muuntelua/t‰ydennyst‰
 
 17.2. 4h erilaisia kokeiluja logiikan suhteen, sek‰ toiminnallisuuden kasvatusta
+
+19.2. 5h kokeiluja, refaktorointia, lis‰‰ toiminnallisuutta ja dokumentoinnin p‰ivitys
