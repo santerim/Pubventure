@@ -18,7 +18,7 @@ public class Sankari extends Inehmo {
     private boolean nousuhumala;
     private boolean rakkoTaynna;
     private Random arpoja = new Random();
-    private int itsetunto;
+    private double itsetunto;
     
     
     public Sankari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
@@ -48,7 +48,7 @@ public class Sankari extends Inehmo {
         }
         
         if (nousuhumala) {
-            super.setAsenne(0.5);
+            setAsenne(0.5);
         } else {
 //            super.setHumalanMuutos(-1);
 //            super.setAsenne(-1);
@@ -105,7 +105,7 @@ public class Sankari extends Inehmo {
     
     @Override
     public void setAsenne(double muutos) {
-        if (this.itsetunto < 101 && muutos > 0) {
+        if (this.itsetunto < 101 && this.itsetunto + muutos > 0) {
             this.itsetunto += muutos;
         } else if (muutos < 0 && this.itsetunto > 0) {
             this.itsetunto += muutos;

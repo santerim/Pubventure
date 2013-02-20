@@ -107,13 +107,13 @@ public class Pubi {
                         kentta[i][rivi] = new Pubiobjekti("<font color='#2E8B57'>E</font>", false, PubiobjektiEnum.ULOSKAYNTI, "uloskäynti");
                         break;
                     case '-':
-                        kentta[i][rivi] = new Pubiobjekti("<font face='monospaced' size='1'>\u2501</font>", true, PubiobjektiEnum.SEINA, "seinä");
+                        kentta[i][rivi] = new Pubiobjekti("-", true, PubiobjektiEnum.SEINA, "seinä");
                         break;
                     case '.':
                         kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.LATTIA, "lattia");
                         break;
                     case 'X':
-                        kentta[i][rivi] = new Pubiobjekti(" ", true, PubiobjektiEnum.NAKYMATON, "TätäEiPitäisiNäkyä");
+                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", true, PubiobjektiEnum.NAKYMATON, "TätäEiPitäisiNäkyä");
                         break;
                     case '|':
                         kentta[i][rivi] = new Pubiobjekti("|", true, PubiobjektiEnum.SEINA, "seinä");

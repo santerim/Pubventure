@@ -44,7 +44,7 @@ public class Kayttoliittyma implements Runnable {
         this.kuuntelija = new NappaimistonKuuntelija(this);
         this.piirtaja.addKeyListener(kuuntelija);
 
-        this.fontti = new Font("Courier new", Font.PLAIN, 14);
+        this.fontti = new Font("monospaced", Font.PLAIN, 12);
         this.piirtaja.kenttaLabel.setFont(fontti);
         this.piirtaja.kenttaLabel.setForeground(Color.WHITE);
         this.piirtaja.tietoLabel.setFont(fontti);
