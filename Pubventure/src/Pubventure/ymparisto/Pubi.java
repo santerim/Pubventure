@@ -26,13 +26,31 @@ public class Pubi {
     private int leveys;
     private int korkeus;
     private Pubiobjekti[][] kentta;
+    
+    /**
+     * TiedostonLukija hoitaa pelikentän lukemisen kovakoodatusta osoitteesta
+     * (pub2.txt-niminen tiedosto projektin juuressa)
+     */
     private TiedostonLukija tiedostonLukija;
+    
+    /**
+     * txt-tiedostosta luettu pelikenttä palautetaan tänne merkkijonona
+     */
     private String pubiMerkkijonona;
     private Scanner lukija;
     private int asiakkaita;
+    
+    /**
+     * Pelikentälle luodut hahmot kerätään ArrayListiin
+     */
     private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Random luku = new Random();
     private Inehmo sankari;
+    
+    /**
+     * Jokainen inehmo on jotain enum-tyyppiä
+     * @see Pubventure.enumit.InehmoEnum
+     */
     private InehmoEnum[] inehmoEnumit;
 
     public Pubi(int asiakkaita) {
@@ -208,7 +226,6 @@ public class Pubi {
             for (int x = 0; x < leveys; x++) {
                 if (kentta[x][y].getTyyppi().equals(haettuTyyppi)) {
                     lista.add(new Sijainti(x, y));
-//                    return new Sijainti(x, y);
                 }
             }
         }
@@ -217,9 +234,6 @@ public class Pubi {
         } else {
             return lista;
         }
-
-//        System.out.println("Virhe: Pubiobjektia ei löytynyt.");
-//        return null;
     }
 
     /**
@@ -289,15 +303,6 @@ public class Pubi {
         int x = arvoLuku(leveys - 1);
         int y = arvoLuku(korkeus - 1);
         return new Sijainti(x, y);
-    }
-    
-    //kaksi alempaa metodia poistumassa
-    public int arvoX() {
-        return luku.nextInt(this.leveys);
-    }
-
-    public int arvoY() {
-        return luku.nextInt(this.korkeus);
     }
 
     public Pubiobjekti getObjekti(Sijainti sijainti) {

@@ -71,7 +71,7 @@ public class Inehmo {
 
         this.humala = (double) arpoja.nextInt(51);
         this.rakko = (double) arpoja.nextInt(76);
-        this.asenne = (double) arpoja.nextInt(51);
+        this.asenne = (double) arpoja.nextInt(101);
     }
 
     /**
@@ -143,15 +143,26 @@ public class Inehmo {
     }
 
     public void setHumala(double muutos) {
-        this.humala = this.humala + muutos;
+        if (this.humala + muutos < 101 && this.humala + muutos > -1) {
+            this.humala = this.humala + muutos;
+        }
     }
 
     public void setRakko(double uusiArvo) {
         this.rakko = uusiArvo;
     }
 
+    /**
+     * Muutetaan asennetta (tai itsetuntoa, mikäli kyseessä on sankari), mikäli
+     * attribuutti pysyisi välillä 0...100
+     * @param muutos 
+     */
     public void setAsenne(double muutos) {
-        this.asenne += muutos;
+        if (this.asenne < 101 && muutos > 0) {
+            this.asenne += muutos;
+        } else if (muutos < 0 && this.asenne > 0) {
+            this.asenne += muutos;
+        } 
     }
 
     public void setUlkomuoto(String ulkomuoto) {

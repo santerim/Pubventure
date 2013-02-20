@@ -3,6 +3,7 @@ package Pubventure.ihmiset;
 
 import Pubventure.Sijainti;
 import Pubventure.enumit.InehmoEnum;
+import java.util.Random;
 
 /**
  * 
@@ -16,11 +17,14 @@ public class Sankari extends Inehmo {
     private double juomatVatsassa;
     private boolean nousuhumala;
     private boolean rakkoTaynna;
+    private Random arpoja = new Random();
+    private int itsetunto;
     
     
     public Sankari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva);
         this.rahat = 30;
+        this.itsetunto = arpoja.nextInt(50);
     }
     
     /**
@@ -38,7 +42,7 @@ public class Sankari extends Inehmo {
         }
         
         if (super.getRakko() < 99 && juomatVatsassa > 0) {
-            super.setRakko(super.getRakko() + 0.5);
+            super.setRakko(super.getRakko() + 1.0);
         } else if (super.getRakko() >= 99) {
             this.rakkoTaynna = true;
         }
@@ -88,5 +92,23 @@ public class Sankari extends Inehmo {
     
     public void setJuomat(int juomat) {
         this.juomat += juomat;
+    }
+    
+    public void setRakkoTaynna(boolean totuusarvo) {
+        this.rakkoTaynna = totuusarvo;
+    }
+    
+    @Override
+    public double getAsenne() {
+        return this.itsetunto;
+    }
+    
+    @Override
+    public void setAsenne(double muutos) {
+        if (this.itsetunto < 101 && muutos > 0) {
+            this.itsetunto += muutos;
+        } else if (muutos < 0 && this.itsetunto > 0) {
+            this.itsetunto += muutos;
+        } 
     }
 }

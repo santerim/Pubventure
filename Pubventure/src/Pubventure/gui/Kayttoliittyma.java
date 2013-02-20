@@ -100,13 +100,13 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Näyttää ohjeet
+     * Näyttää ohjeet kun enter-näppäintä on painettu
      *
      */
     public void naytaOhjeet() {
         setViestiKentanSisalto("<html><table cellpadding='10'>"
-                + "Paina (o)sta, (a)nna, (l)yö, (k)use, (p)uhu"
-                + "<br>(j)uo, (t)utki</table></html>");
+                + "Paina (o)sta, " /*(a)nna,*/ + "(l)yö, (k)use, (p)uhu"
+                + "<br>(j)uo, (t)utki, p(u)mmi</table></html>");
         setTietoKentanSisalto("<html><table cellpadding='10'>"
                 + "@ = pelaaja<br>"
                 + "n = nainen<br>"
@@ -122,7 +122,7 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Kirjoittaa tietokenttään merkkien selityksen ja pelaajan tiedot
+     * Kirjoittaa tietokenttään pelaajan tiedot
      *
      * @see
      * Pubventure.gui.Kayttoliittyma#setTietoKentanSisalto(java.lang.String)

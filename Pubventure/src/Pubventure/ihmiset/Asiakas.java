@@ -42,7 +42,7 @@ public class Asiakas extends Inehmo {
                 setUlkonako("<font color='#F08080'>n</font>");
                 super.setSelite("keski-ikäinen nainen");
             } else if (this.ika.equals(InehmoEnum.VANHA)) {
-                setUlkonako("<font color='#F08080'>n</font>");
+                setUlkonako("<font color='#CB0859'>n</font>");
                 super.setSelite("vanha nainen");
             }
         }

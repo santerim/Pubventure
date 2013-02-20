@@ -54,15 +54,16 @@ public class NappaimistonKuuntelija implements KeyListener {
             }
 
             /**
-             * mikäli annettu komento on kaksivaiheinen, rajoitetaan
-             * sallittuja näppäinkomentoja
+             * mikäli annettu komento on kaksivaiheinen, rajoitetaan sallittuja
+             * näppäinkomentoja ja otetaan annettu komento muuttujaan talteen
+             * odottamaan suuntakomentoa
              */
             if (ke.getKeyCode() == KeyEvent.VK_O) {
                 komento = KomentoEnum.OSTA;
                 setOdotetaanSuuntaKomentoa(true);
                 kl.valitaKomento(KomentoEnum.SUUNTA);
-            } else if (ke.getKeyCode() == KeyEvent.VK_A) {
-                komento = KomentoEnum.ANNA;
+            } else if (ke.getKeyCode() == KeyEvent.VK_U) {
+                komento = KomentoEnum.PUMMI;
                 setOdotetaanSuuntaKomentoa(true);
                 kl.valitaKomento(KomentoEnum.SUUNTA);
             } else if (ke.getKeyCode() == KeyEvent.VK_L) {
@@ -87,6 +88,11 @@ public class NappaimistonKuuntelija implements KeyListener {
             } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
 //                kl.valitaKomento(KomentoEnum.PERU);
             }
+            //            else if (ke.getKeyCode() == KeyEvent.VK_A) {
+//                komento = KomentoEnum.ANNA;
+//                setOdotetaanSuuntaKomentoa(true);
+//                kl.valitaKomento(KomentoEnum.SUUNTA);
+//            } 
         }
         /**
          * Välitetään annettu suunta ja edellisessä vaiheessa saatu komento
