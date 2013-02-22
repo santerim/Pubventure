@@ -125,6 +125,27 @@ public class Inehmo {
     public double getAsenne() {
         return this.asenne;
     }
+    
+    public String getAsenneKuvaus() {
+        if (this.asenne < 20) {
+            return "Hän vaikuttaa vihamieliseltä.";
+        } else if (this.asenne >= 20 && this.asenne < 40) {
+            return "Hän vaikuttaa nyrpeältä.";
+        } else if (this.asenne >= 40 && this.asenne < 60) {
+            return "Hän vaikuttaa välinpitämättömältä";
+        } else if (this.asenne >= 60 && this.asenne < 80) {
+            return "Hän vaikuttaa ystävälliseltä";
+        } else if (this.asenne >= 80 && this.asenne < 100) {
+            return "Hän vaikuttaa pitävän seurastasi";
+        } else if (this.asenne == 100) {
+            if (this.sukupuoli.equals(InehmoEnum.MIES)) {
+                return "Hän saattaisi hyvinkin tarjota oluen.";
+            } else if (this.sukupuoli.equals(InehmoEnum.NAINEN)) {
+                return "Hmm, tämä nainen taitaa haluta seuraasi.";
+            }
+        }
+        return null;
+    }
 
     public double getHumala() {
         return this.humala;
@@ -175,7 +196,6 @@ public class Inehmo {
         this.selite = selite;
     }
 
-    //ei vielä käytössä
     public void setEdellinenSuunta(KomentoEnum suunta) {
         this.edellinenSuunta = suunta;
     }

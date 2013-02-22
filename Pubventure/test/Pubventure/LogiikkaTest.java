@@ -1,9 +1,9 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Pubventure;
 
-import Pubventure.Logiikka;
-import Pubventure.enumit.KomentoEnum;
-import Pubventure.ymparisto.Pubi;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,12 +11,21 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ *
+ * @author santerim
+ */
 public class LogiikkaTest {
     
-    Logiikka log = new Logiikka(5, 999, true);
-    Pubi pubi = log.getPubi();
-    
     public LogiikkaTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
     }
     
     @Before
@@ -27,66 +36,143 @@ public class LogiikkaTest {
     public void tearDown() {
     }
 
-    // ei vielä toiminnassa - vaatii muutoksia logiikka-luokassa
-//    @Test
-//    public void testSiirraSankaria() {
-//        boolean siirtoOnnistui = false;
-//        int i = 1;
-//        while (i < 10) {
-//            Sijainti vanhaSijainti = pubi.getInehmot().get(0).getSijainti();
-//            log.kasitteleLiikekomento("s");
-//            Sijainti uusiSijainti = pubi.getInehmot().get(0).getSijainti();
-//            if (uusiSijainti.getY()-vanhaSijainti.getY() == 1) {
-//                siirtoOnnistui = true;
-//                break;
-//            } else {
-//                i++;
-//            }
-//        }
-//        assertTrue(siirtoOnnistui);
-//    }
-
-    // nämä neljä testiä vanhentuneita - ainakin tällä hetkellä
-//    @Test
-//    public void testTulostaOlennot() {
-//    }
-//
-//    @Test
-//    public void testTulostaLuola() {
-//    }
-//
-//    @Test
-//    public void testPiirraRivi() {
-//    }
-//
-//
-//    @Test
-//    public void testOsuiko() {
-//    }
-
+    /**
+     * Test of aloita method, of class Logiikka.
+     */
     @Test
-    public void testTormaako() {
-        Logiikka log2 = new Logiikka(5, 999, false);
-        log2.getInehmo(2).getSijainti().setX(log2.getInehmo(0).getSijainti().getX());
+    public void testAloita() {
     }
 
+    /**
+     * Test of setViestiKentanSisalto method, of class Logiikka.
+     */
     @Test
-    public void testLiikutaAsiakkaita() {
-        int inehmonX = log.getInehmo(2).getSijainti().getX();
-        int inehmonY = log.getInehmo(2).getSijainti().getY();
-//        System.out.println("Inehmon X: " + inehmonX);
-//        System.out.println("Inehmon Y: " + inehmonY);
-        log.liikutaInehmoja();
-        assertTrue(inehmonX != log.getInehmo(2).getSijainti().getX() || inehmonY != log.getInehmo(2).getSijainti().getY());
+    public void testSetViestiKentanSisalto() {
     }
 
+    /**
+     * Test of kasitteleKomento method, of class Logiikka.
+     */
+    @Test
+    public void testKasitteleKomento() {
+    }
+
+    /**
+     * Test of kasitteleKaksivaiheinenKomento method, of class Logiikka.
+     */
+    @Test
+    public void testKasitteleKaksivaiheinenKomento() {
+    }
+
+    /**
+     * Test of paivita method, of class Logiikka.
+     */
+    @Test
+    public void testPaivita() {
+    }
+
+    /**
+     * Test of liikutaHahmoja method, of class Logiikka.
+     */
+    @Test
+    public void testLiikutaHahmoja() {
+    }
+
+    /**
+     * Test of kasitteleLiikekomento method, of class Logiikka.
+     */
+    @Test
+    public void testKasitteleLiikekomento() {
+    }
+
+    /**
+     * Test of etsiInehmoAnnetussaSijainnissa method, of class Logiikka.
+     */
+    @Test
+    public void testEtsiInehmoAnnetussaSijainnissa() {
+    }
+
+    /**
+     * Test of annaSijaintiHalutussaSuunnassa method, of class Logiikka.
+     */
+    @Test
+    public void testAnnaSijaintiHalutussaSuunnassa() {
+    }
+
+    /**
+     * Test of onkoSiinaJoku method, of class Logiikka.
+     */
+    @Test
+    public void testOnkoSiinaJoku() {
+    }
+
+    /**
+     * Test of tormaakoEsteeseen method, of class Logiikka.
+     */
+    @Test
+    public void testTormaakoEsteeseen() {
+    }
+
+    /**
+     * Test of arvoLiikesuunta method, of class Logiikka.
+     */
     @Test
     public void testArvoLiikesuunta() {
-        KomentoEnum suunta = log.arvoLiikesuunta();
-        assertTrue(suunta != null);
     }
 
+    /**
+     * Test of getSankarinSijainti method, of class Logiikka.
+     */
+    @Test
+    public void testGetSankarinSijainti() {
+    }
 
+    /**
+     * Test of getPubi method, of class Logiikka.
+     */
+    @Test
+    public void testGetPubi() {
+    }
 
+    /**
+     * Test of getSiirtoja method, of class Logiikka.
+     */
+    @Test
+    public void testGetSiirtoja() {
+    }
 
+    /**
+     * Test of getAsiakkaatLiikkuvat method, of class Logiikka.
+     */
+    @Test
+    public void testGetAsiakkaatLiikkuvat() {
+    }
+
+    /**
+     * Test of setSiirtoja method, of class Logiikka.
+     */
+    @Test
+    public void testSetSiirtoja() {
+    }
+
+    /**
+     * Test of setAsiakkaatLiikkuvat method, of class Logiikka.
+     */
+    @Test
+    public void testSetAsiakkaatLiikkuvat() {
+    }
+
+    /**
+     * Test of getInehmo method, of class Logiikka.
+     */
+    @Test
+    public void testGetInehmo() {
+    }
+
+    /**
+     * Test of getInehmot method, of class Logiikka.
+     */
+    @Test
+    public void testGetInehmot() {
+    }
 }

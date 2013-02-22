@@ -1,6 +1,7 @@
 
 package Pubventure.ymparisto;
 
+import Pubventure.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.ymparisto.Pubiobjekti;
 import Pubventure.ymparisto.Pubi;
@@ -62,7 +63,13 @@ public class PubiTest {
     
     @Test
     public void toimiikoTormaaMetodiOikein() {
-        assertTrue(pubi.tormaako(0, 0));
-        assertEquals(pubi.tormaako(1, 4), false);
+        assertTrue(pubi.tormaako(new Sijainti(0, 0)));
+        assertEquals(pubi.tormaako(new Sijainti(2, 3)), false);
+    }
+    
+    @Test
+    public void loytyvatkoPubinMittasuhteetOikein() {
+        assertEquals(pubi.getKorkeus(), 19);
+        assertEquals(pubi.getLeveys(), 38);
     }
 }

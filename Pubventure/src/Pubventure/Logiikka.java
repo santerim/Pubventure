@@ -250,7 +250,7 @@ public class Logiikka {
                 if (kohde.getAsenne() > 90) {
                     if (sankari.setRahat(5)) {
                         setViestiKentanSisalto(KomentoEnum.VIESTI, "Sait pummittua vitosen!");
-                        kohde.setAsenne(-50);
+                        kohde.setAsenne(-70);
                         kl.kirjoitaPelaajanTiedot();
                         paivita();
                     }
@@ -290,17 +290,20 @@ public class Logiikka {
                     // jos arvottu reaktio on hyvä
                     if (reaktio > 4) {
                         kohde.setAsenne(arpoja.nextInt(30) - (vertailuluku / 10));
-                        setViestiKentanSisalto(KomentoEnum.VIESTI, "Tulette hyvin juttuun.");
+                        String vastaus = "Keskustelu sujuu hyvin<br>" + kohde.getAsenneKuvaus();
+                        setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
                     } // jos arvottu reaktio on huono
                     else {
                         // muutetaan asennetta
                         kohde.setAsenne((vertailuluku / 10) - arpoja.nextInt(25));
                         // jos kyseessä on mies ja asenne on yhä yli 10
                         if (kohde.getSukupuoli().equals(InehmoEnum.MIES) && kohde.getAsenne() > 10) {
-                            setViestiKentanSisalto(KomentoEnum.VIESTI, "Ette oikein tule juttuun.");
+                            String vastaus = "Ette oikein löydä yhteistä säveltä.<br>" + kohde.getAsenneKuvaus();
+                            setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
                         } // jos kyseessä on nainen ja asenne on yhä yli 10
                         else if (kohde.getSukupuoli().equals(InehmoEnum.NAINEN) && kohde.getAsenne() > 10) {
-                            setViestiKentanSisalto(KomentoEnum.VIESTI, "Kemianne eivät oikein kohtaa.");
+                            String vastaus = "Kemianne eivät oikein kohtaa.<br>" + kohde.getAsenneKuvaus();
+                            setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
                         }
                         if (kohde.getAsenne() <= 10) {
                             kohde.setHalukasPuhumaan(false);
@@ -329,7 +332,7 @@ public class Logiikka {
         if (kohde != null) {
             for (Inehmo inehmo : inehmot) {
                 if (inehmo.getSijainti().equals(sijainti)) {
-                    selite += inehmo.getSelite() + "<br>Asenne: " + inehmo.getAsenne();
+                    selite += inehmo.getSelite() + "<br>" + inehmo.getAsenneKuvaus();
                     break;
                 }
             }

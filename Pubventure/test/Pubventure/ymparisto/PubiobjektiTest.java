@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 
 public class PubiobjektiTest {
     
-    private Pubiobjekti po = new Pubiobjekti("X", true, PubiobjektiEnum.NAKYMATON);
+    private Pubiobjekti poyta = new Pubiobjekti("#", true, PubiobjektiEnum.POYTA, "pöytä");
+    private Pubiobjekti lattia = new Pubiobjekti(".", false, PubiobjektiEnum.LATTIA, "lattia");
     
     public PubiobjektiTest() {
     }
@@ -28,23 +29,23 @@ public class PubiobjektiTest {
 
     @Test
     public void testaaGetUlkonako() {
-        assertEquals(po.getUlkonako(), "X");
+        assertEquals(poyta.getUlkonako(), "#");
     }
 
     @Test
     public void testaaGetEste() {
-        assertTrue(po.getEste());
+        assertTrue(poyta.getEste());
     }
 
     @Test
     public void testaaSetUlkonako() {
-        po.setUlkonako("Y");
-        assertEquals(po.getUlkonako(), "Y");
+        poyta.setUlkonako("Y");
+        assertEquals(poyta.getUlkonako(), "Y");
     }
 
     @Test
     public void testaaSetEste() {
-        po.setEste(false);
-        assertEquals(po.getEste(), false);
+        assertEquals(poyta.getEste(), true);
+        assertEquals(lattia.getEste(), false);
     }
 }

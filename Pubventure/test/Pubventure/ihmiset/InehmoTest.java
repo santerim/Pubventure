@@ -11,11 +11,12 @@ public class InehmoTest {
     private Inehmo inehmo;
 
     public InehmoTest() {
-        this.inehmo = new Inehmo(new Sijainti(2, 3), "@", InehmoEnum.SANKARI, true);
+        
     }
 
     @Before
     public void setUp() {
+        this.inehmo = new Inehmo(new Sijainti(2, 3), "@", InehmoEnum.SANKARI, true, InehmoEnum.MIES);
     }
 
     @After
@@ -41,5 +42,23 @@ public class InehmoTest {
     @Test
     public void onkoLuodunHahmonLiikkuvuusparametriOikein() {
         assertEquals(inehmo.getLiikkuvuus(), true);
+    }
+    
+    @Test
+    public void toimiikoAsenteenMuutosOikein() {
+        inehmo.setAsenne(-150);
+        assertTrue(inehmo.getAsenne() == 0);
+        inehmo.setAsenne(50);
+        assertTrue(inehmo.getAsenne() == 50);
+    }
+    
+    @Test
+    public void toimiikoHumalanMuutosOikein() {
+        inehmo.setHumala(-200);
+        assertTrue(inehmo.getHumala() == 0);
+        inehmo.setHumala(400);
+        assertTrue(inehmo.getHumala() == 100);
+        inehmo.setHumala(-25);
+        assertTrue(inehmo.getHumala() == 75);
     }
 }
