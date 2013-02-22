@@ -37,7 +37,7 @@ public class Piirtaja extends javax.swing.JFrame {
         viestiLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pubventure");
+        setTitle("Pubventure - santerim@cs.helsinki.fi");
         setBackground(new java.awt.Color(255, 255, 255));
 
         kenttaPaneeli.setBackground(new java.awt.Color(0, 0, 0));

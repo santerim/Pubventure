@@ -12,6 +12,6 @@ public class Main {
 
     // siirtomäärällä ei nykyisellään merkitystä
     public static void main(String[] args) {
-        new Logiikka(20, 999, true).aloita();
+        new Logiikka(30, 999, true).aloita();
     }
 }

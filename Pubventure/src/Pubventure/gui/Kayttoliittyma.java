@@ -18,15 +18,56 @@ import javax.swing.JLabel;
  */
 public class Kayttoliittyma implements Runnable {
 
+    /**
+     * Piirtaja-luokka on swingbuilderilla tehty ikkunointi
+     *
+     * @see Pubventure.gui.Piirtaja
+     */
     private Piirtaja piirtaja;
-    private int leveys;
-    private int korkeus;
+    /**
+     * Pubi-luokkaa tarvitaan pelikentän piirtämiseen
+     *
+     * @see Pubventure.ymparisto.Pubi
+     */
     private Pubi pubi;
+    /**
+     * Pelikenttää piirrettäessä kulloinkin piirtovuorossa olevaan kohtaan
+     * piirretään inehmon ulkonäkö pubiobjektin sijaan, mikäli kyseisessä
+     * kohdassa sattuu olemaan joku
+     */
     private ArrayList<Inehmo> inehmot;
+    /**
+     * Pelikenttä täytetään html-merkkijonolla, joka koostetaan ennen tulostusta
+     * stringbuilderiin
+     */
     private StringBuilder sb;
+    /**
+     * Logiikka-luokkaan pitää päästä käsiksi, jotta näppäimistönkuuntelijalta
+     * voidaan välittää komennot eteenpäin
+     *
+     * @see Pubventure.gui.NappaimistonKuuntelija
+     * @see Pubventure.Logiikka#kasitteleKomento(Pubventure.enumit.KomentoEnum)
+     * @see
+     * Pubventure.Logiikka#kasitteleKaksivaiheinenKomento(Pubventure.enumit.KomentoEnum,
+     * Pubventure.Sijainti)
+     */
     private Logiikka logiikka;
+    /**
+     * Pelikentän piirtämisessä käytetään ns. fixed width-fonttia, jotta kentän
+     * layout saadaan tasaiseksi.
+     */
     private Font fontti;
+    /**
+     * Näppäimistönkuuntelija sieppaa näppäinkomennot ja välittää ne tälle
+     * luokalle. Se asetetaan konstruktorissa Piirtaja-luokan kuuntelijaksi.
+     */
     private NappaimistonKuuntelija kuuntelija;
+    /**
+     * Sankaria tarvitaan tässäkin luokassa, jotta voimme kätevästi tulostaa
+     * tietoja ruudulle.
+     *
+     * @see Pubventure.gui.Kayttoliittyma#kirjoitaPelaajanTiedot()
+     */
     private Sankari sankari;
 
     public Kayttoliittyma(Pubi pubi, ArrayList<Inehmo> inehmot, Sankari sankari, Logiikka log) {
@@ -34,9 +75,6 @@ public class Kayttoliittyma implements Runnable {
         this.inehmot = inehmot;
         this.logiikka = log;
         this.sankari = sankari;
-
-        this.leveys = pubi.getLeveys();
-        this.korkeus = pubi.getKorkeus();
 
         this.sb = new StringBuilder();
 
@@ -105,20 +143,21 @@ public class Kayttoliittyma implements Runnable {
      */
     public void naytaOhjeet() {
         setViestiKentanSisalto("<html><table cellpadding='10'>"
-                + "Paina (o)sta, " /*(a)nna,*/ + "(l)yö, (k)use, (p)uhu"
-                + "<br>(j)uo, (t)utki, p(u)mmi</table></html>");
+                + "Paina (o)sta, " /*(a)nna, "(l)yö,*/ + "(k)use, (p)uhu "
+                + "(j)uo, (t)utki, p(u)mmi, (v)onkaa<br>"
+                + "tai käytä nuolinäppäimiä &#47; numpadia liikkuaksesi.</table></html>");
         setTietoKentanSisalto("<html><table cellpadding='10'>"
                 + "@ = pelaaja<br>"
-                + "n = nainen<br>"
-                + "m = mies<br>"
+                + "<font color='#F08080'>n</font> = nainen<br>"
+                + "<font color='#1E90FF'>m</font> = mies<br>"
                 + "t = tarjoilija<br>"
-                + "E = uloskäynti<br>"
-                + "o = ovi<br>"
+                + "<font color='#2E8B57'>E</font> = uloskäynti<br>"
+                + "<font color='#708090'>o</font> = ovi<br>"
                 + "B = baaritiski<br>"
                 + "w = vessa<br>"
                 + "L = lavuaari<br>"
                 + "# = pöytä<br>"
-                + "¤ = tuoli</table></html>");
+                + "<font color='#8B4513'>¤</font> = tuoli</table></html>");
     }
 
     /**
@@ -137,9 +176,16 @@ public class Kayttoliittyma implements Runnable {
                 + "</table></html>");
     }
 
+    public void loppu() {
+        sb.setLength(0);
+        setPeliKentanSisalto(null);
+    }
+    
     /**
      *
      * Välittää näppäinkomentojen syötteen eteenpäin Logiikka-luokalle
+     *
+     * @see Pubventure.Logiikka#kasitteleKomento(Pubventure.enumit.KomentoEnum)
      */
     public void valitaKomento(KomentoEnum komento) {
         logiikka.kasitteleKomento(komento);
@@ -163,20 +209,7 @@ public class Kayttoliittyma implements Runnable {
      * Sijainti-olio
      */
     public void valitaKaksivaiheinenKomento(KomentoEnum komento, KomentoEnum suunta) {
-        switch (suunta) {
-            case POHJOINEN:
                 logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
-                break;
-            case ITA:
-                logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
-                break;
-            case ETELA:
-                logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
-                break;
-            case LANSI:
-                logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
-                break;
-        }
     }
 
     public Piirtaja getPiirtaja() {

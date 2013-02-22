@@ -16,62 +16,72 @@ public class Inehmo {
      * Miltä inehmo näyttää pelikentällä
      */
     private String ulkomuoto;
-    
     /**
      * Mihin suuntaan oltiin viimeksi menossa
      */
     private KomentoEnum edellinenSuunta;
-    
     /**
      * Teksti joka näkyy kun pelaajahahmo tutkii kohdetta
      */
     private String selite;
-    
     /**
      * Olion tyyppi
      */
     private InehmoEnum tyyppi;
-    
     /**
      * Käytetään määrittelemään josko inehmo pysyy paikallaan
      */
     private boolean liikkuvuus;
-    
     /**
      * Asenne pelaajaa kohtaan. Pelaaja-inehmon ollessa kyseessä toimii
      * itsetunto-lukemana
      */
     private double asenne;
-    
     /**
      * Humalan aste
      */
     private double humala;
-    
     /**
      * Tarve käydä ns. heittämässä vettä
      */
     private double rakko;
-    
     /**
      * Satunnaislukujen luoja
      */
     private Random arpoja = new Random();
-    
     /**
      * Hahmon sijainnista kirjaa pitävä olio
      */
     private Sijainti sijainti;
+    /**
+     * Määrittää josko inehmo on halukas puhumaan sankarin kanssa
+     */
+    private boolean halukasPuhumaan;
+    /**
+     * Pidetään kirjaa siitä missä oltiin viimeksi
+     */
+    private Sijainti edellinenSijainti;
+    /**
+     * Joskus käy niin, että kun kaksi ihmistä kohtaa...
+     */
+    private boolean vosu;
+    /**
+     * Toisin kuin jotkut väittävät, sukupuoli ei ole pelkkä sosiaalinen
+     * konstruktio, ja siksi tällä ei ole setteriä.
+     */
+    private InehmoEnum sukupuoli;
 
-    public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus) {
+    public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus, InehmoEnum sukupuoli) {
         this.sijainti = sijainti;
         this.ulkomuoto = ulkomuoto;
         this.tyyppi = tyyppi;
         this.liikkuvuus = liikkuvuus;
+        this.halukasPuhumaan = true;
+        this.sukupuoli = sukupuoli;
 
         this.humala = (double) arpoja.nextInt(51);
         this.rakko = (double) arpoja.nextInt(76);
-        this.asenne = (double) arpoja.nextInt(101);
+        this.asenne = (double) arpoja.nextInt(51);
     }
 
     /**
@@ -133,6 +143,34 @@ public class Inehmo {
         return this.selite;
     }
 
+    public boolean getHalukasPuhumaan() {
+        return this.halukasPuhumaan;
+    }
+
+    public InehmoEnum getSukupuoli() {
+        return this.sukupuoli;
+    }
+
+    public Sijainti getEdellinenSijainti() {
+        return this.edellinenSijainti;
+    }
+
+    public boolean getVosuus() {
+        return this.vosu;
+    }
+
+    public void setVosuus(boolean totuusarvo) {
+        this.vosu = totuusarvo;
+    }
+
+    public void setEdellinenSijainti(Sijainti sijainti) {
+        this.edellinenSijainti = sijainti;
+    }
+
+    public void setHalukasPuhumaan(boolean totuusarvo) {
+        this.halukasPuhumaan = totuusarvo;
+    }
+
     public void setSelite(String selite) {
         this.selite = selite;
     }
@@ -142,27 +180,41 @@ public class Inehmo {
         this.edellinenSuunta = suunta;
     }
 
+    /**
+     * Muutetaan humalaa niin että se pysyy välillä 0-100
+     *
+     * @param muutos on annettu muutos
+     */
     public void setHumala(double muutos) {
-        if (this.humala + muutos < 101 && this.humala + muutos > -1) {
-            this.humala = this.humala + muutos;
+        if (this.humala + muutos > 100) {
+            this.humala = 100;
+        } else if (this.humala + muutos < 0) {
+            this.humala = 0;
+        } else {
+            this.humala = humala + muutos;
         }
     }
 
     public void setRakko(double uusiArvo) {
         this.rakko = uusiArvo;
     }
-
+    
     /**
-     * Muutetaan asennetta (tai itsetuntoa, mikäli kyseessä on sankari), mikäli
-     * attribuutti pysyisi välillä 0...100
-     * @param muutos 
+     * Muutetaan asennetta (tai itsetuntoa, mikäli kyseessä on sankari). Jos
+     * muutos saisi arvon menemään yli 100:n tai alle 0:n, asetetaan arvo sen
+     * sijaan maksimi- tai minimiarvoonsa
+     *
+     * @param muutos on joko positiivinen tai negatiivinen luku
      */
     public void setAsenne(double muutos) {
-        if (this.asenne < 101 && muutos > 0) {
-            this.asenne += muutos;
-        } else if (muutos < 0 && this.asenne > 0) {
-            this.asenne += muutos;
-        } 
+        if (this.asenne + muutos > 100) {
+            this.asenne = 100;
+        } else if (this.asenne + muutos < 0) {
+            this.asenne = 0;
+        } else {
+            this.asenne = this.asenne + muutos;
+        }
+
     }
 
     public void setUlkomuoto(String ulkomuoto) {
@@ -180,7 +232,6 @@ public class Inehmo {
     public void setSijainti(Sijainti uusiSijainti) {
         this.sijainti = uusiSijainti;
     }
-    
     // tarkastamatta...eikä kenties tulekaan käyttöön
 //    @Override
 //    public boolean equals(Object obj) {

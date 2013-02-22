@@ -10,9 +10,12 @@ import Pubventure.enumit.InehmoEnum;
  */
 
 public class Tarjoilija extends Inehmo {
+    
+//    private InehmoEnum sukupuoli;
 
-    public Tarjoilija(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva) {
-        super(sijainti, ulkomuoto, tyyppi, liikkuva);
+    public Tarjoilija(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva, InehmoEnum sukupuoli) {
+        super(sijainti, ulkomuoto, tyyppi, liikkuva, sukupuoli);
+//        this.sukupuoli = sukupuoli;
     }
     
 }

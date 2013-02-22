@@ -1,10 +1,31 @@
+Olet tullut pubiin, eikä sinulla ole kuin kymppi rahaa. Naisesikin lähti nostelemaan
+jo ajat sitten, eikä itsetunnossasi ole kehumista. Mitähän tästä vielä tulee?
+
+
 Pelaajahahmoa (@) voi ohjata seuraavilla näppäimillä:
 
 Nuolinäppäimet	 = liikuttaa hahmoa vastaavaan suuntaan
 Numpad 		 = nuolinäppäimiä vastaavat näppäimet toimivat samalla tavalla
 Välilyönti	 = kuluttaa yhden vuoron tekemättä mitään
-Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi 		   suunnan mihin toiminto kohdistetaan, <Esc> palauttaa
+Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi suunnan mihin
+		   toiminto kohdistetaan, <Esc> palauttaa
 		   normaalitilaan
+
+Kaksivaiheiset komennot:
+
+(o)sta		= ostaa uuden oluen, mikäli annetussa suunnassa on baaritiski ja taskussa
+		  riittävästi rahaa
+(l)yö		= lyö jotain henkilöä, jos tilanne on äitynyt väkivaltaiseksi
+(k)use		= tyhjentää rakon, mikäli annetussa suunnassa on joko wc-pytty tai
+		  pisuaari
+(p)uhu		= kommunikoi muiden kanssa. Muuttaa näiden asennoitumista pelaajaan joko
+		  positiiviseen tai negatiiviseen suuntaan
+(j)uo		= ottaa hörpyn olutta. Ei onnistu, mikäli olutta ei ole, tai rakko on
+		  täynnä
+(t)utki		= ilmoittaa mitä annetussa suunnassa on. Mikäli suunnassa on joku henkilö,
+		  antaa tämän kuvauksen. Muuten saadaan kuvaus ko. paikasta, esim. lattia
+p(u)mmi		= yrittää pummia rahaa. Ei onnistu, ellei kohteen asenne pelaajaan ole
+		  riittävän hyvä
 
 Pelaajahahmolla on myös tiettyjä ominaisuuksia:
 
@@ -13,5 +34,6 @@ Itsetunto	= mitä suurempi itsetunto, sitä rohkeampaa kanssakäyminen
 Humala		= humala korreloi jossain määrin itsetunnon kanssa, mutta
 		  liian kova humala haittaa niin liikkumista kuin muutakin
 		  menoa
+Juomat		= paljonko on olutta desilitroina
 Rakko		= jossain vaiheessa on parempi käydä keventämässä
 Rahat		= lisää juotavaa on vaikea saada, mikäli on aivan p.a.

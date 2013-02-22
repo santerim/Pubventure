@@ -47,3 +47,9 @@
 17.2. 4h erilaisia kokeiluja logiikan suhteen, sekä toiminnallisuuden kasvatusta
 
 19.2. 5h kokeiluja, refaktorointia, lisää toiminnallisuutta ja dokumentoinnin päivitys
+
+20.2. 5h demotilaisuus laitoksella, säätöä
+
+21.2. 5h toiminnallisuuden kasvatusta ja refraktointia
+
+22.2. 5h -"-

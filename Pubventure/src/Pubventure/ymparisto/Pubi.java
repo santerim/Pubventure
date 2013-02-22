@@ -246,13 +246,13 @@ public class Pubi {
     public Inehmo luoInehmo(InehmoEnum tyyppi, Sijainti sijainti) {
         switch (tyyppi) {
             case SANKARI:
-                return new Sankari(sijainti, "@", InehmoEnum.SANKARI, true);
+                return new Sankari(sijainti, "@", InehmoEnum.SANKARI, true, InehmoEnum.MIES);
             case ASIAKAS:
                 return new Asiakas(sijainti, "a", InehmoEnum.ASIAKAS, true, arvoSukupuoli(), arvoIka());
             case PORTSARI:
-                return new Portsari(sijainti, "P", InehmoEnum.PORTSARI, false);
+                return new Portsari(sijainti, "P", InehmoEnum.PORTSARI, false, InehmoEnum.MIES);
             case TARJOILIJA:
-                return new Tarjoilija(sijainti, "t", InehmoEnum.TARJOILIJA, true);
+                return new Tarjoilija(sijainti, "t", InehmoEnum.TARJOILIJA, true, arvoSukupuoli());
         }
         return null;
     }

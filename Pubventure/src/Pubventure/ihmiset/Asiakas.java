@@ -12,21 +12,14 @@ import Pubventure.enumit.InehmoEnum;
 public class Asiakas extends Inehmo {
 
     /**
-     * Sukupuolimuuttuja InehmoEnumina
-     * @see Pubventure.enumit.InehmoEnum
-     */
-    private InehmoEnum sukupuoli;
-    
-    /**
      * Ikämuuttuja InehmoEnumina
      * @see Pubventure.enumit.InehmoEnum
      */
     private InehmoEnum ika;
     
     public Asiakas(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva, InehmoEnum sukupuoli, InehmoEnum ika) {
-        super(sijainti, ulkomuoto, tyyppi, liikkuva);
-        
-        this.sukupuoli = sukupuoli;
+        super(sijainti, ulkomuoto, tyyppi, liikkuva, sukupuoli);
+
         this.ika = ika;
         
         /**
@@ -34,7 +27,7 @@ public class Asiakas extends Inehmo {
          * ulkomuodolla. Nainen on "n" ja mies "m". Mitä nuorempi, sitä
          * vaaleampi väri.
          */
-        if (this.sukupuoli.equals(InehmoEnum.NAINEN)) {
+        if (super.getSukupuoli().equals(InehmoEnum.NAINEN)) {
             if (this.ika.equals(InehmoEnum.NUORI)) {
                 setUlkonako("<font color='#FFB6C1'>n</font>");
                 super.setSelite("nuori nainen");
@@ -47,7 +40,7 @@ public class Asiakas extends Inehmo {
             }
         }
         
-        if (this.sukupuoli.equals(InehmoEnum.MIES)) {
+        if (super.getSukupuoli().equals(InehmoEnum.MIES)) {
             if (this.ika.equals(InehmoEnum.NUORI)) {
                 setUlkonako("<font color='#87CEFA'>m</font>");
                 super.setSelite("nuori mies");
@@ -65,9 +58,5 @@ public class Asiakas extends Inehmo {
     
     private void setUlkonako(String ulkonako) {
         super.setUlkomuoto(ulkonako);
-    }
-    
-    public InehmoEnum getSukupuoli() {
-        return this.sukupuoli;
     }
 }

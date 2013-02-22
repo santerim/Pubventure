@@ -41,6 +41,14 @@ public class NappaimistonKuuntelija implements KeyListener {
                 kl.valitaKomento(KomentoEnum.LANSI);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) {
                 kl.valitaKomento(KomentoEnum.POHJOINEN);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+                kl.valitaKomento(KomentoEnum.KOILLINEN);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+                kl.valitaKomento(KomentoEnum.KAAKKO);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+                kl.valitaKomento(KomentoEnum.LOUNAS);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+                kl.valitaKomento(KomentoEnum.LUODE);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) {
                 kl.valitaKomento(KomentoEnum.ITA);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) {
@@ -51,12 +59,17 @@ public class NappaimistonKuuntelija implements KeyListener {
                 kl.valitaKomento(KomentoEnum.ODOTUS);
             } else if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                 kl.valitaKomento(KomentoEnum.OHJE);
+            } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                kl.valitaKomento(KomentoEnum.PERU);
             }
 
             /**
-             * mikäli annettu komento on kaksivaiheinen, rajoitetaan sallittuja
+             * Mikäli annettu komento on kaksivaiheinen, rajoitetaan sallittuja
              * näppäinkomentoja ja otetaan annettu komento muuttujaan talteen
-             * odottamaan suuntakomentoa
+             * odottamaan suuntakomentoa.
+             * Logiikalle välitetään SUUNTA, joka
+             * aiheuttaa suunnanantokehotuksen tulostamisen.
+             * 
              */
             if (ke.getKeyCode() == KeyEvent.VK_O) {
                 komento = KomentoEnum.OSTA;
@@ -85,9 +98,13 @@ public class NappaimistonKuuntelija implements KeyListener {
                 komento = KomentoEnum.TUTKI;
                 setOdotetaanSuuntaKomentoa(true);
                 kl.valitaKomento(KomentoEnum.SUUNTA);
-            } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//                kl.valitaKomento(KomentoEnum.PERU);
+            } else if (ke.getKeyCode() == KeyEvent.VK_V) {
+                komento = KomentoEnum.VONKAA;
+                setOdotetaanSuuntaKomentoa(true);
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             }
+
+
             //            else if (ke.getKeyCode() == KeyEvent.VK_A) {
 //                komento = KomentoEnum.ANNA;
 //                setOdotetaanSuuntaKomentoa(true);
@@ -101,28 +118,44 @@ public class NappaimistonKuuntelija implements KeyListener {
          */
         if (odotetaanSuuntaKomentoa) {
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
-                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.POHJOINEN);
                 setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.POHJOINEN);
             } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ITA);
                 setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ITA);
             } else if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
-                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ETELA);
                 setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ETELA);
             } else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.LANSI);
                 setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.LANSI);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+                setOdotetaanSuuntaKomentoa(false);
                 kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.POHJOINEN);
-                setOdotetaanSuuntaKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+                setOdotetaanSuuntaKomentoa(false);
                 kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ITA);
-                setOdotetaanSuuntaKomentoa(false);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD2) {
-                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ETELA);
                 setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.ETELA);
             } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD4) {
+                setOdotetaanSuuntaKomentoa(false);
                 kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.LANSI);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+                setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.KOILLINEN);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD3) {
+                setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.KAAKKO);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD1) {
+                setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.LOUNAS);
+            } else if (ke.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+                setOdotetaanSuuntaKomentoa(false);
+                kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.LUODE);
+            } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                setOdotetaanSuuntaKomentoa(false);
+            } else if (ke.getKeyCode() == KeyEvent.VK_SPACE) {
                 setOdotetaanSuuntaKomentoa(false);
             }
         }
