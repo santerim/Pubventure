@@ -3,4 +3,6 @@
 
 Pubventure - heteronormatiivinen pubiseikkailu
 
-Powered by Nobelaner Premium Pils
+Achtung!
+pubi.txt:n täytyy olla samassa kansiossa .jar:in kanssa,
+jotta jälkimmäisen voi ajaa komentoriviltä.
