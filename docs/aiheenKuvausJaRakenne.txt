@@ -1,11 +1,33 @@
-Aihe: Eräänlainen survival-peli pubiympäristössä.
+Olet tullut pubiin, eikä sinulla ole kuin kymppi rahaa. Naisesikin lähti nostelemaan
+jo ajat sitten, eikä itsetunnossasi ole kehumista. Mitähän tästä vielä tulee?
 
-Tarkoitus on ainakin aluksi toteuttaa tämä vain miesnäkökulmasta ja pelkästään merkkigrafiikalla.
+Aihe on siis eräänlainen survival-peli pubiympäristössä, toteutettuna merkkigrafiikalla
+Rogue/Nethack-peligenren mukaisesti.
 
-Pelissä olisi tarkoitus kerätä mahdollisimman suuri pistesaalis yhdestä baari-illasta
-juomalla, vonkaamalla naisia ja muilla tavoin. Pistemenetyksiin johtavat oksentelut, (hävityt)
-tappelut, ulosheitetyksi tuleminen yms.
+Pelissä menestyminen edellyttää sinnikästä ihmisten pehmittelyä puhumalla, jotta saa
+pummattua lisää rahaa. Pienellä onnella voi myös saada jonkun naisen lähtemään mukaan.
 
 Käyttäjät: Kuka nyt vain haluaakin kokeilla.
 
-Pelaajan toiminnot: Liikkuminen pubissa, juomien ostaminen ja juominen, abstrakti keskustelu, rakon tyhjentäminen
+Pelaajan toiminnot: Liikkuminen pubissa, juomien ostaminen ja juominen, abstrakti keskustelu, rakon tyhjentäminen, pummaus, henkilöiden ja ympäristön katselu.
+
+Rakenne:
+
+Ohjelman rakenne on sinänsä varsin yksinkertainen:
+
+- main-metodin suoritus lähinnä vain vie hallinnan Logiikka-luokalle
+
+- Logiikka puolestaan luo ensin peliympäristön kutsumalla Pubi-luokkaa ja sen metodeja. Pubi-luokka puolestaan luo sekä objekteista koostuvan peliympäristön, että pelin ihmishahmot omien hahmoluokkiensa olioina
+- Tämän jälkeen Logiikka käynnistää Kayttoliittyma-luokan, joka puolestaan luo graafisen ympäristön ja liittää siihen näppäimistön kuuntelijan
+
+- Koska fokus on nyt uudessa ikkunassamme, kaikki pelin tapahtumat juontuvat siitä mitä käyttäjä tekee, ts. mitä näppäimiä hän painaa ja milloin
+- Kaikki näppäinkomennot välitetään Kayttoliittyma-luokan kautta Logiikalle, missä ne käsitellään
+- Käytännössä kaikki varsinainen pelimekaniikka on Logiikka-luokan alla
+
+- Tapahtumien koordinoinnissa käytetään hyväksi Sijainti-luokkaa, jonka oliot ovat jokaisen ihmishahmon attribuutteina, ja jota hyväksikäyttäen ylipäätään selvitetään mitä on ja missä
+
+- Kaikki komennot ovat enumeja, joita välitetään metodilta toiselle. Myös ihmishahmojen ominaisuuksilla (ikä, sukupuoli, rooli) on oma enuminsa erillisessä luokassaan, kuten myös ympätistöstä vastaavilla Pubiobjekteilla, joista kenttä koostuu.
+
+- Piirtotapahtumat tapahtuvat Logiikka-luokasta käsin kutsumalla Kayttoliittyma-luokan metodeja sopivin parametrein
+
+- Eri tilanteisiin sallittavia näppäinkomentoja kontrolloidaan manipuloimalla NappaimistonKuuntelija-luokan muuttujia

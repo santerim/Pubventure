@@ -46,39 +46,8 @@ public class Logiikka {
      */
     public void aloita() {
         this.kl = new Kayttoliittyma(pubi, inehmot, sankari, this);
-        setViestiKentanSisalto(KomentoEnum.LIIKE, "");
+        kl.setViestiKentanSisalto(KomentoEnum.LIIKE, " ");
         SwingUtilities.invokeLater(kl);
-    }
-
-    /**
-     * Viestikentän tavanomaisten selitetekstien muutokset Kayttoliittyma-
-     * luokkaa hyödyntäen.
-     *
-     * @see
-     * Pubventure.gui.Kayttoliittyma#setViestiKentanSisalto(java.lang.String)
-     *
-     * @param komento Enum, joka määrittää mikä teksti viestikenttään laitetaan
-     */
-    public void setViestiKentanSisalto(KomentoEnum komento, String syote) {
-        switch (komento) {
-            case ODOTUS:
-                kl.setViestiKentanSisalto("Odotat hetken");
-                break;
-            case OHJE:
-                kl.naytaOhjeet();
-                break;
-            case LIIKE:
-                kl.setViestiKentanSisalto("Liiku, anna komento, tai paina &lt;Enter&gt; näyttääksesi ohjeet");
-                break;
-            case SUUNTA:
-                kl.setViestiKentanSisalto("Anna suunta tai &lt;esc&gt; &#47; &lt;space&gt; peruaksesi");
-                break;
-            case PERU:
-                setViestiKentanSisalto(KomentoEnum.LIIKE, "");
-                break;
-            case VIESTI:
-                kl.setViestiKentanSisalto(syote);
-        }
     }
 
     /**
@@ -94,7 +63,7 @@ public class Logiikka {
                 || komento == KomentoEnum.KOILLINEN || komento == KomentoEnum.KAAKKO
                 || komento == KomentoEnum.LOUNAS || komento == KomentoEnum.LUODE
                 || komento == KomentoEnum.ODOTUS) {
-            setViestiKentanSisalto(KomentoEnum.LIIKE, "");
+            kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
             kasitteleLiikekomento(komento, inehmot.get(0));
 
         }
@@ -107,14 +76,14 @@ public class Logiikka {
              */
             case SUUNTA:
                 if (komento == KomentoEnum.SUUNTA) {
-                    setViestiKentanSisalto(KomentoEnum.SUUNTA, "");
+                    kl.setViestiKentanSisalto(KomentoEnum.SUUNTA, "");
                 }
                 break;
             case ODOTUS:
-                setViestiKentanSisalto(KomentoEnum.ODOTUS, "");
+                kl.setViestiKentanSisalto(KomentoEnum.ODOTUS, "");
                 break;
             case OHJE:
-                setViestiKentanSisalto(KomentoEnum.OHJE, "");
+                kl.setViestiKentanSisalto(KomentoEnum.OHJE, "");
                 return;
             case JUO:
                 if (sankari.getOnkoRakkoTaynna()) {
@@ -132,7 +101,7 @@ public class Logiikka {
                 break;
             case PERU:
                 kl.kirjoitaPelaajanTiedot();
-                setViestiKentanSisalto(KomentoEnum.LIIKE, "");
+                kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
                 return;
         }
         paivita();
@@ -158,10 +127,6 @@ public class Logiikka {
             case OSTA:
                 komentoOsta(sijainti);
                 break;
-//            case LYO:
-//                // tämä ominaisuus ei vielä käytössä
-//                setViestiKentanSisalto(KomentoEnum.VIESTI, "Nyt ei tunnu sopivalta hetkeltä alkaa tapella");
-//                break;
             case KUSE:
                 komentoKuse(sijainti);
                 break;
@@ -175,7 +140,7 @@ public class Logiikka {
                 komentoTutki(kohde, sijainti);
                 break;
             case PERU:
-                setViestiKentanSisalto(KomentoEnum.LIIKE, "");
+                kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
                 break;
             case VONKAA:
                 komentoVonkaa(kohde);
@@ -196,17 +161,17 @@ public class Logiikka {
             kerroMikaHatana();
         } else {
             if (pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.TISKI) {
-                if (sankari.setRahat(-5)) {
+                if (sankari.maksa(-5)) {
                     sankari.setJuomat(5);
                     kl.kirjoitaPelaajanTiedot();
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Ostit oluen!");
+                    kl.setViestiKentanSisalto("Ostit oluen!");
                     paivita();
                 } else {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Sinulla ei ole varaa!");
+                    kl.setViestiKentanSisalto("Sinulla ei ole varaa!");
                 }
 
             } else {
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Et ole baaritiskillä.");
+                kl.setViestiKentanSisalto("Et ole baaritiskillä.");
             }
         }
     }
@@ -225,9 +190,9 @@ public class Logiikka {
                 sankari.setRakko(0);
                 sankari.setRakkoTaynna(false);
                 paivita();
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Aaahh...");
+                kl.setViestiKentanSisalto(KomentoEnum.VIESTI, "Aaahh...");
             } else {
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Nyt ei vielä oikein irtoa.");
+                kl.setViestiKentanSisalto(KomentoEnum.VIESTI, "Nyt ei vielä oikein irtoa.");
             }
         }
     }
@@ -243,19 +208,18 @@ public class Logiikka {
             kerroMikaHatana();
         } else {
             if (kohde == null) {
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Ei siinä ole ketään.");
+                kl.setViestiKentanSisalto("Ei siinä ole ketään.");
             } else if (kohde.getTyyppi().equals(InehmoEnum.PORTSARI)) {
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Taitaa olla huono idea.");
+                kl.setViestiKentanSisalto("Taitaa olla huono idea.");
             } else {
                 if (kohde.getAsenne() > 90) {
-                    if (sankari.setRahat(5)) {
-                        setViestiKentanSisalto(KomentoEnum.VIESTI, "Sait pummittua vitosen!");
-                        kohde.setAsenne(-70);
-                        kl.kirjoitaPelaajanTiedot();
-                        paivita();
-                    }
+                    sankari.otaRahaaVastaan(5);
+                    kl.setViestiKentanSisalto("Sait pummittua vitosen!");
+                    kohde.setAsenne(-70);
+                    kl.kirjoitaPelaajanTiedot();
+                    paivita();
                 } else {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Eipä onnistunut.<br>Kenties sinun pitäisi yrittää vaikuttaa häneen jotenkin?");
+                    kl.setViestiKentanSisalto("Eipä onnistunut.<br>Kenties sinun pitäisi yrittää vaikuttaa häneen jotenkin?");
                     paivita();
                 }
             }
@@ -277,10 +241,10 @@ public class Logiikka {
         } else {
             if (kohde == null) {
                 // jos ketään ei ole annetussa suunnassa
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Puhut itseksesi.");
+                kl.setViestiKentanSisalto("Puhut itseksesi.");
             } else if (kohde.getTyyppi().equals(InehmoEnum.PORTSARI)) {
                 // jos yritetään puhua portsarille
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Portsaria ei tunnu kiinnostavan mitä sinulla on sanottavana.");
+                kl.setViestiKentanSisalto("Portsaria ei tunnu kiinnostavan mitä sinulla on sanottavana.");
             } else {
                 // mikäli kohteen asenne on yli 10, eli halukas puhumaan...
                 if (kohde.getHalukasPuhumaan()) {
@@ -291,7 +255,7 @@ public class Logiikka {
                     if (reaktio > 4) {
                         kohde.setAsenne(arpoja.nextInt(30) - (vertailuluku / 10));
                         String vastaus = "Keskustelu sujuu hyvin<br>" + kohde.getAsenneKuvaus();
-                        setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
+                        kl.setViestiKentanSisalto(vastaus);
                     } // jos arvottu reaktio on huono
                     else {
                         // muutetaan asennetta
@@ -299,19 +263,19 @@ public class Logiikka {
                         // jos kyseessä on mies ja asenne on yhä yli 10
                         if (kohde.getSukupuoli().equals(InehmoEnum.MIES) && kohde.getAsenne() > 10) {
                             String vastaus = "Ette oikein löydä yhteistä säveltä.<br>" + kohde.getAsenneKuvaus();
-                            setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
+                            kl.setViestiKentanSisalto(vastaus);
                         } // jos kyseessä on nainen ja asenne on yhä yli 10
                         else if (kohde.getSukupuoli().equals(InehmoEnum.NAINEN) && kohde.getAsenne() > 10) {
                             String vastaus = "Kemianne eivät oikein kohtaa.<br>" + kohde.getAsenneKuvaus();
-                            setViestiKentanSisalto(KomentoEnum.VIESTI, vastaus);
+                            kl.setViestiKentanSisalto(vastaus);
                         }
                         if (kohde.getAsenne() <= 10) {
                             kohde.setHalukasPuhumaan(false);
-                            setViestiKentanSisalto(KomentoEnum.VIESTI, "Hän kääntyy poispäin.");
+                            kl.setViestiKentanSisalto("Hän kääntyy poispäin.");
                         }
                     }
                 } else {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Hän ei halua puhua kanssasi.");
+                    kl.setViestiKentanSisalto("Hän ei halua puhua kanssasi.");
                 }
 
             }
@@ -336,9 +300,9 @@ public class Logiikka {
                     break;
                 }
             }
-            setViestiKentanSisalto(KomentoEnum.VIESTI, selite);
+            kl.setViestiKentanSisalto(selite);
         } else {
-            setViestiKentanSisalto(KomentoEnum.VIESTI, selite + pubi.getObjekti(sijainti).getSelite());
+            kl.setViestiKentanSisalto(selite + pubi.getObjekti(sijainti).getSelite());
         }
     }
 
@@ -360,24 +324,25 @@ public class Logiikka {
                     int satunnaisluku = arpoja.nextInt(2);
                     if (satunnaisluku == 1 && kohde.getAsenne() == 100) {
                         kohde.setVosuus(true);
+                        sankari.setVosu(kohde);
                         sankari.setAsenne(100);
-                        setViestiKentanSisalto(KomentoEnum.VIESTI, "No niin, nainen lähtee mukaasi! Tämähän alkaa näyttää hyvältä.");
+                        kl.setViestiKentanSisalto("No niin, nainen lähtee mukaasi! Tämähän alkaa näyttää hyvältä.");
                     } else {
                         kohde.setAsenne(-20);
-                        setViestiKentanSisalto(KomentoEnum.VIESTI, "Nainen näyttää harmistuvan lähentelystäsi.");
+                        kl.setViestiKentanSisalto("Nainen näyttää harmistuvan lähentelystäsi.");
                     }
                 } else if (kohde.getSukupuoli().equals(InehmoEnum.NAINEN)
                         && kohde.getTyyppi().equals(InehmoEnum.ASIAKAS)
                         && sankari.getAsenne() < 90) {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Sinulla ei ole tarpeeksi rohkeutta.");
+                    kl.setViestiKentanSisalto("Sinulla ei ole tarpeeksi rohkeutta.");
                 } else if (kohde.getSukupuoli().equals(InehmoEnum.MIES)) {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Mietit asiaa hetken kunnes tunnet halua juoda lisää olutta<br> pyyhkiäksesi ajatuksen mielestäsi.");
+                    kl.setViestiKentanSisalto("Mietit asiaa hetken kunnes tunnet halua juoda lisää olutta<br> pyyhkiäksesi ajatuksen mielestäsi.");
                 } else {
-                    setViestiKentanSisalto(KomentoEnum.VIESTI, "Tuntuu huonolta idealta.");
+                    kl.setViestiKentanSisalto("Tuntuu huonolta idealta.");
                 }
                 paivita();
             } else {
-                setViestiKentanSisalto(KomentoEnum.VIESTI, "Jotain tuntuu puuttuvan. Kenties kohde?");
+                kl.setViestiKentanSisalto("Jotain tuntuu puuttuvan. Kenties kohde?");
             }
         }
     }
@@ -396,10 +361,10 @@ public class Logiikka {
     }
 
     /**
-     * Kertoo miksi toiminto ei onnistu
+     * Kertoo miksi toiminto ei onnistu (rakko on täynnä)
      */
     private void kerroMikaHatana() {
-        setViestiKentanSisalto(KomentoEnum.VIESTI, "Sinua kusettaa ihan liikaa!");
+        kl.setViestiKentanSisalto("Sinua kusettaa ihan liikaa!");
     }
 
     /**
@@ -411,13 +376,10 @@ public class Logiikka {
         if (!kl.getNappaimistonKuuntelija().getOdotetaanSuuntaKomentoa()) {
             liikutaHahmoja();
         }
-
         //päivitetään sankarin muuttujia, kuten humala, rakko jne
         sankari.paivitaMuuttujat();
-
         //kirjoitetaan pelaajan tiedot
         kl.kirjoitaPelaajanTiedot();
-
         //päivitetään pelikentän ulkonäkö
         kl.piirraAlue();
     }
@@ -450,7 +412,6 @@ public class Logiikka {
                     } else {
                         inehmo.setSijainti(sankari.getEdellinenSijainti());
                     }
-
                 }
             }
         }
@@ -462,9 +423,17 @@ public class Logiikka {
      * ehdoista ei täyty, muutetaan ko. inehmon sijaintia. Poikkeuksen tekee
      * komento-enum ODOTUS, joka ei muuta sijaintia mitenkään.
      *
+     * @see
+     * Pubventure.Logiikka#annaSijaintiHalutussaSuunnassa(Pubventure.enumit.KomentoEnum,
+     * Pubventure.ihmiset.Inehmo)
+     * @see Pubventure.Logiikka#onkoSiinaJoku(Pubventure.Sijainti)
+     * @see Pubventure.Logiikka#tormaakoEsteeseen(Pubventure.Sijainti)
+     * @see
+     * Pubventure.Logiikka#etsiInehmoAnnetussaSijainnissa(Pubventure.Sijainti)
+     *
      * @param komento on halutun liikkumissuunnan komentoenum
      */
-    public void kasitteleLiikekomento(KomentoEnum komento, Inehmo inehmo) {
+    private void kasitteleLiikekomento(KomentoEnum komento, Inehmo inehmo) {
         if (komento != KomentoEnum.ODOTUS) {
             Sijainti sijaintiAnnetussaSuunnassa = annaSijaintiHalutussaSuunnassa(komento, inehmo);
             boolean suunnassaOnJoku = onkoSiinaJoku(sijaintiAnnetussaSuunnassa);
@@ -484,6 +453,29 @@ public class Logiikka {
                     }
                 }
             }
+            // tutkitaan sankarin kohdalla ollaanko uloskäynnissä
+            if (inehmo.getSankaruus()) {
+                ollaankoUloskaynnissa(inehmo, sijaintiAnnetussaSuunnassa);
+            }
+        }
+    }
+
+    /**
+     * Apumetodi metodille kasitteleLiikekomento. Hoitaa uloskäynnin toiminnot,
+     * eli pelin lopetusrutiinien käynnistämisen, tai vaihtoehtoisesti estää
+     * lähtemästä jos on vielä juomia jäljellä.
+     * @param inehmo on sankarimme
+     * @param sijaintiAnnetussaSuunnassa on suunta johon edettiin
+     */
+    private void ollaankoUloskaynnissa(Inehmo inehmo, Sijainti sijaintiAnnetussaSuunnassa) {
+        if (pubi.getObjekti(sijaintiAnnetussaSuunnassa).getTyyppi().equals(PubiobjektiEnum.ULOSKAYNTI)) {
+            if (sankari.getJuomat() > 0) {
+                kl.setViestiKentanSisalto("Portsari: <i>Hei! Eipäs viedä juomia pihalle!</i>");
+            } else {
+                kl.getNappaimistonKuuntelija().setOdotetaanKyllaVaiEiKysymysta(true);
+                kl.setViestiKentanSisalto("Lopeta peli? &#40;K &#47; E&#41;<br>");
+            }
+
         }
     }
 
@@ -493,7 +485,7 @@ public class Logiikka {
      * @param sijainti on tutkittava sijainti
      * @return palauttaa true, mikäli inehmo löytyi
      */
-    public Inehmo etsiInehmoAnnetussaSijainnissa(Sijainti sijainti) {
+    private Inehmo etsiInehmoAnnetussaSijainnissa(Sijainti sijainti) {
         for (Inehmo inehmo : inehmot) {
             if (inehmo.getSijainti().equals(sijainti)) {
                 return inehmo;

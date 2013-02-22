@@ -39,6 +39,8 @@ public class Sankari extends Inehmo {
      * Itsetunto vaikuttaa joidenkin toimintojen onnistumismahdollisuuksiin
      */
     private double itsetunto;
+    
+    private Inehmo vosu;
 
     public Sankari(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva, InehmoEnum sukupuoli) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva, sukupuoli);
@@ -94,6 +96,14 @@ public class Sankari extends Inehmo {
         return this.rakkoTaynna;
     }
 
+    public Inehmo getVosu() {
+        return this.vosu;
+    }
+    
+    public void setVosu(Inehmo vosu) {
+        this.vosu = vosu;
+    }
+    
     public void setJuomatVatsassa(int muutos) {
         this.juomatVatsassa += muutos;
     }
@@ -104,13 +114,17 @@ public class Sankari extends Inehmo {
      * @param muutos on muutosarvo, voi olla negatiivinen
      * @return palauttaa true jos muutos onnistui, eli ei menty miinukselle
      */
-    public boolean setRahat(double muutos) {
-        if (rahat + muutos < 0) {
+    public boolean maksa(double muutos) {
+        if (this.rahat + muutos < 0) {
             return false;
         } else {
-            rahat = rahat + muutos;
+            this.rahat = rahat + muutos;
             return true;
         }
+    }
+    
+    public void otaRahaaVastaan(double rahat) {
+        this.rahat = this.rahat + rahat;
     }
 
     public void setJuomat(int juomat) {

@@ -14,7 +14,9 @@ public class NappaimistonKuuntelija implements KeyListener {
 
     Kayttoliittyma kl;
     KomentoEnum komento;
-    private boolean odotetaanSuuntaKomentoa = false;
+    private boolean odotetaanSuuntaKomentoa;
+    private boolean odotaKyllaVaiEiKysymysta;
+    private boolean loppu;
 
     public NappaimistonKuuntelija(Kayttoliittyma kl) {
         this.kl = kl;
@@ -27,10 +29,21 @@ public class NappaimistonKuuntelija implements KeyListener {
     @Override
     public void keyPressed(KeyEvent ke) {
         /**
+         * Jos peli on loppu..
+         */
+        if (loppu) {
+            if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                kl.getPiirtaja().dispose();
+            }
+        }
+        
+        /**
          * jos ollaan ns. normaalitilassa, kuunnellaan tavanomaisia
          * näppäinkomentoja
          */
-        if (!odotetaanSuuntaKomentoa) {
+        if (!odotetaanSuuntaKomentoa 
+                && !odotaKyllaVaiEiKysymysta
+                && !loppu) {
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
                 kl.valitaKomento(KomentoEnum.POHJOINEN);
             } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -116,7 +129,9 @@ public class NappaimistonKuuntelija implements KeyListener {
          * eteenpäin. Muutetaan muuttujan arvoa niin, että näppäinkomentojen
          * vastaanottaminen toimii taas normaalisti.
          */
-        if (odotetaanSuuntaKomentoa) {
+        if (odotetaanSuuntaKomentoa 
+                && !odotaKyllaVaiEiKysymysta
+                && !loppu) {
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
                 setOdotetaanSuuntaKomentoa(false);
                 kl.valitaKaksivaiheinenKomento(komento, KomentoEnum.POHJOINEN);
@@ -159,17 +174,37 @@ public class NappaimistonKuuntelija implements KeyListener {
                 setOdotetaanSuuntaKomentoa(false);
             }
         }
+        
+        if (odotaKyllaVaiEiKysymysta && !loppu) {
+            if (ke.getKeyCode() == KeyEvent.VK_K) {
+                kl.loppu();
+            } else if (ke.getKeyCode() == KeyEvent.VK_E) {
+                setOdotetaanKyllaVaiEiKysymysta(false);
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
     }
 
-    public void setOdotetaanSuuntaKomentoa(boolean trueTaiFalse) {
-        this.odotetaanSuuntaKomentoa = trueTaiFalse;
+    public void setOdotetaanSuuntaKomentoa(boolean totuusarvo) {
+        this.odotetaanSuuntaKomentoa = totuusarvo;
+    }
+    
+    public void setOdotetaanKyllaVaiEiKysymysta(boolean totuusarvo) {
+        this.odotaKyllaVaiEiKysymysta = totuusarvo;
     }
 
     public boolean getOdotetaanSuuntaKomentoa() {
         return this.odotetaanSuuntaKomentoa;
+    }
+    
+    public boolean getOdotetaanKyllaVaiEiKysymysta() {
+        return this.odotaKyllaVaiEiKysymysta;
+    }
+    
+    public void setLoppu(boolean totuusarvo) {
+        this.loppu = totuusarvo;
     }
 }

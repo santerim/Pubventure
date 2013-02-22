@@ -59,4 +59,8 @@ public class Asiakas extends Inehmo {
     private void setUlkonako(String ulkonako) {
         super.setUlkomuoto(ulkonako);
     }
+    
+    public InehmoEnum getIka() {
+        return this.ika;
+    }
 }

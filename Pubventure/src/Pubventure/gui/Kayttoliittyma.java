@@ -2,7 +2,9 @@ package Pubventure.gui;
 
 import Pubventure.Logiikka;
 import Pubventure.Sijainti;
+import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.KomentoEnum;
+import Pubventure.ihmiset.Asiakas;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ihmiset.Sankari;
 import Pubventure.ymparisto.Pubi;
@@ -170,17 +172,96 @@ public class Kayttoliittyma implements Runnable {
         setTietoKentanSisalto("<html><table cellpadding='10'><br>"
                 + "Itsetunto: " + (int) sankari.getAsenne() + "<br>"
                 + "Humala: " + (int) sankari.getHumala() + "<br>"
-                + "Juomat: " + (int) sankari.getJuomat() + "<br>"
+                + "Juomat: " + (int) sankari.getJuomat() + " dl<br>"
                 + "Rakko: " + (int) sankari.getRakko() + "<br>"
                 + "Rahaa: " + (int) sankari.getRahat() + "&euro;"
                 + "</table></html>");
     }
 
+    /**
+     * Hoitaa loppurutiinit
+     */
     public void loppu() {
+        setPeliKentanSisalto("");
+
         sb.setLength(0);
-        setPeliKentanSisalto(null);
+        sb.append("<html><table cellpadding='10'>Ja niin ilta päättyi.<br>");
+
+        int pisteet = 0;
+        pisteet += sankari.getRahat();
+
+        boolean rahaaJaiEnemman;
+        if (sankari.getRahat() > 10) {
+            sb.append("Sinulle jäi enemmän rahaa kuin oli tullessa,<br>");
+            rahaaJaiEnemman = true;
+        } else {
+            sb.append("Olet kokolailla rahaton,");
+            rahaaJaiEnemman = false;
+        }
+
+        if (sankari.getHumala() < 25) {
+            if (rahaaJaiEnemman) {
+                sb.append("mutta olet jokseenkin selvinpäin.<br>");
+            } else {
+                sb.append("ja selvinpäin.<br>Kuinka ikävää.<br>");
+            }
+        } else if (sankari.getHumala() >= 25 && sankari.getHumala() < 40) {
+            if (rahaaJaiEnemman) {
+                sb.append("ja olet vieläpä mukavassa laitamyötäisessä.<br>");
+                pisteet += 33;
+            } else {
+                sb.append("mutta mukavassa laitamyötäisessä.<br>");
+                pisteet += 33;
+            }
+        } else if (sankari.getHumala() >= 40
+                && sankari.getHumala() < 85) {
+            if (rahaaJaiEnemman) {
+                sb.append("ja olet mukavassa humalassa.<br>");
+                pisteet += 50;
+            } else {
+                sb.append("mutta silti mukavassa humalassa.<br>");
+                pisteet += 50;
+            }
+        } else {
+            if (rahaaJaiEnemman) {
+                sb.append("ja olet aivan hirveässä kännissä.<br>");
+                pisteet += 15;
+            } else {
+                sb.append("mutta silti aivan hirveässä kännissä.<br>");
+                pisteet += 15;
+            }
+        }
+
+        Asiakas vosu = (Asiakas) sankari.getVosu();
+        int naisenPisteet = 0;
+        if (vosu != null) {
+            sb.append("Löysit myös itsellesi seuraa, nimittäin<br>");
+            if (vosu.getIka().equals(InehmoEnum.NUORI)) {
+                naisenPisteet += 100;
+                sb.append("nuoren naisen.<br>");
+            } else if (vosu.getIka().equals(InehmoEnum.KESKIIKAINEN)) {
+                naisenPisteet += 66;
+                sb.append("keski-ikäisen naisen.<br>");
+            } else if (vosu.getIka().equals(InehmoEnum.NUORI)) {
+                naisenPisteet += 33;
+                sb.append("vanhan naisen.<br>Makuasioista ei voine kiistellä.");
+            }
+        }
+        if (!rahaaJaiEnemman && naisenPisteet > 0) {
+            sb.append("Sinulla ei kuitenkaan ollut varaa taksiin,<br>"
+                    + "joten naisesi häipyi yöhön. Harmi.");
+
+        } else if (rahaaJaiEnemman && naisenPisteet > 0) {
+            sb.append("Otit taksin asunnollesi ja maistoit piparia.<br>");
+            pisteet += naisenPisteet;
+        }
+        sb.append("Pisteet: ").append(pisteet).append("</table></html>");
+        
+        setPeliKentanSisalto(sb.toString());
+        setViestiKentanSisalto("Paina &lt;esc&gt; lopettaaksesi.");
+        kuuntelija.setLoppu(true);
     }
-    
+
     /**
      *
      * Välittää näppäinkomentojen syötteen eteenpäin Logiikka-luokalle
@@ -209,7 +290,7 @@ public class Kayttoliittyma implements Runnable {
      * Sijainti-olio
      */
     public void valitaKaksivaiheinenKomento(KomentoEnum komento, KomentoEnum suunta) {
-                logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
+        logiikka.kasitteleKaksivaiheinenKomento(komento, logiikka.annaSijaintiHalutussaSuunnassa(suunta, sankari));
     }
 
     public Piirtaja getPiirtaja() {
@@ -236,6 +317,28 @@ public class Kayttoliittyma implements Runnable {
         piirtaja.viestiLabel.setText("<html><table cellpadding='10'>"
                 + sisalto
                 + "</table></html>");
+    }
+
+    public void setViestiKentanSisalto(KomentoEnum komento, String syote) {
+        switch (komento) {
+            case ODOTUS:
+                setViestiKentanSisalto("Odotat hetken");
+                break;
+            case OHJE:
+                naytaOhjeet();
+                break;
+            case LIIKE:
+                setViestiKentanSisalto("Liiku, anna komento, tai paina &lt;Enter&gt; näyttääksesi ohjeet");
+                break;
+            case SUUNTA:
+                setViestiKentanSisalto("Anna suunta tai &lt;esc&gt; &#47; &lt;space&gt; peruaksesi");
+                break;
+            case PERU:
+                setViestiKentanSisalto(KomentoEnum.LIIKE, "");
+                break;
+//            case VIESTI:
+//                setViestiKentanSisalto(syote);
+        }
     }
 
     public void setTietoKentanSisalto(String sisalto) {
