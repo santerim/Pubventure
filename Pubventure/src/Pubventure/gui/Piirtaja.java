@@ -39,6 +39,7 @@ public class Piirtaja extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pubventure - santerim@cs.helsinki.fi");
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
         kenttaPaneeli.setBackground(new java.awt.Color(0, 0, 0));
 
