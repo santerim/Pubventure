@@ -33,6 +33,6 @@ Rohkeus		= naisten lähestyminen pariutumistarkoituksessa vaatii rohkeutta
 Humala		= olet pubissa ja tarkoituksesi on tulla humalaan. Humala korreloi jossain
 		  määrin rohkeuden kanssa
 Juomat		= paljonko sinulla on olutta desilitroina
-Rakko		= täysi rakko haittaa muita aktiviteetteja0
+Rakko		= täysi rakko haittaa muita aktiviteetteja
 Rahat		= ei, et voi ostaa velaksi
 
