@@ -9,10 +9,13 @@ import Pubventure.ihmiset.Inehmo;
 import Pubventure.ihmiset.Portsari;
 import Pubventure.ihmiset.Sankari;
 import Pubventure.ihmiset.Tarjoilija;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,9 +60,19 @@ public class Pubi {
         this.asiakkaita = asiakkaita;
         this.inehmoEnumit = InehmoEnum.values();
         this.tiedostonLukija = new TiedostonLukija();
-        this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
+        
+        //yritetään lukea tiedosto kutsumalla TiedostonLukija-luokan metodia
+        try {
+            this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
+        } catch (IOException ex) {
+            System.out.println("Tiedoston lukeminen epäonnistui.");
+            Logger.getLogger(Pubi.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        //etsitään mittasuhteet ja otetaan ne talteen
         etsiMittasuhteet();
+        
+        //luodaan kaksiulotteinen taulukko kentäksi
         this.kentta = new Pubiobjekti[leveys][korkeus];
 
     }
