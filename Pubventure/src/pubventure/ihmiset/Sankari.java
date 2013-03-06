@@ -57,11 +57,17 @@ public class Sankari extends Inehmo {
         double rakonMuutos = 3.0;
         if (juomatVatsassa > 0) {
             nousuhumala = true;
-            juomatVatsassa = juomatVatsassa - 0.25;
-            super.setHumala(0.5);
+            
+            if (!rakkoTaynna) {
+                juomatVatsassa = juomatVatsassa - 0.25;
+                super.setHumala(0.5);
+            }
+            
+            
+            
             if (super.getRakko() + rakonMuutos < 100 && juomatVatsassa > 0) {
                 super.setRakko(super.getRakko() + rakonMuutos);
-            } else if (super.getRakko() + rakonMuutos > 100) {
+            } else if (super.getRakko() + rakonMuutos >= 100) {
                 super.setRakko(100);
                 this.rakkoTaynna = true;
             }
@@ -72,7 +78,7 @@ public class Sankari extends Inehmo {
 
 
 
-        if (nousuhumala) {
+        if (nousuhumala && !rakkoTaynna) {
             setAsenne(0.75);
         } else {
             super.setHumala(-0.15);

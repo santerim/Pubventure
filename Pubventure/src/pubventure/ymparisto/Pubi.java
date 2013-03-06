@@ -40,6 +40,10 @@ public class Pubi {
      * txt-tiedostosta luettu pelikenttä palautetaan tänne merkkijonona
      */
     private String pubiMerkkijonona;
+    
+    /**
+     * Käytetään selvittämään pubin mittasuhteet
+     */
     private Scanner lukija;
     private int asiakkaita;
     
@@ -185,17 +189,12 @@ public class Pubi {
         if (lista != null) {
             this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, lista.get(0)));
         }
-//        Sijainti uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.ULOSKAYNTI);
-//        this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, uusiSijainti));
 
         //luodaan tarjoilija
         lista = etsiPubiobjektit(PubiobjektiEnum.TALUE);
         if (lista != null) {
             this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, lista.get(0)));
         }
-        
-//        uusiSijainti = etsiPubiobjekti(PubiobjektiEnum.TALUE);
-//        this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, uusiSijainti));
         
         //luodaan portsarit
         lista = etsiPubiobjektit(PubiobjektiEnum.VALUE);
@@ -213,10 +212,14 @@ public class Pubi {
             uusiSijainti = arvoSijainti();
 
             //mikäli arvotuissa koordinaateissa ei ole estettä, tai mikäli se ei
-            //ole tarjoilijoille varattua aluetta, luodaan siihen uusi asiakas
+            //ole tarjoilijoille varattua aluetta, tai vastakkaisen sukupuolen
+            //vessaa, luodaan siihen uusi asiakas
             if (!tormaako(uusiSijainti)) {
-                if (!getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.TALUE) 
-                        && !getObjekti(uusiSijainti).getTyyppi().equals(PubiobjektiEnum.OVI)) {
+                PubiobjektiEnum enumi = getObjekti(uusiSijainti).getTyyppi();
+                if (!enumi.equals(PubiobjektiEnum.TALUE) 
+                        && !enumi.equals(PubiobjektiEnum.OVI)
+                        && !enumi.equals(PubiobjektiEnum.MVESSA)
+                        && !enumi.equals(PubiobjektiEnum.NVESSA)) {
                     inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
                     asiakkaitaJaljella--;
                 }

@@ -170,7 +170,7 @@ public class Kayttoliittyma implements Runnable {
      */
     public void kirjoitaPelaajanTiedot() {
         setTietoKentanSisalto("<html><table cellpadding='10'><br>"
-                + "Itsetunto: " + (int) sankari.getAsenne() + "<br>"
+                + "Rohkeus: " + (int) sankari.getAsenne() + "<br>"
                 + "Humala: " + (int) sankari.getHumala() + "<br>"
                 + "Juomat: " + (int) sankari.getJuomat() + " dl<br>"
                 + "Rakko: " + (int) sankari.getRakko() + "<br>"
@@ -195,7 +195,7 @@ public class Kayttoliittyma implements Runnable {
             sb.append("Sinulle jäi enemmän rahaa kuin oli tullessa,<br>");
             rahaaJaiEnemman = true;
         } else {
-            sb.append("Olet kokolailla rahaton,");
+            sb.append("Olet kokolailla rahaton, ");
             rahaaJaiEnemman = false;
         }
 

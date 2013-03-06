@@ -1,42 +1,38 @@
-Pelaajahahmoa (@) voi ohjata seuraavilla n‰pp‰imill‰:
+ÔªøPelaajahahmoa (@) voi ohjata seuraavilla n√§pp√§imill√§:
 
-Nuolin‰pp‰imet	 = liikuttaa hahmoa vastaavaan suuntaan
-Numpad 		 = nuolin‰pp‰imi‰ vastaavat n‰pp‰imet toimivat samalla tavalla
-V‰lilyˆnti	 = kuluttaa yhden vuoron tekem‰tt‰ mit‰‰n
-Enter		 = aktivoi kaksivaiheiset komennot, vaatii seuraavaksi suunnan mihin
-		   toiminto kohdistetaan, <Esc> palauttaa
-		   normaalitilaan
+Nuolin√§pp√§imet	 = sellaisia koneita varten, joissa ei ole numpadia. Nuolin√§pp√§in liikuttaa
+		   hahmoa n√§pp√§int√§ vastaavaan suuntaan
+Numpad 		 = ne suositeltavammat n√§pp√§imet liikkumiseen, sill√§ n√§ill√§ voi liikkua my√∂s
+		   vinottain
+V√§lily√∂nti	 = kuluttaa yhden vuoron tekem√§tt√§ mit√§√§n
+Enter		 = n√§ytt√§√§ n√§pp√§inkomennot, sek√§ pelikent√§n symbolien merkityksen
 
-Kaksivaiheiset komennot:
+Komennot:
 
-(o)sta		= ostaa uuden oluen, mik‰li annetussa suunnassa on baaritiski ja taskussa
-		  riitt‰v‰sti rahaa
-(k)use		= tyhjent‰‰ rakon, mik‰li annetussa suunnassa on joko wc-pytty tai
+(o)sta		= ostaa uuden oluen, mik√§li annetussa suunnassa on baaritiski ja taskussa
+		  riitt√§v√§sti rahaa
+(k)use		= tyhjent√§√§ rakon, mik√§li annetussa suunnassa on joko wc-pytty tai
 		  pisuaari
-(p)uhu		= kommunikoi muiden kanssa. Muuttaa n‰iden asennoitumista pelaajaan joko
+(p)uhu		= kommunikoi muiden kanssa. Muuttaa n√§iden asennoitumista pelaajaan joko
 		  positiiviseen tai negatiiviseen suuntaan. Muutos positiiviseen tai
-		  negatiiviseen ‰‰rip‰‰h‰n pienenee jonkun verran, mik‰li ollaan jo l‰hell‰
-		  sit‰
-(j)uo		= ottaa hˆrpyn olutta. Ei onnistu, mik‰li olutta ei ole, tai rakko on
-		  t‰ynn‰
-(t)utki		= ilmoittaa mit‰ annetussa suunnassa on. Mik‰li suunnassa on joku henkilˆ,
-		  antaa t‰m‰n kuvauksen. Muuten saadaan kuvaus ko. paikasta, esim. lattia
-p(u)mmi		= yritt‰‰ pummia rahaa. Ei onnistu, ellei kohteen asenne pelaajaan ole
-		  riitt‰v‰n hyv‰ (yli 90 asteikolla 0-100)
-(v)onkaa	= yritt‰‰ poimia naisen mukaan. T‰m‰n asennoitumisen pit‰‰ olla paras
-		  mahdollinen, mink‰ lis‰ksi on 50/50-mahdollisuus ettei onnistu
+		  negatiiviseen √§√§rip√§√§h√§n pienenee jonkun verran, mik√§li ollaan jo l√§hell√§
+		  sit√§
+(j)uo		= ottaa h√∂rpyn olutta. Ei onnistu, mik√§li olutta ei ole, tai rakko on
+		  t√§ynn√§
+(t)utki		= ilmoittaa mit√§ annetussa suunnassa on. Mik√§li suunnassa on joku henkil√∂,
+		  antaa t√§m√§n kuvauksen. Muuten saadaan kuvaus ko. paikasta, esim. lattia
+p(u)mmi		= yritt√§√§ pummia rahaa. Ei onnistu, ellei kohteen asenne pelaajaan ole
+		  riitt√§v√§n hyv√§ (yli 90 asteikolla 0-100)
+(v)onkaa	= yritt√§√§ poimia naisen mukaan. T√§m√§n asennoitumisen pit√§√§ olla paras
+		  mahdollinen, mink√§ lis√§ksi on 50/50-mahdollisuus ettei onnistu. Lis√§ksi
+		  pelaajahahmolla t√§ytyy olla tarpeeksi rohkeutta
 
-Pelaajahahmolla on myˆs tiettyj‰ ominaisuuksia:
+Pelaajahahmolla on my√∂s tiettyj√§ ominaisuuksia:
 
-Itsetunto	= mit‰ suurempi itsetunto, sit‰ rohkeampaa kanssak‰yminen
-		  muiden ihmisten kanssa on
-Humala		= humala korreloi jossain m‰‰rin itsetunnon kanssa, mutta
-		  liian kova humala haittaa niin liikkumista kuin muutakin
-		  menoa
-Juomat		= paljonko on olutta desilitroina
-Rakko		= jossain vaiheessa on parempi k‰yd‰ kevent‰m‰ss‰
-Rahat		= lis‰‰ juotavaa on vaikea saada, mik‰li on aivan p.a.
+Rohkeus		= naisten l√§hestyminen pariutumistarkoituksessa vaatii rohkeutta
+Humala		= olet pubissa ja tarkoituksesi on tulla humalaan. Humala korreloi jossain
+		  m√§√§rin rohkeuden kanssa
+Juomat		= paljonko sinulla on olutta desilitroina
+Rakko		= t√§ysi rakko haittaa muita aktiviteetteja0
+Rahat		= ei, et voi ostaa velaksi
 
-
-Pelaamisen vaikeuteen vaikuttavat oleellisesti Sankari-luokan kontruktorissa asetetut rahat,
-sek‰ Inehmo-luokan konstruktorissa arvottu asenne (pelaajaa kohtaan).
