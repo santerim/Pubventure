@@ -1,6 +1,6 @@
 package Pubventure.ihmiset;
 
-import Pubventure.Sijainti;
+import pubventure.sijainti.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.KomentoEnum;
 import java.util.Random;
@@ -16,6 +16,10 @@ public class Inehmo {
      * Miltä inehmo näyttää pelikentällä
      */
     private String ulkomuoto;
+    /**
+     * Inehmon väliaikainen/toissijainen ulkonäkö
+     */
+    private String vaulkomuoto;
     /**
      * Mihin suuntaan oltiin viimeksi menossa
      */
@@ -119,7 +123,11 @@ public class Inehmo {
     }
 
     public String getUlkomuoto() {
-        return this.ulkomuoto;
+        if (this.vaulkomuoto != null) {
+            return this.vaulkomuoto;
+        } else {
+            return this.ulkomuoto;
+        }
     }
 
     public double getAsenne() {
@@ -239,6 +247,10 @@ public class Inehmo {
 
     public void setUlkomuoto(String ulkomuoto) {
         this.ulkomuoto = ulkomuoto;
+    }
+    
+    public void setVAUlkomuoto(String ulkomuoto) {
+        this.vaulkomuoto = ulkomuoto;
     }
 
     public void setLiikkuva(boolean liikkuva) {

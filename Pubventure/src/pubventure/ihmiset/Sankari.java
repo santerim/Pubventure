@@ -1,6 +1,6 @@
 package Pubventure.ihmiset;
 
-import Pubventure.Sijainti;
+import pubventure.sijainti.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import java.util.Random;
 

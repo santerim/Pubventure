@@ -1,6 +1,6 @@
 package Pubventure.ymparisto;
 
-import Pubventure.Sijainti;
+import pubventure.sijainti.Sijainti;
 import Pubventure.TiedostonLukija;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.PubiobjektiEnum;
@@ -50,7 +50,7 @@ public class Pubi {
     /**
      * Pelikentälle luodut hahmot kerätään ArrayListiin
      */
-    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
+    private ArrayList<Inehmo> inehmot = new ArrayList<>();
     private Random luku = new Random();
     private Inehmo sankari;
     
@@ -77,7 +77,7 @@ public class Pubi {
         etsiMittasuhteet();
         
         //luodaan kaksiulotteinen taulukko kentäksi
-        this.kentta = new Pubiobjekti[leveys][korkeus];
+        this.kentta = new Pubiobjekti[korkeus][leveys];
 
     }
 
@@ -116,57 +116,58 @@ public class Pubi {
             String merkkirivi = lukija.next();
             //System.out.println("Skannerin sisältö: " + merkkirivi);
             for (int i = 0; i < merkkirivi.length(); i++) {
+                Sijainti uusiSijainti = new Sijainti(i, rivi);
                 switch (merkkirivi.charAt(i)) {
                     case 'Y':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.TALUE, "tarjoilijan alue");
+                        kentta[rivi][i] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.TALUE, "tarjoilijan alue", uusiSijainti, 1);
                         break;
                     case 'E':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#2E8B57'>E</font>", false, PubiobjektiEnum.ULOSKAYNTI, "uloskäynti");
+                        kentta[rivi][i] = new Pubiobjekti("<font color='#2E8B57'>E</font>", false, PubiobjektiEnum.ULOSKAYNTI, "uloskäynti", uusiSijainti, 1);
                         break;
                     case '-':
-                        kentta[i][rivi] = new Pubiobjekti("-", true, PubiobjektiEnum.SEINA, "seinä");
+                        kentta[rivi][i] = new Pubiobjekti("-", true, PubiobjektiEnum.SEINA, "seinä", uusiSijainti, 1000);
                         break;
                     case '.':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.LATTIA, "lattia");
+                        kentta[rivi][i] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.LATTIA, "lattia", uusiSijainti, 1);
                         break;
                     case 'X':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", true, PubiobjektiEnum.NAKYMATON, "TätäEiPitäisiNäkyä");
+                        kentta[rivi][i] = new Pubiobjekti("&nbsp;", true, PubiobjektiEnum.NAKYMATON, "TätäEiPitäisiNäkyä", uusiSijainti, 1000);
                         break;
                     case '|':
-                        kentta[i][rivi] = new Pubiobjekti("|", true, PubiobjektiEnum.SEINA, "seinä");
+                        kentta[rivi][i] = new Pubiobjekti("|", true, PubiobjektiEnum.SEINA, "seinä", uusiSijainti, 1000);
                         break;
                     case '#':
-                        kentta[i][rivi] = new Pubiobjekti("#", true, PubiobjektiEnum.POYTA, "pöytä");
+                        kentta[rivi][i] = new Pubiobjekti("#", true, PubiobjektiEnum.POYTA, "pöytä", uusiSijainti, 1000);
                         break;
                     case 't':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#8B4513'>¤</font>", false, PubiobjektiEnum.TUOLI, "tuoli");
+                        kentta[rivi][i] = new Pubiobjekti("<font color='#8B4513'>¤</font>", false, PubiobjektiEnum.TUOLI, "tuoli", uusiSijainti, 2);
                         break;
                     case 'w':
-                        kentta[i][rivi] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY, "wc-pytty");
+                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY, "wc-pytty", uusiSijainti, 1000);
                         break;
                     case 'p':
-                        kentta[i][rivi] = new Pubiobjekti("w", true, PubiobjektiEnum.PISUAARI, "pisuaari");
+                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.PISUAARI, "pisuaari", uusiSijainti, 1000);
                         break;
                     case 'L':
-                        kentta[i][rivi] = new Pubiobjekti("L", true, PubiobjektiEnum.LAVUAARI, "lavuaari");
+                        kentta[rivi][i] = new Pubiobjekti("L", true, PubiobjektiEnum.LAVUAARI, "lavuaari", uusiSijainti, 1000);
                         break;
                     case 'v':
-                        kentta[i][rivi] = new Pubiobjekti(" ", false, PubiobjektiEnum.VALUE, "lattia");
+                        kentta[rivi][i] = new Pubiobjekti(" ", false, PubiobjektiEnum.VALUE, "lattia", uusiSijainti, 1);
                         break;
                     case 'J':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#FFD700'>J</font>", true, PubiobjektiEnum.JUKEBOKSI, "jukeboksi");
+                        kentta[rivi][i] = new Pubiobjekti("<font color='#FFD700'>J</font>", true, PubiobjektiEnum.JUKEBOKSI, "jukeboksi", uusiSijainti, 1000);
                         break;
                     case 'B':
-                        kentta[i][rivi] = new Pubiobjekti("B", true, PubiobjektiEnum.TISKI, "baaritiski");
+                        kentta[rivi][i] = new Pubiobjekti("B", true, PubiobjektiEnum.TISKI, "baaritiski", uusiSijainti, 1000);
                         break;
                     case 'o':
-                        kentta[i][rivi] = new Pubiobjekti("<font color='#708090'>o</font>", false, PubiobjektiEnum.OVI, "ovi");
+                        kentta[rivi][i] = new Pubiobjekti("<font color='#708090'>o</font>", false, PubiobjektiEnum.OVI, "ovi", uusiSijainti, 1);
                         break;
                     case 'M':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.MVESSA, "lattia");
+                        kentta[rivi][i] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.MVESSA, "lattia", uusiSijainti, 1);
                         break;
                     case 'N':
-                        kentta[i][rivi] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.NVESSA, "lattia");
+                        kentta[rivi][i] = new Pubiobjekti("&nbsp;", false, PubiobjektiEnum.NVESSA, "lattia", uusiSijainti, 1);
                         break;
                 }
             }
@@ -237,10 +238,10 @@ public class Pubi {
      * ei löytynyt
      */
     public List<Sijainti> etsiPubiobjektit(PubiobjektiEnum haettuTyyppi) {
-        List<Sijainti> lista = new ArrayList<Sijainti>();
+        List<Sijainti> lista = new ArrayList<>();
         for (int y = 0; y < korkeus; y++) {
             for (int x = 0; x < leveys; x++) {
-                if (kentta[x][y].getTyyppi().equals(haettuTyyppi)) {
+                if (kentta[y][x].getTyyppi().equals(haettuTyyppi)) {
                     lista.add(new Sijainti(x, y));
                 }
             }
@@ -249,6 +250,24 @@ public class Pubi {
             return null;
         } else {
             return lista;
+        }
+    }
+    
+    public Pubiobjekti etsiPubiobjekti(PubiobjektiEnum haettuTyyppi) {
+        List<Pubiobjekti> lista = new ArrayList<>();
+        for (int y = 0; y < korkeus; y++) {
+            for (int x = 0; x < leveys; x++) {
+                if (kentta[y][x].getTyyppi().equals(haettuTyyppi)) {
+                    lista.add(kentta[y][x]);
+                }
+            }
+        }
+        if (lista.isEmpty()) {
+            System.out.println("Pubiobjektia ei löytynyt!");
+            return null;
+        } else {
+            return lista.get(0);
+//            return lista.get(luku.nextInt(lista.size()));
         }
     }
 
@@ -322,7 +341,7 @@ public class Pubi {
     }
 
     public Pubiobjekti getObjekti(Sijainti sijainti) {
-        return kentta[sijainti.getX()][sijainti.getY()];
+        return kentta[sijainti.getY()][sijainti.getX()];
     }
 
     public int getLeveys() {
@@ -339,5 +358,9 @@ public class Pubi {
 
     public int getAsiakkaita() {
         return this.asiakkaita;
+    }
+    
+    public Pubiobjekti[][] getKentta() {
+        return this.kentta;
     }
 }

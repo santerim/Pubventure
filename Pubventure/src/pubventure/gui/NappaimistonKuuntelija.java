@@ -75,6 +75,13 @@ public class NappaimistonKuuntelija implements KeyListener {
             } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 kl.valitaKomento(KomentoEnum.PERU);
             }
+            // a-star testaus
+            else if (ke.getKeyCode() == KeyEvent.VK_A) {
+                kl.valitaKomento(KomentoEnum.ASTAR);
+            }
+            else if (ke.getKeyCode() == KeyEvent.VK_C) {
+                kl.valitaKomento(KomentoEnum.PYYHI);
+            }
 
             /**
              * Mikäli annettu komento on kaksivaiheinen, rajoitetaan sallittuja

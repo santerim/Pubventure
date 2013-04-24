@@ -1,5 +1,6 @@
 package Pubventure;
 
+import pubventure.sijainti.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.KomentoEnum;
 import Pubventure.enumit.PubiobjektiEnum;
@@ -7,9 +8,11 @@ import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ihmiset.Inehmo;
 import Pubventure.ihmiset.Sankari;
 import Pubventure.ymparisto.Pubi;
+import Pubventure.ymparisto.Pubiobjekti;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.SwingUtilities;
+import pubventure.reittialgot.Astar;
 
 /**
  *
@@ -27,6 +30,8 @@ public class Logiikka {
     private Kayttoliittyma kl;
     private KomentoEnum[] komennot;
     private Sankari sankari;
+    private Astar astar;
+    private Pubiobjekti[] reitti;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
         this.siirtoja = siirtoja;
@@ -39,6 +44,19 @@ public class Logiikka {
 
         this.inehmot = pubi.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);
+        
+        //astar
+        this.astar = new Astar(pubi);
+        // testit alkavat
+        
+//        astar.etsiReitti(pubi.getKentta()[0][0], pubi.getKentta()[pubi.getKorkeus() -1][pubi.getLeveys() -1]);
+//        for (int i = 0; i < pubi.getKorkeus(); i++) {
+//            for (int j = 0; j < pubi.getLeveys(); j++) {
+//                System.out.println(pubi.getKentta()[i][j].getH());
+//            }
+//        }
+        
+        // testit loppuvat
     }
 
     /**
@@ -103,6 +121,17 @@ public class Logiikka {
                 kl.kirjoitaPelaajanTiedot();
                 kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
                 return;
+            case ASTAR:
+                this.reitti = this.astar.etsiReitti(
+                        pubi.etsiPubiobjekti(PubiobjektiEnum.ULOSKAYNTI), 
+                        pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
+                kl.piirraAlue();
+                break;
+            case PYYHI:
+                for (int i = 0; i < reitti.length; i++) {
+                    reitti[i].setVAUlkonako(null);
+                }
+                break;
         }
         paivita();
     }

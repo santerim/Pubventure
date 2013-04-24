@@ -30,8 +30,9 @@ public enum KomentoEnum {
     PERU,
     LIIKE,
     SUUNTA,
-    VIESTI;
-
+    VIESTI,
+    ASTAR,
+    PYYHI;
 }
 
 
