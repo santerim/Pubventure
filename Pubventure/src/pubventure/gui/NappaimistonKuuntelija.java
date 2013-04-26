@@ -43,7 +43,7 @@ public class NappaimistonKuuntelija implements KeyListener {
          */
         if (!odotetaanSuuntaKomentoa 
                 && !odotaKyllaVaiEiKysymysta
-                && !loppu) {
+                && !loppu) {            
             if (ke.getKeyCode() == KeyEvent.VK_UP) {
                 kl.valitaKomento(KomentoEnum.POHJOINEN);
             } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -75,12 +75,18 @@ public class NappaimistonKuuntelija implements KeyListener {
             } else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 kl.valitaKomento(KomentoEnum.PERU);
             }
-            // a-star testaus
+            // a-star- ja dijkstratestaus
             else if (ke.getKeyCode() == KeyEvent.VK_A) {
                 kl.valitaKomento(KomentoEnum.ASTAR);
             }
             else if (ke.getKeyCode() == KeyEvent.VK_C) {
                 kl.valitaKomento(KomentoEnum.PYYHI);
+            }
+            else if (ke.getKeyCode() == KeyEvent.VK_Q) {
+                kl.valitaKomento(KomentoEnum.TIEDOT);
+            }
+            else if (ke.getKeyCode() == KeyEvent.VK_D) {
+                kl.valitaKomento(KomentoEnum.DIJKSTRA);
             }
 
             /**

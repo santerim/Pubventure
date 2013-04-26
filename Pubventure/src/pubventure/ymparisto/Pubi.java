@@ -59,11 +59,14 @@ public class Pubi {
      * @see Pubventure.enumit.InehmoEnum
      */
     private InehmoEnum[] inehmoEnumit;
+    
+    private boolean inehmojenNakyvyys;
 
     public Pubi(int asiakkaita) {
         this.asiakkaita = asiakkaita;
         this.inehmoEnumit = InehmoEnum.values();
         this.tiedostonLukija = new TiedostonLukija();
+        this.inehmojenNakyvyys = true;
         
         //yritetään lukea tiedosto kutsumalla TiedostonLukija-luokan metodia
         try {
@@ -146,7 +149,7 @@ public class Pubi {
                         kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY, "wc-pytty", uusiSijainti, 1000);
                         break;
                     case 'p':
-                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.PISUAARI, "pisuaari", uusiSijainti, 1000);
+                        kentta[rivi][i] = new Pubiobjekti("p", true, PubiobjektiEnum.PISUAARI, "pisuaari", uusiSijainti, 1000);
                         break;
                     case 'L':
                         kentta[rivi][i] = new Pubiobjekti("L", true, PubiobjektiEnum.LAVUAARI, "lavuaari", uusiSijainti, 1000);
@@ -253,6 +256,7 @@ public class Pubi {
         }
     }
     
+   
     public Pubiobjekti etsiPubiobjekti(PubiobjektiEnum haettuTyyppi) {
         List<Pubiobjekti> lista = new ArrayList<>();
         for (int y = 0; y < korkeus; y++) {
@@ -313,6 +317,38 @@ public class Pubi {
         }
         return false;
     }
+    
+    /**
+     * Palauttaa pubiobjektien ulkomuodot ennalleen muuttamalla väliaikaisten
+     * ulkomuotojen String-objekteiksi null
+     */
+    public void palautaPOUlkomuodot() {
+        for (int i = 0; i < korkeus; i++) {
+            for (int j = 0; j < leveys; j++) {
+                kentta[i][j].setVAUlkonako(null);
+            }
+        }
+    }
+    
+    public void setInehmojenNakyvyys(boolean arvo) {
+        this.inehmojenNakyvyys = arvo;
+        if (arvo) {
+            for (Inehmo inehmo : inehmot) {
+                inehmo.setNakyvyys(true);
+            }
+        } else {
+            for (Inehmo inehmo : inehmot) {
+                if (inehmo.getTyyppi() != InehmoEnum.SANKARI) {
+                    inehmo.setNakyvyys(false);
+                }
+            }
+        }
+    }
+    
+    public boolean getInehmojenNakyvyys() {
+        return this.inehmojenNakyvyys;
+    }
+    
 
     /**
      * Toimii luokan satunnaislukugeneraattorina

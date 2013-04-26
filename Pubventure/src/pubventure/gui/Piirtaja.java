@@ -36,11 +36,11 @@ public class Piirtaja extends javax.swing.JFrame {
         kenttaPaneeli.setLayout(kenttaPaneeliLayout);
         kenttaPaneeliLayout.setHorizontalGroup(
             kenttaPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(kenttaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 480, Short.MAX_VALUE)
         );
         kenttaPaneeliLayout.setVerticalGroup(
             kenttaPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kenttaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(kenttaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 500, Short.MAX_VALUE)
         );
 
         tietoPaneeli.setBackground(new java.awt.Color(0, 0, 0));
@@ -49,7 +49,7 @@ public class Piirtaja extends javax.swing.JFrame {
         tietoPaneeli.setLayout(tietoPaneeliLayout);
         tietoPaneeliLayout.setHorizontalGroup(
             tietoPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tietoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+            .addComponent(tietoLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
         );
         tietoPaneeliLayout.setVerticalGroup(
             tietoPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -62,11 +62,15 @@ public class Piirtaja extends javax.swing.JFrame {
         viestiPaneeli.setLayout(viestiPaneeliLayout);
         viestiPaneeliLayout.setHorizontalGroup(
             viestiPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(viestiLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(viestiLabel, javax.swing.GroupLayout.Alignment.LEADING,
+            javax.swing.GroupLayout.PREFERRED_SIZE,
+            500,
+            Short.MAX_VALUE)
         );
         viestiPaneeliLayout.setVerticalGroup(
             viestiPaneeliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(viestiLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+            .addComponent(viestiLabel, javax.swing.GroupLayout.Alignment.LEADING,
+            javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

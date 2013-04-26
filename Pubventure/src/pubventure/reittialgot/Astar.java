@@ -1,5 +1,6 @@
 package pubventure.reittialgot;
 
+import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ymparisto.Pubi;
 import Pubventure.ymparisto.Pubiobjekti;
 import java.util.PriorityQueue;
@@ -21,8 +22,10 @@ public class Astar {
     int leveys;
     int korkeus;
     int kasiteltyja;
+    int reitinSolmuja;
+    Kayttoliittyma kl;
 
-    public Astar(Pubi pubi) {
+    public Astar(Pubi pubi, Kayttoliittyma kl) {
         this.pubi = pubi;
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
@@ -30,12 +33,19 @@ public class Astar {
         this.avoimet = new PriorityQueue(100, ec);
         this.tutkitut = new PriorityQueue(100, ec);
         this.kentta = pubi.getKentta();
-        this.reitti = new Pubiobjekti[35];
+        this.reitti = new Pubiobjekti[37];
+        this.kl = kl;
     }
 
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
+        this.avoimet.clear();
+        this.tutkitut.clear();
+        this.kasiteltyja = 0;
+        this.reitinSolmuja = 0;
+        this.reitti = new Pubiobjekti[37];
         this.lahto = lahto;
         this.maali = maali;
+        nollaaViittauksetEdellisiin();
 
         asetaFGjaHArvot(lahto);
         avoimet.offer(lahto);
@@ -55,17 +65,19 @@ public class Astar {
     }
 
     private Pubiobjekti[] muodostaReitti(Pubiobjekti mista) {
+        System.out.println("Muodostetaan reitti");
         Pubiobjekti nykyinen = mista;
         int i = 0;
         while (nykyinen.getEdellinen() != null) {
             reitti[i] = nykyinen;
+            this.reitinSolmuja++;
             if (i != 0) {
-                reitti[i].setVAUlkonako("*");
+                reitti[i].setVAUlkonako("<font color='#FF0000'>*</font>");
             }
             nykyinen = nykyinen.getEdellinen();
             i++;
         }
-        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
+        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.\nReitin pituus " + this.reitinSolmuja + " solmua.");
         return reitti;
     }
 
@@ -90,6 +102,7 @@ public class Astar {
     }
 
     private void asetaFGjaHArvot(Pubiobjekti lahto) {
+//        System.out.println("Asetetaan F, G ja H -arvot");
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
                 int h = laskeH(kentta[i][j], maali);
@@ -107,6 +120,7 @@ public class Astar {
     }
 
     private void kasitteleViereiset(Pubiobjekti minka) {
+//        System.out.println("Käsitellään viereiset");
         if (minka.getX() > 0 && minka.getY() > 0) {
             Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX() - 1];
             kasitteleViereinen(minka, kohde);
@@ -166,6 +180,15 @@ public class Astar {
                 }
             }
             kasiteltyja++;
+//            kl.piirraAlue();
+        }
+    }
+
+    private void nollaaViittauksetEdellisiin() {
+        for (int i = 0; i < korkeus; i++) {
+            for (int j = 0; j < leveys; j++) {
+                kentta[i][j].setEdellinen(null);
+            }
         }
     }
 }

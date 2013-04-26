@@ -84,11 +84,12 @@ public class Kayttoliittyma implements Runnable {
         this.kuuntelija = new NappaimistonKuuntelija(this);
         this.piirtaja.addKeyListener(kuuntelija);
 
-        this.fontti = new Font("monospaced", Font.PLAIN, 12);
+        this.fontti = new Font("monospaced", Font.BOLD, 20);
         this.piirtaja.kenttaLabel.setFont(fontti);
         this.piirtaja.kenttaLabel.setForeground(Color.WHITE);
         this.piirtaja.tietoLabel.setFont(fontti);
         this.piirtaja.tietoLabel.setForeground(Color.WHITE);
+        this.piirtaja.viestiLabel.setFont(fontti);
         this.piirtaja.viestiLabel.setForeground(Color.WHITE);
     }
 
@@ -114,22 +115,25 @@ public class Kayttoliittyma implements Runnable {
             sb.append("&nbsp;");
             for (int j = 0; j < pubi.getLeveys(); j++) {
                 Sijainti nykSijainti = new Sijainti(j, i);
-                if (pubi.tormaako(nykSijainti)) {
-                    int inehmoLoydetty = 0;
-                    for (Inehmo inehmo : inehmot) {
-                        if (inehmo.getSijainti().equals(nykSijainti)) {
-                            sb.append(inehmo.getUlkomuoto());
-                            inehmoLoydetty = 1;
-                            break;
-                        } else {
+
+                    if (pubi.tormaako(nykSijainti)) {
+                        int inehmoLoydetty = 0;
+                        for (Inehmo inehmo : inehmot) {
+                            if (inehmo.getSijainti().equals(nykSijainti) && inehmo.getNakyvyys()) {
+                                sb.append(inehmo.getUlkomuoto());
+                                inehmoLoydetty = 1;
+                                break;
+                            } else {
+                            }
                         }
-                    }
-                    if (inehmoLoydetty == 0) {
+                        if (inehmoLoydetty == 0) {
+                            sb.append(pubi.getObjekti(nykSijainti).getUlkonako());
+                        }
+                    } else {
                         sb.append(pubi.getObjekti(nykSijainti).getUlkonako());
                     }
-                } else {
-                    sb.append(pubi.getObjekti(nykSijainti).getUlkonako());
-                }
+
+
                 if (j == pubi.getLeveys() - 1) {
                     sb.append("<br>");
                 }
@@ -256,7 +260,7 @@ public class Kayttoliittyma implements Runnable {
             pisteet += naisenPisteet;
         }
         sb.append("Pisteet: ").append(pisteet).append("</table></html>");
-        
+
         setPeliKentanSisalto(sb.toString());
         setViestiKentanSisalto("Paina &lt;esc&gt; lopettaaksesi.");
         kuuntelija.setLoppu(true);
@@ -347,5 +351,13 @@ public class Kayttoliittyma implements Runnable {
 
     public void setPeliKentanSisalto(String sisalto) {
         piirtaja.kenttaLabel.setText(sisalto);
+    }
+    
+    public void setInehmotNakymattomiksi() {
+        pubi.setInehmojenNakyvyys(false);
+    }
+    
+    public void setInehmotNakyviksi() {
+        pubi.setInehmojenNakyvyys(true);
     }
 }

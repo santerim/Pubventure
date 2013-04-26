@@ -32,7 +32,9 @@ public enum KomentoEnum {
     SUUNTA,
     VIESTI,
     ASTAR,
-    PYYHI;
+    DIJKSTRA,
+    PYYHI,
+    TIEDOT;
 }
 
 

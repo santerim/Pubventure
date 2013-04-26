@@ -74,6 +74,8 @@ public class Inehmo {
      * konstruktio, ja siksi tällä ei ole setteriä.
      */
     private InehmoEnum sukupuoli;
+    
+    private boolean nakyvyys;
 
     public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus, InehmoEnum sukupuoli) {
         this.sijainti = sijainti;
@@ -82,6 +84,7 @@ public class Inehmo {
         this.liikkuvuus = liikkuvuus;
         this.halukasPuhumaan = true;
         this.sukupuoli = sukupuoli;
+        this.nakyvyys = true;
 
         this.humala = (double) arpoja.nextInt(51);
         this.rakko = (double) arpoja.nextInt(76);
@@ -186,6 +189,14 @@ public class Inehmo {
 
     public boolean getVosuus() {
         return this.vosu;
+    }
+    
+    public boolean getNakyvyys() {
+        return this.nakyvyys;
+    }
+    
+    public void setNakyvyys(boolean arvo) {
+        this.nakyvyys = arvo;
     }
 
     public void setVosuus(boolean totuusarvo) {
