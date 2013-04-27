@@ -79,8 +79,8 @@ public class Astar {
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
         this.ec = new EtaisyysComparator();
-        this.avoimet = new Prioriteettijono(250, ec);
-        this.tutkitut = new Prioriteettijono(250, ec);
+        this.avoimet = new Prioriteettijono(500, ec);
+        this.tutkitut = new Prioriteettijono(500, ec);
         this.kentta = pubi.getKentta();
         this.reitti = new Pubiobjekti[37];
     }
