@@ -49,8 +49,8 @@ public class Logiikka {
         this.sankari = (Sankari) inehmot.get(0);
 
         this.kl = new Kayttoliittyma(pubi, inehmot, sankari, this);
-        this.astar = new Astar(pubi, kl);
-        this.dijkstra = new Dijkstra(pubi, kl);
+        this.astar = new Astar(pubi);
+        this.dijkstra = new Dijkstra(pubi);
     }
 
     /**
@@ -76,11 +76,11 @@ public class Logiikka {
                 || komento == KomentoEnum.LOUNAS || komento == KomentoEnum.LUODE
                 || komento == KomentoEnum.ODOTUS) {
             if (reititNakyvilla) {
-                    pubi.palautaPOUlkomuodot();
-                }
-                if (!pubi.getInehmojenNakyvyys()) {
-                    kl.setInehmotNakyviksi();
-                }
+                pubi.palautaPOUlkomuodot();
+            }
+            if (!pubi.getInehmojenNakyvyys()) {
+                kl.setInehmotNakyviksi();
+            }
             kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
             kasitteleLiikekomento(komento, inehmot.get(0));
 
@@ -125,7 +125,6 @@ public class Logiikka {
                 if (reititNakyvilla) {
                     pubi.palautaPOUlkomuodot();
                 }
-
                 Pubiobjekti lahto = pubi.getObjekti(sankari.getSijainti());
                 long aikaAlussa = System.currentTimeMillis();
                 this.astar.etsiReitti(
@@ -133,6 +132,21 @@ public class Logiikka {
                         pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
                 long aikaLopussa = System.currentTimeMillis();
                 kl.setViestiKentanSisalto("A*: " + (aikaLopussa - aikaAlussa) + "ms");
+                kl.setInehmotNakymattomiksi();
+                kl.piirraAlue();
+                this.reititNakyvilla = true;
+                break;
+            case DIJKSTRA:
+                if (reititNakyvilla) {
+                    pubi.palautaPOUlkomuodot();
+                }
+                Pubiobjekti dLahto = pubi.getObjekti(sankari.getSijainti());
+                long dAikaAlussa = System.currentTimeMillis();
+                this.dijkstra.etsiReitti(
+                        dLahto,
+                        pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
+                long dAikaLopussa = System.currentTimeMillis();
+                kl.setViestiKentanSisalto("Dijkstra: " + (dAikaLopussa - dAikaAlussa) + "ms");
                 kl.setInehmotNakymattomiksi();
                 kl.piirraAlue();
                 this.reititNakyvilla = true;
@@ -147,22 +161,6 @@ public class Logiikka {
                 break;
             case TIEDOT:
                 kl.setViestiKentanSisalto("X: " + sankari.getSijainti().getX() + "<br>Y: " + sankari.getSijainti().getY());
-                break;
-            case DIJKSTRA:
-                if (reititNakyvilla) {
-                    pubi.palautaPOUlkomuodot();
-                }
-
-                Pubiobjekti dLahto = pubi.getObjekti(sankari.getSijainti());
-                long dAikaAlussa = System.currentTimeMillis();
-                this.dijkstra.etsiReitti(
-                        dLahto,
-                        pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
-                long dAikaLopussa = System.currentTimeMillis();
-                kl.setViestiKentanSisalto("Dijkstra: " + (dAikaLopussa - dAikaAlussa) + "ms");
-                kl.setInehmotNakymattomiksi();
-                kl.piirraAlue();
-                this.reititNakyvilla = true;
                 break;
         }
         paivita();

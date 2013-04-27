@@ -4,7 +4,6 @@
  */
 package pubventure.reittialgot;
 
-import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ymparisto.Pubi;
 import Pubventure.ymparisto.Pubiobjekti;
 import java.util.PriorityQueue;
@@ -12,11 +11,15 @@ import java.util.PriorityQueue;
 /**
  *
  * @author Santeri
+ * 
+ * Dijkstra-algoritmin toteutus. Tämä on toteutettu muokkaamalla A*-
+ * algoritmia siten, että sen etäisyysarvio käsiteltävästä solmusta maaliin
+ * on nolla.
  */
 public class Dijkstra {
 
-    PriorityQueue tutkitut;
-    PriorityQueue avoimet;
+    Prioriteettijono tutkitut;
+    Prioriteettijono avoimet;
     EtaisyysComparator ec;
     Pubi pubi;
     Pubiobjekti lahto;
@@ -27,18 +30,16 @@ public class Dijkstra {
     int korkeus;
     int kasiteltyja;
     int reitinSolmuja;
-    Kayttoliittyma kl;
 
-    public Dijkstra(Pubi pubi, Kayttoliittyma kl) {
+    public Dijkstra(Pubi pubi) {
         this.pubi = pubi;
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
         this.ec = new EtaisyysComparator();
-        this.avoimet = new PriorityQueue(100, ec);
-        this.tutkitut = new PriorityQueue(100, ec);
+        this.avoimet = new Prioriteettijono(250, ec);
+        this.tutkitut = new Prioriteettijono(250, ec);
         this.kentta = pubi.getKentta();
         this.reitti = new Pubiobjekti[37];
-        this.kl = kl;
     }
 
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
@@ -63,13 +64,13 @@ public class Dijkstra {
             kasitteleViereiset(nykyinen);
             tutkitut.offer(nykyinen);
         }
-        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
-        System.out.println("Reittiä ei löydy.");
+//        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
+//        System.out.println("Reittiä ei löydy.");
         return null;
     }
 
     private Pubiobjekti[] muodostaReitti(Pubiobjekti mista) {
-        System.out.println("Muodostetaan reitti");
+//        System.out.println("Muodostetaan reitti");
         Pubiobjekti nykyinen = mista;
         int i = 0;
         while (nykyinen.getEdellinen() != null) {
@@ -81,7 +82,7 @@ public class Dijkstra {
             nykyinen = nykyinen.getEdellinen();
             i++;
         }
-        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.\nReitin pituus " + this.reitinSolmuja + " solmua.");
+//        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.\nReitin pituus " + this.reitinSolmuja + " solmua.");
         return reitti;
     }
 
@@ -183,7 +184,7 @@ public class Dijkstra {
                     viereinen.setF(laskeF(viereinen));
                 }
             }
-            kasiteltyja++;
+//            kasiteltyja++;
 //            kl.piirraAlue();
         }
     }

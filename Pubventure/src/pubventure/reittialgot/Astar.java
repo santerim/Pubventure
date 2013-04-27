@@ -1,6 +1,5 @@
 package pubventure.reittialgot;
 
-import Pubventure.gui.Kayttoliittyma;
 import Pubventure.ymparisto.Pubi;
 import Pubventure.ymparisto.Pubiobjekti;
 import java.util.PriorityQueue;
@@ -8,33 +7,82 @@ import java.util.PriorityQueue;
 /**
  *
  * @author Santeri
+ * 
+ * A*-algoritmin toteutus
  */
 public class Astar {
 
-    PriorityQueue tutkitut;
-    PriorityQueue avoimet;
+    Prioriteettijono tutkitut;
+    Prioriteettijono avoimet;
+    
+    /**
+     * EtäisyysComparator toimii avustavana luokkana auttaen selvittämään
+     * algoritmissa käytetyn keon järjestyksen
+     */
     EtaisyysComparator ec;
+    
+    /**
+     * Logiikka-luokalta saadaan viite Pubi-luokkaan, jota tarvitaan sen
+     * tarjoamiin metodeihin kiinnipääsemiseksi
+     */
     Pubi pubi;
+    
+    /**
+     * Etsittäessä reittiä meillä on jokin mistä etsintää lähdetään
+     * suorittamaan. Tässä tapauksessa se on jokin Pubiobjekti-luokan
+     * olio
+     */
     Pubiobjekti lahto;
+    
+    /**
+     * Etsittävä reitti päättyy maaliin
+     */
     Pubiobjekti maali;
+    
+    /**
+     * Pubi-luokka tarjoaa metodin, jolla saadaan pelikenttä kaksiulotteiseen
+     * taulukkoon. Tämän avulla voidaan käydä kenttää läpi tarpeen vaatiessa
+     * käyttämällä sisäkkäisiä for-silmukoita.
+     */
     Pubiobjekti[][] kentta;
+    
+    /**
+     * Kun reitti lähtöpisteestä kohteeseen on löydetty, se otetaan talteen
+     * Pubiobjekteista koostuvaan taulukkoon.
+     */
     Pubiobjekti[] reitti;
+    
+    /**
+     * Pelikentän leveys
+     */
     int leveys;
+    
+    /**
+     * Pelikentän korkeus
+     */
     int korkeus;
+    
+    /**
+     * Debuggaus-apumuuttuja, jolla lasketaan käsiteltyjä solmuja
+     * (pubiobjekteja).
+     */
     int kasiteltyja;
+    
+    /**
+     * Debuggaus-apumuuttuja, jolla pidetään kirjaa siitä, montako solmua
+     * (pubiobjektia) löydetyssä reitissä on.
+     */
     int reitinSolmuja;
-    Kayttoliittyma kl;
 
-    public Astar(Pubi pubi, Kayttoliittyma kl) {
+    public Astar(Pubi pubi) {
         this.pubi = pubi;
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
         this.ec = new EtaisyysComparator();
-        this.avoimet = new PriorityQueue(100, ec);
-        this.tutkitut = new PriorityQueue(100, ec);
+        this.avoimet = new Prioriteettijono(250, ec);
+        this.tutkitut = new Prioriteettijono(250, ec);
         this.kentta = pubi.getKentta();
         this.reitti = new Pubiobjekti[37];
-        this.kl = kl;
     }
 
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
@@ -52,6 +100,8 @@ public class Astar {
 
         while (!avoimet.isEmpty()) {
             Pubiobjekti nykyinen = (Pubiobjekti) avoimet.poll();
+            kasiteltyja++;
+//            System.out.println(kasiteltyja);
             if (nykyinen.equals(maali)) {
                 return reitti = muodostaReitti(nykyinen);
             }
@@ -59,13 +109,13 @@ public class Astar {
             kasitteleViereiset(nykyinen);
             tutkitut.offer(nykyinen);
         }
-        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
-        System.out.println("Reittiä ei löydy.");
+//        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
+//        System.out.println("Reittiä ei löydy.");
         return null;
     }
 
     private Pubiobjekti[] muodostaReitti(Pubiobjekti mista) {
-        System.out.println("Muodostetaan reitti");
+//        System.out.println("Muodostetaan reitti");
         Pubiobjekti nykyinen = mista;
         int i = 0;
         while (nykyinen.getEdellinen() != null) {
@@ -77,7 +127,7 @@ public class Astar {
             nykyinen = nykyinen.getEdellinen();
             i++;
         }
-        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.\nReitin pituus " + this.reitinSolmuja + " solmua.");
+//        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.\nReitin pituus " + this.reitinSolmuja + " solmua.");
         return reitti;
     }
 
@@ -179,7 +229,7 @@ public class Astar {
                     viereinen.setF(laskeF(viereinen));
                 }
             }
-            kasiteltyja++;
+//            kasiteltyja++;
 //            kl.piirraAlue();
         }
     }
