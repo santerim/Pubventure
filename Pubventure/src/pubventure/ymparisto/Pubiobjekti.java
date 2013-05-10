@@ -1,7 +1,7 @@
 package Pubventure.ymparisto;
 
 import Pubventure.enumit.PubiobjektiEnum;
-import pubventure.sijainti.Sijainti;
+import pubventure.Sijainti;
 
 /**
  * 

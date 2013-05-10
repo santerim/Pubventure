@@ -1,6 +1,5 @@
 package Pubventure.ymparisto;
 
-import pubventure.sijainti.Sijainti;
 import Pubventure.TiedostonLukija;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.PubiobjektiEnum;
@@ -16,6 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pubventure.Sijainti;
 
 /**
  *

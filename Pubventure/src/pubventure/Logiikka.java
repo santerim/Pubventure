@@ -1,6 +1,6 @@
 package Pubventure;
 
-import pubventure.sijainti.Sijainti;
+import pubventure.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.KomentoEnum;
 import Pubventure.enumit.PubiobjektiEnum;

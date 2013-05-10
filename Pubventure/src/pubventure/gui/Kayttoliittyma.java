@@ -1,7 +1,7 @@
 package Pubventure.gui;
 
 import Pubventure.Logiikka;
-import pubventure.sijainti.Sijainti;
+import pubventure.Sijainti;
 import Pubventure.enumit.InehmoEnum;
 import Pubventure.enumit.KomentoEnum;
 import Pubventure.ihmiset.Asiakas;
