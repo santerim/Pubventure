@@ -2,6 +2,8 @@
 package pubventure;
 
 /**
+ *
+ * @author Santeri
  * 
  * Sijainti-luokka tarjoaa olion, joka pitää kirjaa sijainnista ja tarjoaa
  * sen aksessorit.

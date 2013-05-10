@@ -1,21 +1,23 @@
-package Pubventure;
 
-import pubventure.Sijainti;
-import Pubventure.enumit.InehmoEnum;
-import Pubventure.enumit.KomentoEnum;
-import Pubventure.enumit.PubiobjektiEnum;
-import Pubventure.gui.Kayttoliittyma;
-import Pubventure.ihmiset.Inehmo;
-import Pubventure.ihmiset.Sankari;
-import Pubventure.ymparisto.Pubi;
-import Pubventure.ymparisto.Pubiobjekti;
+package pubventure;
+
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.SwingUtilities;
+import pubventure.enumit.InehmoEnum;
+import pubventure.enumit.KomentoEnum;
+import pubventure.enumit.PubiobjektiEnum;
+import pubventure.gui.Kayttoliittyma;
+import pubventure.ihmiset.Inehmo;
+import pubventure.ihmiset.Sankari;
+import pubventure.ymparisto.Pubi;
+import pubventure.ymparisto.Pubiobjekti;
 import pubventure.reittialgot.Astar;
 import pubventure.reittialgot.Dijkstra;
 
 /**
+ *
+ * @author Santeri
  *
  * Luokka toimii pääasiallisena ohjelman toiminnan ohjaajana. Se luo Pubi-luokan
  * ja suorittaa sen ne metodit, jotka luovat pelikentän, sekä luo swing-ikkunaa

@@ -1,11 +1,14 @@
-package Pubventure.ihmiset;
 
-import pubventure.Sijainti;
-import Pubventure.enumit.InehmoEnum;
-import Pubventure.enumit.KomentoEnum;
+package pubventure.ihmiset;
+
 import java.util.Random;
+import pubventure.Sijainti;
+import pubventure.enumit.InehmoEnum;
+import pubventure.enumit.KomentoEnum;
 
 /**
+ *
+ * @author Santeri
  *
  * Pelin ns. ihmisluokka. Tarjoaa konstruktorin hahmojen luomiseen, sekä metodit
  * hahmojen ominaisuuksien kyselyyn ja asettamiseen

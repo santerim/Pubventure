@@ -1,5 +1,5 @@
 
-package Pubventure.enumit;
+package pubventure.enumit;
 
 /**
  *

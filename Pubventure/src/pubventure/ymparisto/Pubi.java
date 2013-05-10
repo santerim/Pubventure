@@ -1,13 +1,6 @@
-package Pubventure.ymparisto;
 
-import Pubventure.TiedostonLukija;
-import Pubventure.enumit.InehmoEnum;
-import Pubventure.enumit.PubiobjektiEnum;
-import Pubventure.ihmiset.Asiakas;
-import Pubventure.ihmiset.Inehmo;
-import Pubventure.ihmiset.Portsari;
-import Pubventure.ihmiset.Sankari;
-import Pubventure.ihmiset.Tarjoilija;
+package pubventure.ymparisto;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +9,18 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pubventure.Sijainti;
+import pubventure.TiedostonLukija;
+import pubventure.enumit.InehmoEnum;
+import pubventure.enumit.PubiobjektiEnum;
+import pubventure.ihmiset.Asiakas;
+import pubventure.ihmiset.Inehmo;
+import pubventure.ihmiset.Portsari;
+import pubventure.ihmiset.Sankari;
+import pubventure.ihmiset.Tarjoilija;
 
 /**
+ *
+ * @author Santeri
  *
  * Luokka hallinnoi pelikenttää ja myös luo sen TiedostonLukija-luokan avulla,
  * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit). Se
@@ -50,7 +53,7 @@ public class Pubi {
     /**
      * Pelikentälle luodut hahmot kerätään ArrayListiin
      */
-    private ArrayList<Inehmo> inehmot = new ArrayList<>();
+    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Random luku = new Random();
     private Inehmo sankari;
     
@@ -241,7 +244,7 @@ public class Pubi {
      * ei löytynyt
      */
     public List<Sijainti> etsiPubiobjektit(PubiobjektiEnum haettuTyyppi) {
-        List<Sijainti> lista = new ArrayList<>();
+        List<Sijainti> lista = new ArrayList<Sijainti>();
         for (int y = 0; y < korkeus; y++) {
             for (int x = 0; x < leveys; x++) {
                 if (kentta[y][x].getTyyppi().equals(haettuTyyppi)) {
@@ -258,7 +261,7 @@ public class Pubi {
     
    
     public Pubiobjekti etsiPubiobjekti(PubiobjektiEnum haettuTyyppi) {
-        List<Pubiobjekti> lista = new ArrayList<>();
+        List<Pubiobjekti> lista = new ArrayList<Pubiobjekti>();
         for (int y = 0; y < korkeus; y++) {
             for (int x = 0; x < leveys; x++) {
                 if (kentta[y][x].getTyyppi().equals(haettuTyyppi)) {

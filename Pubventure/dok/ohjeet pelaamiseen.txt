@@ -1,0 +1,38 @@
+﻿Pelaajahahmoa (@) voi ohjata seuraavilla näppäimillä:
+
+Nuolinäppäimet	 = sellaisia koneita varten, joissa ei ole numpadia. Nuolinäppäin liikuttaa
+		   hahmoa näppäintä vastaavaan suuntaan
+Numpad 		 = ne suositeltavammat näppäimet liikkumiseen, sillä näillä voi liikkua myös
+		   vinottain
+Välilyönti	 = kuluttaa yhden vuoron tekemättä mitään
+Enter		 = näyttää näppäinkomennot, sekä pelikentän symbolien merkityksen
+
+Komennot:
+
+(o)sta		= ostaa uuden oluen, mikäli annetussa suunnassa on baaritiski ja taskussa
+		  riittävästi rahaa
+(k)use		= tyhjentää rakon, mikäli annetussa suunnassa on joko wc-pytty tai
+		  pisuaari
+(p)uhu		= kommunikoi muiden kanssa. Muuttaa näiden asennoitumista pelaajaan joko
+		  positiiviseen tai negatiiviseen suuntaan. Muutos positiiviseen tai
+		  negatiiviseen ääripäähän pienenee jonkun verran, mikäli ollaan jo lähellä
+		  sitä
+(j)uo		= ottaa hörpyn olutta. Ei onnistu, mikäli olutta ei ole, tai rakko on
+		  täynnä
+(t)utki		= ilmoittaa mitä annetussa suunnassa on. Mikäli suunnassa on joku henkilö,
+		  antaa tämän kuvauksen. Muuten saadaan kuvaus ko. paikasta, esim. lattia
+p(u)mmi		= yrittää pummia rahaa. Ei onnistu, ellei kohteen asenne pelaajaan ole
+		  riittävän hyvä (yli 90 asteikolla 0-100)
+(v)onkaa	= yrittää poimia naisen mukaan. Tämän asennoitumisen pitää olla paras
+		  mahdollinen, minkä lisäksi on 50/50-mahdollisuus ettei onnistu. Lisäksi
+		  pelaajahahmolla täytyy olla tarpeeksi rohkeutta
+
+Pelaajahahmolla on myös tiettyjä ominaisuuksia:
+
+Rohkeus		= naisten lähestyminen pariutumistarkoituksessa vaatii rohkeutta
+Humala		= olet pubissa ja tarkoituksesi on tulla humalaan. Humala korreloi jossain
+		  määrin rohkeuden kanssa
+Juomat		= paljonko sinulla on olutta desilitroina
+Rakko		= täysi rakko haittaa muita aktiviteetteja
+Rahat		= ei, et voi ostaa velaksi
+

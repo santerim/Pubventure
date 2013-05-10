@@ -1,6 +1,8 @@
 
 package Pubventure;
 
+import pubventure.Logiikka;
+
 /**
  * 
  * Luokan tehtävänä on vain toimia koodin suorituksen aloituspisteenä,

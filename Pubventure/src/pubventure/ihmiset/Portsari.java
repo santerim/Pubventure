@@ -1,9 +1,12 @@
-package Pubventure.ihmiset;
+
+package pubventure.ihmiset;
 
 import pubventure.Sijainti;
-import Pubventure.enumit.InehmoEnum;
+import pubventure.enumit.InehmoEnum;
 
 /**
+ *
+ * @author Santeri
  * 
  * Inehmo-luokan laajennus, jonka tarkoitus on...laajentaa sen toimintaa.
  */

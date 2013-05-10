@@ -1,7 +1,9 @@
 
-package Pubventure.enumit;
+package pubventure.enumit;
 
 /**
+ *
+ * @author Santeri
  *
  * Luokassa määritellään pubiympäristön enumit. Suurin osa enumeista lienee
  * itsestäänselviä nimen perusteella, mutta tässä selventävä lista joistakin

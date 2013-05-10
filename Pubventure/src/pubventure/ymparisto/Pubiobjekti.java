@@ -1,9 +1,12 @@
-package Pubventure.ymparisto;
 
-import Pubventure.enumit.PubiobjektiEnum;
+package pubventure.ymparisto;
+
 import pubventure.Sijainti;
+import pubventure.enumit.PubiobjektiEnum;
 
 /**
+ *
+ * @author Santeri
  * 
  * Tämä luokka tarjoaa Pubi-luokan käyttämät ei-ihmisoliot.
  */

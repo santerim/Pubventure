@@ -1,8 +1,8 @@
 
 package pubventure.reittialgot;
 
-import Pubventure.ymparisto.Pubiobjekti;
 import java.util.Comparator;
+import pubventure.ymparisto.Pubiobjekti;
 
 /**
  *

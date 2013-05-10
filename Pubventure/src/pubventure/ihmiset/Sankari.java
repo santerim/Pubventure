@@ -1,10 +1,13 @@
-package Pubventure.ihmiset;
 
-import pubventure.Sijainti;
-import Pubventure.enumit.InehmoEnum;
+package pubventure.ihmiset;
+
 import java.util.Random;
+import pubventure.Sijainti;
+import pubventure.enumit.InehmoEnum;
 
 /**
+ *
+ * @author Santeri
  *
  * Inehmo-luokan laajennus, jonka tarkoitus on...laajentaa sen toimintaa.
  */

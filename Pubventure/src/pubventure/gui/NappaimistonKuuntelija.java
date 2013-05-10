@@ -1,10 +1,13 @@
-package Pubventure.gui;
 
-import Pubventure.enumit.KomentoEnum;
+package pubventure.gui;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import pubventure.enumit.KomentoEnum;
 
 /**
+ *
+ * @author Santeri
  *
  * Luokka hoitaa näppäinkomentojen sieppaamisen ja välittää ne
  * käyttöliittymä-luokalle. Oleellinen toiminto on myös komentojen

@@ -1,0 +1,7 @@
+Projekti aloitettu tutustumalla kohteena oleviin algoritmeihin, sek‰ muokkaamalla javalabralta periytyv‰‰ repositoriota t‰t‰ kurssia varten.
+
+Ep‰selv‰‰ on oikeastaan vain algoritmien vertailun toteuttaminen. Laittaisinko ohjelman esimerkiksi laskemaan reittej‰ molemmilla algoritmeilla ja n‰ytt‰m‰‰n paljonko kunkin suorittamiseen meni aikaa?
+
+Ohjelma ei ole viel‰ edistynyt k‰yt‰nnˆss‰ lainkaan, vaan huomio on ollut toteutuksen suunnittelussa.
+
+Seuraava askel on l‰hte‰ rakentamaan reitinetsint‰ pelin osaksi k‰ytt‰en hyv‰ksi ns. valmista kalustoa.

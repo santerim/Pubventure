@@ -1,4 +1,10 @@
-package Pubventure;
+
+package pubventure;
+
+/**
+ *
+ * @author Santeri
+ */
 
 import java.io.BufferedReader;
 import java.io.IOException;

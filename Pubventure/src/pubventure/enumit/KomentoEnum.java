@@ -1,7 +1,9 @@
 
-package Pubventure.enumit;
+package pubventure.enumit;
 
 /**
+ *
+ * @author Santeri
  *
  * Tarjoaa enumit kaikille mahdollisille komennoille, olivat ne sitten suoraan
  * annettavia, tai kaksivaiheisia
@@ -36,5 +38,3 @@ public enum KomentoEnum {
     PYYHI,
     TIEDOT;
 }
-
-

@@ -1,19 +1,22 @@
-package Pubventure.gui;
 
-import Pubventure.Logiikka;
-import pubventure.Sijainti;
-import Pubventure.enumit.InehmoEnum;
-import Pubventure.enumit.KomentoEnum;
-import Pubventure.ihmiset.Asiakas;
-import Pubventure.ihmiset.Inehmo;
-import Pubventure.ihmiset.Sankari;
-import Pubventure.ymparisto.Pubi;
+package pubventure.gui;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import pubventure.Logiikka;
+import pubventure.Sijainti;
+import pubventure.enumit.InehmoEnum;
+import pubventure.enumit.KomentoEnum;
+import pubventure.ihmiset.Asiakas;
+import pubventure.ihmiset.Inehmo;
+import pubventure.ihmiset.Sankari;
+import pubventure.ymparisto.Pubi;
 
 /**
+ *
+ * @author Santeri
  *
  * Kayttoliittyma-luokka hoitaa swing-ikkunan luomisen ja hallinnoi sen
  * toimintaa.
