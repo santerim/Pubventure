@@ -10,10 +10,10 @@ import pubventure.enumit.PubiobjektiEnum;
 import pubventure.gui.Kayttoliittyma;
 import pubventure.ihmiset.Inehmo;
 import pubventure.ihmiset.Sankari;
-import pubventure.ymparisto.Pubi;
-import pubventure.ymparisto.Pubiobjekti;
 import pubventure.reittialgot.Astar;
 import pubventure.reittialgot.Dijkstra;
+import pubventure.ymparisto.Pubi;
+import pubventure.ymparisto.Pubiobjekti;
 
 /**
  *

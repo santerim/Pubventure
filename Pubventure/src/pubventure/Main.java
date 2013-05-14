@@ -1,7 +1,5 @@
 
-package Pubventure;
-
-import pubventure.Logiikka;
+package pubventure;
 
 /**
  * 
@@ -14,6 +12,8 @@ public class Main {
 
     // siirtomäärällä ei nykyisellään merkitystä
     public static void main(String[] args) {
-        new Logiikka(30, 999, true).aloita();
+//        System.out.println(System.getProperty("java.classpath"));
+        Logiikka log = new Logiikka(30, 999, true);
+        log.aloita();
     }
 }

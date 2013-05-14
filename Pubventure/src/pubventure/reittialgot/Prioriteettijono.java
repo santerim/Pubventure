@@ -1,7 +1,6 @@
 
 package pubventure.reittialgot;
 
-import pubventure.reittialgot.EtaisyysComparator;
 import pubventure.ymparisto.Pubiobjekti;
 
 /**
