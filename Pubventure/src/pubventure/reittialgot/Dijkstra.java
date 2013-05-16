@@ -11,6 +11,9 @@ import pubventure.ymparisto.Pubiobjekti;
  * Dijkstra-algoritmin toteutus. Tämä on toteutettu muokkaamalla A*-
  * algoritmia siten, että sen etäisyysarvio käsiteltävästä solmusta maaliin
  * on nolla.
+ * 
+ * Tämän luokan kommentointi on vielä kesken, mutta metodit ovat valtaosin
+ * identtiset jo kommentoidun Astar-luokan kanssa.
  */
 public class Dijkstra {
 

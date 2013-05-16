@@ -12,7 +12,14 @@ import pubventure.ymparisto.Pubiobjekti;
  */
 public class Astar {
 
+    /**
+     * Tutkitut solmut.
+     */
     Prioriteettijono tutkitut;
+    
+    /**
+     * Tutkittavat solmut.
+     */
     Prioriteettijono avoimet;
     
     /**
@@ -85,6 +92,13 @@ public class Astar {
         this.reitti = new Pubiobjekti[37];
     }
 
+    /**
+     * Metodi etsii reitin annettujen pisteiden välillä.
+     * @param lahto on lähtöpiste
+     * @param maali on haettavan reitin määränpää
+     * @return palauttaa valmiin reitin, tai null mikäli reittiä ei voi
+     * muodostaa
+     */
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
         this.avoimet.clear();
         this.tutkitut.clear();
@@ -114,6 +128,13 @@ public class Astar {
         return null;
     }
 
+    /**
+     * Mikäli etsiReitti-metodi löysi maalin, tämä metodi koostaa reitin ja
+     * muuttaa sitä vastaavien Pubiobjektien ulkonäön punaisiksi tähdiksi.
+     * @param mista on reitin päätepiste (maali, tai maalin viereinen
+     * Pubiobjekti, mikäli pelin hahmot eivät voi liikkua sen päälle)
+     * @return palauttaa reitin Pubiobjekteista koostuvana taulukkona
+     */
     private Pubiobjekti[] muodostaReitti(Pubiobjekti mista) {
 //        System.out.println("Muodostetaan reitti");
         Pubiobjekti nykyinen = mista;
@@ -131,10 +152,20 @@ public class Astar {
         return reitti;
     }
 
+    /**
+     * Laskee solmun f-arvon, eli summan etäisyydestä lähtöön ja maaliin
+     * @param minka
+     * @return 
+     */
     private int laskeF(Pubiobjekti minka) {
         return minka.getG() + minka.getH();
     }
 
+    /**
+     * Laskee solmun g-arvon, eli etäisyyden lähtöön.
+     * @param mista on g-arvoa kaipaava solmu
+     * @return palauttaa g-arvon kokonaislukuna
+     */
     private int laskeG(Pubiobjekti mista) {
         Pubiobjekti kasiteltava = mista;
         int matka = 0;
@@ -145,12 +176,23 @@ public class Astar {
         return matka;
     }
 
+    /**
+     * Laskee solmun h-arvon, eli arvioidun etäisyyden maaliin.
+     * @param mista on solmu jonka h-arvoa kaivataan
+     * @param mihin on maali
+     * @return palauttaa h-arvon kokonaislukuna
+     */
     private int laskeH(Pubiobjekti mista, Pubiobjekti mihin) {
         return Math.max(
                 Math.abs(mista.getX() - mihin.getX()),
                 Math.abs(mista.getY() - mihin.getY()));
     }
 
+    /**
+     * Asettaa solmuille f-, g- ja h-arvot
+     * @param lahto on etsittävän reitin lähtöpiste, jolle asetetaan erikseen
+     * g-arvoksi 0.
+     */
     private void asetaFGjaHArvot(Pubiobjekti lahto) {
 //        System.out.println("Asetetaan F, G ja H -arvot");
         for (int i = 0; i < this.korkeus; i++) {
@@ -169,6 +211,11 @@ public class Astar {
         }
     }
 
+    /**
+     * Metodi käsittelee tutkittavan solmun naapurit apumetodia hyväksi-
+     * käyttäen.
+     * @param minka on tutkittava solmu
+     */
     private void kasitteleViereiset(Pubiobjekti minka) {
 //        System.out.println("Käsitellään viereiset");
         if (minka.getX() > 0 && minka.getY() > 0) {
@@ -205,6 +252,11 @@ public class Astar {
         }
     }
 
+    /**
+     * Käsittelee annetun solmun viereisen solmun
+     * @param minka on em. annettu solmu
+     * @param viereinen on se viereinen
+     */
     private void kasitteleViereinen(Pubiobjekti minka, Pubiobjekti viereinen) {
         if (viereinen != null) {
             if (viereinen.getEste() && !viereinen.equals(maali)) {
@@ -234,6 +286,10 @@ public class Astar {
         }
     }
 
+    /**
+     * Metodi nollaa solmujen (Pubiobjektien) muuttujat, jotka viittaavat
+     * reitin etsinnässä siihen solmuun, mistä kyseiseen tultiin.
+     */
     private void nollaaViittauksetEdellisiin() {
         for (int i = 0; i < korkeus; i++) {
             for (int j = 0; j < leveys; j++) {

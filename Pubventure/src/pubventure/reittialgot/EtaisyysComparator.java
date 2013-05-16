@@ -8,7 +8,7 @@ import pubventure.ymparisto.Pubiobjekti;
  *
  * @author Santeri
  * 
- * Tämä luokka toimii PriorityQueuen comparatorina
+ * Tämä luokka toimii Prioriteettijono-luokan comparatorina
  */
 
 
