@@ -131,8 +131,10 @@ public class Astar {
     /**
      * Mikäli etsiReitti-metodi löysi maalin, tämä metodi koostaa reitin ja
      * muuttaa sitä vastaavien Pubiobjektien ulkonäön punaisiksi tähdiksi.
+     * 
      * @param mista on reitin päätepiste (maali, tai maalin viereinen
      * Pubiobjekti, mikäli pelin hahmot eivät voi liikkua sen päälle)
+     * 
      * @return palauttaa reitin Pubiobjekteista koostuvana taulukkona
      */
     private Pubiobjekti[] muodostaReitti(Pubiobjekti mista) {
@@ -155,7 +157,7 @@ public class Astar {
     /**
      * Laskee solmun f-arvon, eli summan etäisyydestä lähtöön ja maaliin
      * @param minka
-     * @return 
+     * @return palauttaa lasketun arvon kokonaislukuna
      */
     private int laskeF(Pubiobjekti minka) {
         return minka.getG() + minka.getH();

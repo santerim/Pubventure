@@ -115,7 +115,7 @@ public class Pubi {
      *
      * @return palauttaa valmiin pubiobjektitaulukon
      */
-    public Pubiobjekti[][] luoKentta() {
+    public void luoKentta() {
         this.lukija = new Scanner(pubiMerkkijonona);
         int rivi = 0;
         while (lukija.hasNext()) {
@@ -179,7 +179,6 @@ public class Pubi {
             }
             rivi++;
         }
-        return kentta;
     }
 
     /**
@@ -381,6 +380,10 @@ public class Pubi {
 
     public Pubiobjekti getObjekti(Sijainti sijainti) {
         return kentta[sijainti.getY()][sijainti.getX()];
+    }
+    
+    public Pubiobjekti getObjekti(int y, int x) {
+        return kentta[y][x];
     }
 
     public int getLeveys() {

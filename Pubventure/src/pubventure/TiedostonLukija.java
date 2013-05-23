@@ -40,7 +40,7 @@ public class TiedostonLukija {
                 sb.append(merkkijono).append("\n");
             }
         } else {
-            System.out.println("InputSreamReader null");
+            System.out.println("InputStream on null");
         }
         return sb.toString();
     }
