@@ -44,8 +44,8 @@ public class Logiikka {
         this.komennot = KomentoEnum.values();
 
         this.pubi = new Pubi(asiakkaita);
-        pubi.luoKentta();
-        pubi.luoHahmot();
+//        pubi.luoKentta();
+//        pubi.luoHahmot();
 
         this.inehmot = pubi.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);

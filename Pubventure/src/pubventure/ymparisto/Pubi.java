@@ -1,4 +1,3 @@
-
 package pubventure.ymparisto;
 
 import java.io.IOException;
@@ -10,67 +9,63 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pubventure.Sijainti;
 import pubventure.TiedostonLukija;
-import pubventure.enumit.InehmoEnum;
 import pubventure.enumit.PubiobjektiEnum;
-import pubventure.ihmiset.Asiakas;
 import pubventure.ihmiset.Inehmo;
-import pubventure.ihmiset.Portsari;
-import pubventure.ihmiset.Sankari;
-import pubventure.ihmiset.Tarjoilija;
+import pubventure.ihmiset.InehmojenHallinnointi;
 
 /**
  *
  * @author Santeri
  *
- * Luokka hallinnoi pelikenttää ja myös luo sen TiedostonLukija-luokan avulla,
- * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit). Se
- * tarjoaa metodit em. toimintoja varten, sekä metodin pelikentän mittasuhteiden
- * ja mahdollisten törmäystilanteiden selvittämiseen.
+ * Luokka hallinnoi pelikenttää luoden sen TiedostonLukija-luokan avulla,
+ * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit)
+ * InehmojenHallinnointi-luokan avulla.
+ * 
+ * Se tarjoaa metodit mm. metodin pelikentän mittasuhteiden ja mahdollisten
+ * törmäystilanteiden selvittämiseen.
+ * 
+ * @see TiedostonLukija
+ * @see InehmojenHallinnointi
  */
 public class Pubi {
 
     private int leveys;
     private int korkeus;
     private Pubiobjekti[][] kentta;
-    
     /**
      * TiedostonLukija hoitaa pelikentän lukemisen kovakoodatusta osoitteesta
      * (pub2.txt-niminen tiedosto projektin juuressa)
      */
     private TiedostonLukija tiedostonLukija;
-    
     /**
      * txt-tiedostosta luettu pelikenttä palautetaan tänne merkkijonona
      */
     private String pubiMerkkijonona;
-    
     /**
      * Käytetään selvittämään pubin mittasuhteet
      */
     private Scanner lukija;
     private int asiakkaita;
-    
     /**
      * Pelikentälle luodut hahmot kerätään ArrayListiin
      */
     private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
-    private Random luku = new Random();
-    private Inehmo sankari;
-    
     /**
-     * Jokainen inehmo on jotain enum-tyyppiä
-     * @see Pubventure.enumit.InehmoEnum
+     * Satunnaislukujen lähde
      */
-    private InehmoEnum[] inehmoEnumit;
-    
-    private boolean inehmojenNakyvyys;
+    private Random arpoja = new Random();
+
+    private Inehmo sankari;
+    /**
+     * Inehmojen luominen on eriytetty omaksi luokakseen
+     * @see InehmojenHallinnointi
+     */
+    private InehmojenHallinnointi ih;
 
     public Pubi(int asiakkaita) {
         this.asiakkaita = asiakkaita;
-        this.inehmoEnumit = InehmoEnum.values();
         this.tiedostonLukija = new TiedostonLukija();
-        this.inehmojenNakyvyys = true;
-        
+
         //yritetään lukea tiedosto kutsumalla TiedostonLukija-luokan metodia
         try {
             this.pubiMerkkijonona = tiedostonLukija.lueTiedosto();
@@ -81,9 +76,16 @@ public class Pubi {
 
         //etsitään mittasuhteet ja otetaan ne talteen
         etsiMittasuhteet();
-        
-        //luodaan kaksiulotteinen taulukko kentäksi
+
+        //otetaan kaksiulotteinen taulukko kentäksi ja täytetään se objekteilla
         this.kentta = new Pubiobjekti[korkeus][leveys];
+        luoKentta();
+
+        //luodaan inehmojen hallinnointi ja käsketään sitä luomaan hahmot
+        this.ih = new InehmojenHallinnointi(this, asiakkaita, inehmot, kentta);
+        ih.luoHahmot();
+
+
 
     }
 
@@ -110,12 +112,12 @@ public class Pubi {
 
     /**
      * Tiedostonlukija-olion pub.txt-tiedostosta antama merkkijono käsitellään
-     * skannerin avulla ja luodaan kutakin merkkiä vastaava pubiobjekti.
-     * Näistä koostetaan kaksiulotteinen taulukko.
+     * skannerin avulla ja luodaan kutakin merkkiä vastaava pubiobjekti. Näistä
+     * koostetaan kaksiulotteinen taulukko.
      *
      * @return palauttaa valmiin pubiobjektitaulukon
      */
-    public void luoKentta() {
+    private void luoKentta() {
         this.lukija = new Scanner(pubiMerkkijonona);
         int rivi = 0;
         while (lukija.hasNext()) {
@@ -182,58 +184,6 @@ public class Pubi {
     }
 
     /**
-     * Luo pubissa olevat ihmiset. Sankari asetetaan uloskäyntiin ikäänkuin
-     * vasta paikalle saapuneeksi. Tarjoilija luodaan sellaisen pubiobjektin
-     * kohdalle, joka on tarjoilijoita varten tarkoitettu. Asiakkaat luodaan
-     * vapaalle lattia- alueelle.
-     */
-    public void luoHahmot() {
-        Sijainti uusiSijainti = null;
-        
-        // luodaan sankari ja laitetaan hänet inehmot-listan alkuun
-        List<Sijainti> lista = etsiPubiobjektit(PubiobjektiEnum.ULOSKAYNTI);
-        if (lista != null) {
-            this.inehmot.add(luoInehmo(InehmoEnum.SANKARI, lista.get(0)));
-        }
-
-        //luodaan tarjoilija
-        lista = etsiPubiobjektit(PubiobjektiEnum.TALUE);
-        if (lista != null) {
-            this.inehmot.add(luoInehmo(InehmoEnum.TARJOILIJA, lista.get(0)));
-        }
-        
-        //luodaan portsarit
-        lista = etsiPubiobjektit(PubiobjektiEnum.VALUE);
-        if (lista != null) {
-            for (int i = 0; i < 2; i++) {
-                this.inehmot.add(luoInehmo(InehmoEnum.PORTSARI, lista.get(i)));
-            }
-        }
-
-        // luodaan asiakkaat niin ettei niitä ole samoilla paikoilla toistensa
-        // kanssa, tai minkään esteeksi määritellyn pubiobjektin kohdalla
-        int asiakkaitaJaljella = this.asiakkaita;
-
-        while (asiakkaitaJaljella > 0) {
-            uusiSijainti = arvoSijainti();
-
-            //mikäli arvotuissa koordinaateissa ei ole estettä, tai mikäli se ei
-            //ole tarjoilijoille varattua aluetta, tai vastakkaisen sukupuolen
-            //vessaa, luodaan siihen uusi asiakas
-            if (!tormaako(uusiSijainti)) {
-                PubiobjektiEnum enumi = getObjekti(uusiSijainti).getTyyppi();
-                if (!enumi.equals(PubiobjektiEnum.TALUE) 
-                        && !enumi.equals(PubiobjektiEnum.OVI)
-                        && !enumi.equals(PubiobjektiEnum.MVESSA)
-                        && !enumi.equals(PubiobjektiEnum.NVESSA)) {
-                    inehmot.add(luoInehmo(InehmoEnum.ASIAKAS, uusiSijainti));
-                    asiakkaitaJaljella--;
-                }
-            }
-        }
-    }
-
-    /**
      * Etsii annetun tyyppisen pubiobjekti-luokan olion ja palauttaa sen
      * sijainnin
      *
@@ -257,8 +207,13 @@ public class Pubi {
             return lista;
         }
     }
-    
-   
+
+    /**
+     * Etsii haetun tyyppin Pubiobjektin ja palauttaa sen. Mahdollisesti
+     * löytyvä objekti on ensimmäinen joka tulee vastaan.
+     * @param haettuTyyppi on haettavan objektin PubiobjektiEnum
+     * @return palauttaa löydetyn objektin
+     */
     public Pubiobjekti etsiPubiobjekti(PubiobjektiEnum haettuTyyppi) {
         List<Pubiobjekti> lista = new ArrayList<Pubiobjekti>();
         for (int y = 0; y < korkeus; y++) {
@@ -278,27 +233,6 @@ public class Pubi {
     }
 
     /**
-     * Luo hahmon peliin annettujen parametrien mukaan
-     *
-     * @param tyyppi InehmoEnum-luokan enum
-     * @param sijainti
-     * @return
-     */
-    public Inehmo luoInehmo(InehmoEnum tyyppi, Sijainti sijainti) {
-        switch (tyyppi) {
-            case SANKARI:
-                return new Sankari(sijainti, "@", InehmoEnum.SANKARI, true, InehmoEnum.MIES);
-            case ASIAKAS:
-                return new Asiakas(sijainti, "a", InehmoEnum.ASIAKAS, true, arvoSukupuoli(), arvoIka());
-            case PORTSARI:
-                return new Portsari(sijainti, "P", InehmoEnum.PORTSARI, false, InehmoEnum.MIES);
-            case TARJOILIJA:
-                return new Tarjoilija(sijainti, "t", InehmoEnum.TARJOILIJA, true, arvoSukupuoli());
-        }
-        return null;
-    }
-
-    /**
      * Tutkitaan onko annetuissa koordinaateissa este
      *
      * @param x on leveyssuuntainen koordinaatti
@@ -311,7 +245,7 @@ public class Pubi {
             return true;
         }
         for (Inehmo inehmo : inehmot) {
-            if (inehmo.getSijainti().getX() == sijainti.getX() 
+            if (inehmo.getSijainti().getX() == sijainti.getX()
                     && inehmo.getSijainti().getY() == sijainti.getY()) {
                 return true;
             }
@@ -319,7 +253,7 @@ public class Pubi {
         }
         return false;
     }
-    
+
     /**
      * Palauttaa pubiobjektien ulkomuodot ennalleen muuttamalla väliaikaisten
      * ulkomuotojen String-objekteiksi null
@@ -331,26 +265,14 @@ public class Pubi {
             }
         }
     }
-    
+
     public void setInehmojenNakyvyys(boolean arvo) {
-        this.inehmojenNakyvyys = arvo;
-        if (arvo) {
-            for (Inehmo inehmo : inehmot) {
-                inehmo.setNakyvyys(true);
-            }
-        } else {
-            for (Inehmo inehmo : inehmot) {
-                if (inehmo.getTyyppi() != InehmoEnum.SANKARI) {
-                    inehmo.setNakyvyys(false);
-                }
-            }
-        }
+        ih.setInehmojenNakyvyys(arvo);
     }
-    
+
     public boolean getInehmojenNakyvyys() {
-        return this.inehmojenNakyvyys;
+        return ih.getInehmojenNakyvyys();
     }
-    
 
     /**
      * Toimii luokan satunnaislukugeneraattorina
@@ -359,17 +281,7 @@ public class Pubi {
      * @return palauttaa arvotun kokonaisluvun
      */
     public int arvoLuku(int maksimi) {
-        return luku.nextInt(maksimi);
-    }
-    
-    public InehmoEnum arvoIka() {
-        int satunnainen = arvoLuku(3);
-        return inehmoEnumit[satunnainen];
-    }
-    
-    public InehmoEnum arvoSukupuoli() {
-        int satunnainen = arvoLuku(2) + 7; 
-        return inehmoEnumit[satunnainen];
+        return arpoja.nextInt(maksimi);
     }
 
     public Sijainti arvoSijainti() {
@@ -381,7 +293,7 @@ public class Pubi {
     public Pubiobjekti getObjekti(Sijainti sijainti) {
         return kentta[sijainti.getY()][sijainti.getX()];
     }
-    
+
     public Pubiobjekti getObjekti(int y, int x) {
         return kentta[y][x];
     }
@@ -401,7 +313,7 @@ public class Pubi {
     public int getAsiakkaita() {
         return this.asiakkaita;
     }
-    
+
     public Pubiobjekti[][] getKentta() {
         return this.kentta;
     }
