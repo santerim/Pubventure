@@ -214,8 +214,8 @@ public class Astar {
     }
 
     /**
-     * Metodi käsittelee tutkittavan solmun naapurit apumetodia hyväksi-
-     * käyttäen.
+     * Metodi käsittelee tutkittavan solmun naapurit kasitteleViereinen-
+     * apumetodia hyväksikäyttäen.
      * @param minka on tutkittava solmu
      */
     private void kasitteleViereiset(Pubiobjekti minka) {

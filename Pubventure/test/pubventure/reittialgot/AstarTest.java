@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pubventure.reittialgot;
 
 import java.util.Random;
@@ -35,12 +32,12 @@ public class AstarTest {
     Pubiobjekti maali;
     
     public AstarTest() {
-        pubi = new Pubi(0);
+        // luodaan pubi, jossa ei ole asiakkaita
+        pubi = new Pubi(0, false);
+        
         leveys = pubi.getLeveys();
         korkeus = pubi.getKorkeus();
         arpoja = new Random();
-        
-        pubi.luoKentta();
         
         // etsitään satunnaiset pubiobjektit lähdöksi ja maaliksi sillä
         // edellytyksellä, että ne eivät ole esteitä (seiniä tms) ja että

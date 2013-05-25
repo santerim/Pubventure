@@ -43,10 +43,7 @@ public class Logiikka {
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
         this.komennot = KomentoEnum.values();
 
-        this.pubi = new Pubi(asiakkaita);
-//        pubi.luoKentta();
-//        pubi.luoHahmot();
-
+        this.pubi = new Pubi(asiakkaita, true);
         this.inehmot = pubi.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);
 

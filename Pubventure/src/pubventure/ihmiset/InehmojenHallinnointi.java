@@ -6,7 +6,6 @@ import pubventure.Sijainti;
 import pubventure.enumit.InehmoEnum;
 import pubventure.enumit.PubiobjektiEnum;
 import pubventure.ymparisto.Pubi;
-import pubventure.ymparisto.Pubiobjekti;
 
 /**
  *
@@ -22,7 +21,7 @@ public class InehmojenHallinnointi {
     private Pubi pubi;
     private int asiakkaita;
     private ArrayList<Inehmo> inehmot;
-    private Pubiobjekti[][] kentta;
+
     /**
      * Jokainen inehmo on jotain enum-tyyppiä
      *
@@ -31,11 +30,10 @@ public class InehmojenHallinnointi {
     private InehmoEnum[] inehmoEnumit;
     private boolean inehmojenNakyvyys;
 
-    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot, Pubiobjekti[][] kentta) {
+    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot) {
         this.pubi = pubi;
         this.asiakkaita = asiakkaita;
         this.inehmot = inehmot;
-        this.kentta = kentta;
         this.inehmoEnumit = InehmoEnum.values();
         this.inehmojenNakyvyys = true;
     }
