@@ -18,11 +18,8 @@ import pubventure.ihmiset.InehmojenHallinnointi;
  * @author Santeri
  *
  * Luokka hallinnoi pelikenttää luoden sen TiedostonLukija-luokan avulla,
- * sekä luo sille hahmot (pelaajan, asiakkaat, tarjoilijat, portsarit)
- * InehmojenHallinnointi-luokan avulla.
- * 
- * Se tarjoaa metodit mm. metodin pelikentän mittasuhteiden ja mahdollisten
- * törmäystilanteiden selvittämiseen.
+ * sekä luo sen ihmishahmot (pelaajan, asiakkaat, tarjoilijat, portsarit)
+ * InehmojenHallinnointi-luokan metodia kutsumalla.
  * 
  * @see TiedostonLukija
  * @see InehmojenHallinnointi

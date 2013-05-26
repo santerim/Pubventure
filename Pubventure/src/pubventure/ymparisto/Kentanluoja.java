@@ -2,11 +2,18 @@ package pubventure.ymparisto;
 
 import java.util.Scanner;
 import pubventure.Sijainti;
+import pubventure.TiedostonLukija;
 import pubventure.enumit.PubiobjektiEnum;
 
 /**
  *
  * @author Santeri
+ * 
+ * Tämä luokka hoitaa kentta-objektin täyttämisen Pubiobjekteilla.
+ * 
+ * @see Pubi
+ * @see TiedostonLukija
+ * @see Pubiobjekti
  */
 public class Kentanluoja {
 
