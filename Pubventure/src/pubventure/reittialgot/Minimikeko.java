@@ -5,14 +5,14 @@ import pubventure.ymparisto.Pubiobjekti;
 /**
  * @author Santeri
  *
- * Minimikeko-toteutus Astar- ja Dijkstra-luokkien käyttöön.
+ * Minimikeko-toteutus Astar- ja Dijkstra-luokkien käyttöön, toimien näiden
+ * prioriteettijonona.
  * @see Astar
  * @see Dijkstra
  */
 public class Minimikeko {
 
     private Pubiobjekti[] keko;
-    private int pituus;
     private int solmuja;
 
     public Minimikeko(int koko) {
@@ -69,6 +69,7 @@ public class Minimikeko {
 
     /**
      * heapify-toteutus
+     * Järjestää keon rekursiivisesti halutusta solmusta alkaen.
      *
      * @param mista on indeksi mistä alkaen kekoa aletaan järjestää
      */
@@ -76,6 +77,7 @@ public class Minimikeko {
         int vasen = vasenLapsi(mista);
         int oikea = oikeaLapsi(mista);
         int pienempi;
+        
         // tämän tarkoitus on olla vain apuna vaihdettaessa Pubiobjektien
         // paikkaa keossa
         Pubiobjekti narri;
@@ -127,5 +129,13 @@ public class Minimikeko {
      */
     private int oikeaLapsi(int sija) {
         return ((sija + 1) * 2);
+    }
+    
+    public Pubiobjekti[] getKeko() {
+        return this.keko;
+    }
+    
+    public int getSolmujenLKM() {
+        return this.solmuja;
     }
 }

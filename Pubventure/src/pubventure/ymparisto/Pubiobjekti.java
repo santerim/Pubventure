@@ -84,6 +84,10 @@ public class Pubiobjekti {
         this.sijainti = sijainti;
         this.hidastearvo = hidastearvo;
     }
+    
+    public Pubiobjekti() {
+        
+    }
 
     public String getUlkonako() {
         if (vaulkonako != null) {
@@ -139,6 +143,10 @@ public class Pubiobjekti {
     
     public void setSelite(String selite) {
         this.selite = selite;
+    }
+    
+    public void setHidastearvo(int arvo) {
+        this.hidastearvo = arvo;
     }
     
     public int getH() {
