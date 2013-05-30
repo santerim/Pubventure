@@ -89,7 +89,7 @@ public class AstarTest {
     
     @Test
     public void lasketaanko_F_Oikein() {
-        
+        Pubiobjekti po = new Pubiobjekti();
     }
     
     @Test

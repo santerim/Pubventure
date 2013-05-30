@@ -114,7 +114,12 @@ public class Minimikeko {
         }
     }
     
-    
+    /**
+     * Tarkistaa josko haettava pubiobjekti on jo keossa.
+     * @param etsittava on pubiobjekti jonka olemassaoloa keossa halutaan
+     * selvittää
+     * @return palauttaa totuusarvon
+     */
     public boolean onkoKeossa(Pubiobjekti etsittava) {
         for (int i = 0; i < solmuja; i++) {
             if (keko[i].equals(etsittava)) {
@@ -154,14 +159,26 @@ public class Minimikeko {
         return ((sija + 1) * 2);
     }
     
+    /**
+     * Palauttaa keon. Tätä käytetään nykyisellään vain keon toimivuuden
+     * testaamisessa
+     */
     public Pubiobjekti[] getKeko() {
         return this.keko;
     }
     
+    /**
+     * Niinikään keon testaamisessa käytettävä metodi. Antaa keon solmujen
+     * lukumäärän.
+     */
     public int getSolmujenLKM() {
         return this.solmuja;
     }
     
+    /**
+     * Aloittaa keon luomisen alusta. Tarpeellinen haettaessa reittiä
+     * toistuvasti, jotta vanhat haut eivät johda virheellisiin tuloksiin.
+     */
     public void nollaa() {
         this.keko = new Pubiobjekti[koko];
         this.solmuja = 0;

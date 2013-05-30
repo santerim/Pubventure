@@ -76,6 +76,27 @@ public class Pubiobjekti {
      */
     private Pubiobjekti edellinen;
 
+    /**
+     * Luo uuden pubiobjektin kaikilla sille kuuluvilla määreillä
+     * 
+     * @param ulkonako on pelikentällä nähtävä ulkonäkö, mikäli muuttuja
+     * vaulkonäkö on null
+     * 
+     * @param onkoEste määrittää josko tämän pubiobjektin päälle voi kulkea.
+     * Esim. tuoli ei ole este, mutta seinä on.
+     * 
+     * @param tyyppi on pubiobjektin enum-tyyppi, esim. lattia, pöytä jne.
+     * 
+     * @param selite on merkkijono, joka poimitaan muodostettavaan lauseeseen,
+     * mikäli pelaajahahmo (t)utkii tätä pubiobjektia
+     * 
+     * @param sijainti on pubiobjektin Sijainti-olio, joka nimensä mukaisesti
+     * pitää kirjaa sen sijainnista
+     * 
+     * @param hidastearvo määrittää kuinka paljon kyseisen pubiobjektin päältä
+     * kävely hidastaa menoa. Esim. tuolin yli kulkeminen on hitaampaa kuin
+     * tyhjällä lattialla
+     */
     public Pubiobjekti(String ulkonako, boolean onkoEste, PubiobjektiEnum tyyppi, String selite, Sijainti sijainti, int hidastearvo) {
         this.ulkonako = ulkonako;
         this.onkoEste = onkoEste;
@@ -85,8 +106,12 @@ public class Pubiobjekti {
         this.hidastearvo = hidastearvo;
     }
     
+    /**
+     * Tämä konstruktori on vain reitinhakualgoritmien testausta varten, koska
+     * siinä on mielekästä pystyä luomaan pubiobjekti ilman pitkää litaniaa
+     * tilanteessa tarpeettomia määreitä.
+     */
     public Pubiobjekti() {
-        
     }
 
     public String getUlkonako() {
