@@ -12,10 +12,23 @@ import pubventure.ymparisto.Pubiobjekti;
  */
 public class Minimikeko {
 
+    /**
+     * Keko on käytännössä pubiobjekteista koostuva taulukko
+     */
     private Pubiobjekti[] keko;
+    
+    /**
+     * Keon maksimikoko.
+     */
+    private int koko;
+    
+    /**
+     * Montako paikkaa keosta on varattu pubiobjekteille
+     */
     private int solmuja;
 
     public Minimikeko(int koko) {
+        this.koko = koko;
         this.keko = new Pubiobjekti[koko];
     }
 
@@ -100,6 +113,16 @@ public class Minimikeko {
             keko[vasen] = narri;
         }
     }
+    
+    
+    public boolean onkoKeossa(Pubiobjekti etsittava) {
+        for (int i = 0; i < solmuja; i++) {
+            if (keko[i].equals(etsittava)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * metodi palauttaa solmun vanhemman indeksinumeron keossa
@@ -137,5 +160,10 @@ public class Minimikeko {
     
     public int getSolmujenLKM() {
         return this.solmuja;
+    }
+    
+    public void nollaa() {
+        this.keko = new Pubiobjekti[koko];
+        this.solmuja = 0;
     }
 }

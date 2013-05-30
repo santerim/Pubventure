@@ -17,9 +17,8 @@ import pubventure.ymparisto.Pubiobjekti;
  */
 public class Dijkstra {
 
-    Prioriteettijono tutkitut;
-    Prioriteettijono avoimet;
-    EtaisyysComparator ec;
+    Minimikeko tutkitut;
+    Minimikeko avoimet;
     Pubi pubi;
     Pubiobjekti lahto;
     Pubiobjekti maali;
@@ -34,16 +33,15 @@ public class Dijkstra {
         this.pubi = pubi;
         this.leveys = pubi.getLeveys();
         this.korkeus = pubi.getKorkeus();
-        this.ec = new EtaisyysComparator();
-        this.avoimet = new Prioriteettijono(500, ec);
-        this.tutkitut = new Prioriteettijono(500, ec);
+        this.avoimet = new Minimikeko(500);
+        this.tutkitut = new Minimikeko(500);
         this.kentta = pubi.getKentta();
         this.reitti = new Pubiobjekti[37];
     }
 
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
-        this.avoimet.clear();
-        this.tutkitut.clear();
+        this.avoimet.nollaa();
+        this.tutkitut.nollaa();
         this.kasiteltyja = 0;
         this.reitinSolmuja = 0;
         this.reitti = new Pubiobjekti[37];
@@ -52,16 +50,16 @@ public class Dijkstra {
         nollaaViittauksetEdellisiin();
 
         asetaFGjaHArvot(lahto);
-        avoimet.offer(lahto);
+        avoimet.lisaaKekoon(lahto);
 
-        while (!avoimet.isEmpty()) {
-            Pubiobjekti nykyinen = (Pubiobjekti) avoimet.poll();
+        while (avoimet.getSolmujenLKM() > 0) {
+            Pubiobjekti nykyinen = (Pubiobjekti) avoimet.annaJaPoistaPienin();
             if (nykyinen.equals(maali)) {
                 return reitti = muodostaReitti(nykyinen);
             }
 
             kasitteleViereiset(nykyinen);
-            tutkitut.offer(nykyinen);
+            tutkitut.lisaaKekoon(nykyinen);
         }
 //        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
 //        System.out.println("Reittiä ei löydy.");
@@ -167,15 +165,15 @@ public class Dijkstra {
             if (viereinen.equals(maali)) {
                 viereinen.setF(0);
                 viereinen.setEdellinen(minka);
-                avoimet.offer(viereinen);
+                avoimet.lisaaKekoon(viereinen);
             }
 
-            if (!avoimet.contains(viereinen) && !tutkitut.contains(viereinen)) {
+            if (!avoimet.onkoKeossa(viereinen) && !tutkitut.onkoKeossa(viereinen)) {
                 viereinen.setEdellinen(minka);
                 viereinen.setG(laskeG(viereinen));
                 viereinen.setF(laskeF(viereinen));
                 viereinen.setVAUlkonako(".");
-                avoimet.offer(viereinen);
+                avoimet.lisaaKekoon(viereinen);
             } else {
                 if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
                     viereinen.setEdellinen(minka);

@@ -10,6 +10,9 @@ import pubventure.ymparisto.Pubiobjekti;
 /**
  *
  * @author Santeri
+ * 
+ * Minimikeon jarejesta-metodia ei testata suoraan, vaan se tapahtuu
+ * käytännössä annaJaPoistaPienin-metodin kautta.
  */
 public class MinimikekoTest {
     
@@ -128,14 +131,12 @@ public class MinimikekoTest {
 //        mk.lisaaKekoon(p3);
 //        mk.lisaaKekoon(p4);
 //        
-        int i = 0;
-        while (true) {
-            if (mk.getKeko()[i] != null) {
-                System.out.println(mk.getKeko()[i].getF());
-                i++;
-            } else {
-                break;
-            }
-        }
+        
+        
+//        System.out.println("Luvut keossa");
+//        for (int i = 0; i < mk.getSolmujenLKM(); i++) {
+//            System.out.println(mk.getKeko()[i].getF());
+//        }
+        
     }
 }
