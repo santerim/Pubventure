@@ -91,10 +91,6 @@ public class Minimikeko {
         int oikea = oikeaLapsi(mista);
         int pienempi;
         
-        // tämän tarkoitus on olla vain apuna vaihdettaessa Pubiobjektien
-        // paikkaa keossa
-        Pubiobjekti narri;
-        
         if (oikea < solmuja) {
             if (keko[vasen].getF() > keko[oikea].getF()) {
                 pienempi = oikea;
@@ -102,16 +98,21 @@ public class Minimikeko {
                 pienempi = vasen;
             }
             if (keko[mista].getF() > keko[pienempi].getF()) {
-                narri = keko[mista];
-                keko[mista] = keko[pienempi];
-                keko[pienempi] = narri;
+                vaihdaPaikseen(mista, pienempi);
                 jarjesta(pienempi);
             }
         } else if (vasen == solmuja && keko[mista].getF() > keko[vasen].getF()) {
-            narri = keko[mista];
-            keko[mista] = keko[vasen];
-            keko[vasen] = narri;
+            vaihdaPaikseen(mista, vasen);
         }
+    }
+    
+    /**
+     * Vaihtaa keon kahden pubiobjektin paikkaa keskenään
+     */
+    private void vaihdaPaikseen(int mika, int mihin) {
+        Pubiobjekti valiaikainen = keko[mika];
+        keko[mika] = keko[mihin];
+        keko[mihin] = valiaikainen;
     }
     
     /**

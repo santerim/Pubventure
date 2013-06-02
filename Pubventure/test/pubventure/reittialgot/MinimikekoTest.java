@@ -71,10 +71,10 @@ public class MinimikekoTest {
 //                + "2. " + mk.getKeko()[1].getF() + "\n"
 //                + "3. " + mk.getKeko()[2].getF() + "\n"
 //                + "4. " + mk.getKeko()[3].getF());
-        assertEquals("Keon ensimmäisen objektin arvon on väärin",    5, mk.getKeko()[0].getF());
-        assertEquals("Keon toisen objektin arvon on väärin",         6, mk.getKeko()[1].getF());
-        assertEquals("Keon kolmannen objektin arvon on väärin",      7, mk.getKeko()[2].getF());
-        assertEquals("Keon neljännen objektin arvon on väärin",      8, mk.getKeko()[3].getF());
+        assertEquals("Keon ensimmäisen objektin arvo on väärin",    5, mk.getKeko()[0].getF());
+        assertEquals("Keon toisen objektin arvo on väärin",         6, mk.getKeko()[1].getF());
+        assertEquals("Keon kolmannen objektin arvo on väärin",      7, mk.getKeko()[2].getF());
+        assertEquals("Keon neljännen objektin arvo on väärin",      8, mk.getKeko()[3].getF());
     }
 
     // vielä rukattava

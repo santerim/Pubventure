@@ -24,24 +24,35 @@ import pubventure.ymparisto.Pubiobjekti;
  */
 public class AstarTest {
     
-    Pubi pubi;
-    Random arpoja;
-    int leveys;
-    int korkeus;
-    Pubiobjekti lahto;
-    Pubiobjekti maali;
+    private Pubi pubi;
+    private Random arpoja;
+    private int leveys;
+    private int korkeus;
+    private Pubiobjekti lahto;
+    private Pubiobjekti maali;
+    private Astar astar;
+    private Pubiobjekti[] reitti;
     
     public AstarTest() {
         // luodaan pubi, jossa ei ole asiakkaita
         pubi = new Pubi(0, false);
         
+        // luodaan olio testattavasta luokasta
+        this.astar = new Astar(pubi);
+        
         leveys = pubi.getLeveys();
         korkeus = pubi.getKorkeus();
         arpoja = new Random();
         
-        // etsitään satunnaiset pubiobjektit lähdöksi ja maaliksi sillä
-        // edellytyksellä, että ne eivät ole esteitä (seiniä tms) ja että
-        // ei käsitellä kahta samaa objektia
+        
+    }
+    
+    /**
+     * etsitään satunnaiset pubiobjektit lähdöksi ja maaliksi sillä
+     * edellytyksellä, että ne eivät ole esteitä (seiniä tms) ja että
+     * ei käsitellä kahta samaa objektia
+     */
+    private void arvoLahtoJaMaali() {
         int sopivia = 0;
         
         while (true) {
@@ -65,6 +76,19 @@ public class AstarTest {
         }
     }
     
+    /**
+     * debuggausmetodi
+     */
+    private void tulostaReitinSolmujenSijainnit() {
+        for (int i = 0; i < reitti.length; i++) {
+            if (reitti[i] != null) {
+                System.out.println(i + ": (" + reitti[i].getSijainti().getX() + ", " + reitti[i].getSijainti().getY() + ")");
+            } else {
+                break;
+            }
+        }
+    }
+    
     @BeforeClass
     public static void setUpClass() {
     }
@@ -75,6 +99,7 @@ public class AstarTest {
     
     @Before
     public void setUp() {
+        arvoLahtoJaMaali();
         
     }
     
@@ -83,13 +108,21 @@ public class AstarTest {
     }
 
     @Test
-    public void testEtsiReitti() {
+    public void toimiikoReitinetsinta() {
+        astar.etsiReitti(lahto, maali);
+        reitti = astar.getReitti();
         
+        System.out.println("Lähtö: (" + lahto.getSijainti().getX() + ", " + lahto.getSijainti().getY() + ")");
+        System.out.println("Maali: (" + maali.getSijainti().getX() + ", " + maali.getSijainti().getY() + ")");
+        tulostaReitinSolmujenSijainnit();
+        
+        assertTrue("Reitistä löytyi testatessa null-arvo", reitti[0] != null);
+        assertTrue("Reitistä löytyi testatessa null-arvo", reitti[1] != null);
     }
     
     @Test
     public void lasketaanko_F_Oikein() {
-        Pubiobjekti po = new Pubiobjekti();
+        
     }
     
     @Test

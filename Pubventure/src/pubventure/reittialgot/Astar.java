@@ -80,6 +80,14 @@ public class Astar {
      * (pubiobjektia) löydetyssä reitissä on.
      */
     int reitinSolmuja;
+    
+    /**
+     * nämä kaksi muuttujaa pitävät sisällään x- ja y-koordinaatit, joita
+     * tarvitaan tutkittaessa pubiobjektin naapurit
+     * @see #kasitteleViereiset(pubventure.ymparisto.Pubiobjekti)  
+     */
+    private int[] vierusYt = {-1, -1, -1, 0, 0, 1, 1, 1};
+    private int[] vierusXt = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     public Astar(Pubi pubi) {
         this.pubi = pubi;
@@ -88,7 +96,7 @@ public class Astar {
         this.avoimet = new Minimikeko(500);
         this.tutkitut = new Minimikeko(500);
         this.kentta = pubi.getKentta();
-        this.reitti = new Pubiobjekti[37];
+//        this.reitti = new Pubiobjekti[37];
     }
 
     /**
@@ -103,7 +111,7 @@ public class Astar {
         this.tutkitut.nollaa();
         this.kasiteltyja = 0;
         this.reitinSolmuja = 0;
-        this.reitti = new Pubiobjekti[37];
+        this.reitti = new Pubiobjekti[50];
         this.lahto = lahto;
         this.maali = maali;
         nollaaViittauksetEdellisiin();
@@ -219,37 +227,20 @@ public class Astar {
      */
     private void kasitteleViereiset(Pubiobjekti minka) {
 //        System.out.println("Käsitellään viereiset");
-        if (minka.getX() > 0 && minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX()];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1 && minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY()][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1) {
-            Pubiobjekti kohde = kentta[minka.getY()][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() > 0 && minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX()];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1 && minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
+        
+        // otetaan koodin selkeyden vuoksi pubiobjektin x- ja y-koordinaatit
+        // talteen
+        int x = minka.getX();
+        int y = minka.getY();
+        
+        // mikäli kyse ei ole pelialueen laidalla olevasta objektista, käydään
+        // sen naapurit läpi
+        if (x > 0 && x < leveys && y > 0 && y < korkeus) {
+            for (int i = 0; i < 8; i++) {
+                Pubiobjekti kohde = kentta[y + vierusYt[i]]
+                                          [x + vierusXt[i]];
+                kasitteleViereinen(minka, kohde);
+            }
         }
     }
 
@@ -297,5 +288,9 @@ public class Astar {
                 kentta[i][j].setEdellinen(null);
             }
         }
+    }
+    
+    public Pubiobjekti[] getReitti() {
+        return this.reitti;
     }
 }
