@@ -174,6 +174,16 @@ public class Pubiobjekti {
         this.hidastearvo = arvo;
     }
     
+    /**
+     * HUOM! Jokaiselle Pubiobjektille annetaan sijainti luomisen yhteydessä,
+     * joten tätä metodia ei pidä käyttää muuhun kuin testaukseen!
+     * @param sijainti on uusi Sijainti-olio Pubiobjektille.
+     * @see Sijainti
+     */
+    public void setSijainti(Sijainti sijainti) {
+        this.sijainti = sijainti;
+    }
+    
     public int getH() {
         return this.h;
     }

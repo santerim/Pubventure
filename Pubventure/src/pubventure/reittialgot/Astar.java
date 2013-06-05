@@ -236,7 +236,7 @@ public class Astar {
         // mikäli kyse ei ole pelialueen laidalla olevasta objektista, käydään
         // sen naapurit läpi
         if (x > 0 && x < leveys && y > 0 && y < korkeus) {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < vierusYt.length; i++) {
                 Pubiobjekti kohde = kentta[y + vierusYt[i]]
                                           [x + vierusXt[i]];
                 kasitteleViereinen(minka, kohde);

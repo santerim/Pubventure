@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pubventure.enumit.PubiobjektiEnum;
 import pubventure.ymparisto.Pubi;
 import pubventure.ymparisto.Pubiobjekti;
 
@@ -64,7 +65,8 @@ public class AstarTest {
             int kor = arpoja.nextInt(korkeus);
             Pubiobjekti kokeiltava = pubi.getObjekti(kor, lev);
             
-            if (kokeiltava.getEste() == false) {
+            if (kokeiltava.getEste() == false 
+                    && kokeiltava.getTyyppi() != PubiobjektiEnum.TALUE) {
                 if (sopivia == 0) {
                     lahto = kokeiltava;
                     sopivia++;

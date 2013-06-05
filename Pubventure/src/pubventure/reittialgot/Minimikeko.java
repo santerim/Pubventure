@@ -109,7 +109,7 @@ public class Minimikeko {
     /**
      * Vaihtaa keon kahden pubiobjektin paikkaa keskenään
      */
-    private void vaihdaPaikseen(int mika, int mihin) {
+    public void vaihdaPaikseen(int mika, int mihin) {
         Pubiobjekti valiaikainen = keko[mika];
         keko[mika] = keko[mihin];
         keko[mihin] = valiaikainen;
@@ -136,7 +136,7 @@ public class Minimikeko {
      * @param sija on indeksinumero solmulle, jonka vanhempi halutaan saada
      * selville
      */
-    private int vanhempi(int sija) {
+    public int vanhempi(int sija) {
         return ((sija + 1) / 2) - 1;
     }
 
@@ -146,7 +146,7 @@ public class Minimikeko {
      * @param sija on lastaan kaipaavan solmun indeksinumero keossa
      * @return palauttaa vasemman lapsen indeksinumeron
      */
-    private int vasenLapsi(int sija) {
+    public int vasenLapsi(int sija) {
         return ((sija + 1) * 2) - 1;
     }
 
@@ -156,7 +156,7 @@ public class Minimikeko {
      * @param sija on lastaan kaipaavan solmun indeksinumero keossa
      * @return palauttaa oikean lapsen indeksinumeron
      */
-    private int oikeaLapsi(int sija) {
+    public int oikeaLapsi(int sija) {
         return ((sija + 1) * 2);
     }
     
