@@ -23,12 +23,6 @@ public class Astar {
     Minimikeko avoimet;
     
     /**
-     * EtäisyysComparator toimii avustavana luokkana auttaen selvittämään
-     * algoritmissa käytetyn keon järjestyksen
-     */
-//    EtaisyysComparator ec;
-    
-    /**
      * Logiikka-luokalta saadaan viite Pubi-luokkaan, jota tarvitaan sen
      * tarjoamiin metodeihin kiinnipääsemiseksi
      */
@@ -96,7 +90,6 @@ public class Astar {
         this.avoimet = new Minimikeko(500);
         this.tutkitut = new Minimikeko(500);
         this.kentta = pubi.getKentta();
-//        this.reitti = new Pubiobjekti[37];
     }
 
     /**
@@ -115,12 +108,15 @@ public class Astar {
         this.lahto = lahto;
         this.maali = maali;
         nollaaViittauksetEdellisiin();
+        nollaaKuulumisetKekoihin();
 
         asetaFGjaHArvot(lahto);
         avoimet.lisaaKekoon(lahto);
+        lahto.setAvoimissa(true);
 
         while (avoimet.getSolmujenLKM() > 0) {
             Pubiobjekti nykyinen = (Pubiobjekti) avoimet.annaJaPoistaPienin();
+            nykyinen.setAvoimissa(false);
             kasiteltyja++;
 //            System.out.println(kasiteltyja);
             if (nykyinen.equals(maali)) {
@@ -129,6 +125,7 @@ public class Astar {
 
             kasitteleViereiset(nykyinen);
             tutkitut.lisaaKekoon(nykyinen);
+            nykyinen.setTutkituissa(true);
         }
 //        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
 //        System.out.println("Reittiä ei löydy.");
@@ -234,7 +231,8 @@ public class Astar {
         int y = minka.getY();
         
         // mikäli kyse ei ole pelialueen laidalla olevasta objektista, käydään
-        // sen naapurit läpi
+        // sen naapurit läpi. Laitaobjektit eivät joka tapauksessa kuulu
+        // varsinaiseen pelialueeseen, joten tästä ei aiheudu mitään haittaa.
         if (x > 0 && x < leveys && y > 0 && y < korkeus) {
             for (int i = 0; i < vierusYt.length; i++) {
                 Pubiobjekti kohde = kentta[y + vierusYt[i]]
@@ -258,14 +256,16 @@ public class Astar {
                 viereinen.setF(0);
                 viereinen.setEdellinen(minka);
                 avoimet.lisaaKekoon(viereinen);
+                viereinen.setAvoimissa(true);
             }
             
-            if (!avoimet.onkoKeossa(viereinen) && !tutkitut.onkoKeossa(viereinen)) {
+            if (!viereinen.getAvoimissa() && !viereinen.getTutkituissa()) {
                 viereinen.setEdellinen(minka);
                 viereinen.setG(laskeG(viereinen));
                 viereinen.setF(laskeF(viereinen));
                 viereinen.setVAUlkonako(".");
                 avoimet.lisaaKekoon(viereinen);
+                viereinen.setAvoimissa(true);
             } else {
                 if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
                     viereinen.setEdellinen(minka);
@@ -292,5 +292,14 @@ public class Astar {
     
     public Pubiobjekti[] getReitti() {
         return this.reitti;
+    }
+
+    private void nollaaKuulumisetKekoihin() {
+        for (int i = 0; i < pubi.getKorkeus(); i++) {
+            for (int j = 0; j < pubi.getLeveys(); j++) {
+                kentta[i][j].setAvoimissa(false);
+                kentta[i][j].setTutkituissa(false);
+            }
+        }
     }
 }

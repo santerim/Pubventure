@@ -28,6 +28,14 @@ public class Dijkstra {
     int korkeus;
     int kasiteltyja;
     int reitinSolmuja;
+    
+    /**
+     * nämä kaksi muuttujaa pitävät sisällään x- ja y-koordinaatit, joita
+     * tarvitaan tutkittaessa pubiobjektin naapurit
+     * @see #kasitteleViereiset(pubventure.ymparisto.Pubiobjekti)  
+     */
+    private int[] vierusYt = {-1, -1, -1, 0, 0, 1, 1, 1};
+    private int[] vierusXt = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     public Dijkstra(Pubi pubi) {
         this.pubi = pubi;
@@ -48,18 +56,22 @@ public class Dijkstra {
         this.lahto = lahto;
         this.maali = maali;
         nollaaViittauksetEdellisiin();
+        nollaaKuulumisetKekoihin();
 
         asetaFGjaHArvot(lahto);
         avoimet.lisaaKekoon(lahto);
+        lahto.setAvoimissa(true);
 
         while (avoimet.getSolmujenLKM() > 0) {
             Pubiobjekti nykyinen = (Pubiobjekti) avoimet.annaJaPoistaPienin();
+            nykyinen.setAvoimissa(false);
             if (nykyinen.equals(maali)) {
                 return reitti = muodostaReitti(nykyinen);
             }
 
             kasitteleViereiset(nykyinen);
             tutkitut.lisaaKekoon(nykyinen);
+            nykyinen.setTutkituissa(true);
         }
 //        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
 //        System.out.println("Reittiä ei löydy.");
@@ -121,39 +133,28 @@ public class Dijkstra {
         }
     }
 
+    /**
+     * Metodi käsittelee tutkittavan solmun naapurit kasitteleViereinen-
+     * apumetodia hyväksikäyttäen.
+     * @param minka on tutkittava solmu
+     */
     private void kasitteleViereiset(Pubiobjekti minka) {
 //        System.out.println("Käsitellään viereiset");
-        if (minka.getX() > 0 && minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX()];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1 && minka.getY() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY() - 1][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() > 0) {
-            Pubiobjekti kohde = kentta[minka.getY()][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1) {
-            Pubiobjekti kohde = kentta[minka.getY()][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() > 0 && minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX() - 1];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX()];
-            kasitteleViereinen(minka, kohde);
-        }
-        if (minka.getX() < leveys - 1 && minka.getY() < korkeus - 1) {
-            Pubiobjekti kohde = kentta[minka.getY() + 1][minka.getX() + 1];
-            kasitteleViereinen(minka, kohde);
+        
+        // otetaan koodin selkeyden vuoksi pubiobjektin x- ja y-koordinaatit
+        // talteen
+        int x = minka.getX();
+        int y = minka.getY();
+        
+        // mikäli kyse ei ole pelialueen laidalla olevasta objektista, käydään
+        // sen naapurit läpi. Laitaobjektit eivät joka tapauksessa kuulu
+        // varsinaiseen pelialueeseen, joten tästä ei aiheudu mitään haittaa.
+        if (x > 0 && x < leveys && y > 0 && y < korkeus) {
+            for (int i = 0; i < vierusYt.length; i++) {
+                Pubiobjekti kohde = kentta[y + vierusYt[i]]
+                                          [x + vierusXt[i]];
+                kasitteleViereinen(minka, kohde);
+            }
         }
     }
 
@@ -166,14 +167,16 @@ public class Dijkstra {
                 viereinen.setF(0);
                 viereinen.setEdellinen(minka);
                 avoimet.lisaaKekoon(viereinen);
+                viereinen.setAvoimissa(true);
             }
 
-            if (!avoimet.onkoKeossa(viereinen) && !tutkitut.onkoKeossa(viereinen)) {
+            if (!viereinen.getAvoimissa() && !viereinen.getTutkituissa()) {
                 viereinen.setEdellinen(minka);
                 viereinen.setG(laskeG(viereinen));
                 viereinen.setF(laskeF(viereinen));
                 viereinen.setVAUlkonako(".");
                 avoimet.lisaaKekoon(viereinen);
+                viereinen.setAvoimissa(true);
             } else {
                 if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
                     viereinen.setEdellinen(minka);
@@ -190,6 +193,15 @@ public class Dijkstra {
         for (int i = 0; i < korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
                 kentta[i][j].setEdellinen(null);
+            }
+        }
+    }
+    
+    private void nollaaKuulumisetKekoihin() {
+        for (int i = 0; i < pubi.getKorkeus(); i++) {
+            for (int j = 0; j < pubi.getLeveys(); j++) {
+                kentta[i][j].setAvoimissa(false);
+                kentta[i][j].setTutkituissa(false);
             }
         }
     }

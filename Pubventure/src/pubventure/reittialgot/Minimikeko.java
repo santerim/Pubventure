@@ -23,10 +23,15 @@ public class Minimikeko {
     private int koko;
     
     /**
-     * Montako paikkaa keosta on varattu pubiobjekteille
+     * Tämä pitää kirjaa siitä, montako pubiobjektia kekoon varsinaisesti
+     * kuuluu. Keon sisällään pitävässä taulukossa voi hyvin olla kekoon
+     * kuulumattomia objekteja.
      */
     private int solmuja;
 
+    /**
+     * Konstruktori, joka luo kekotaulukon annetun parametrin laajuiseksi.
+     */
     public Minimikeko(int koko) {
         this.koko = koko;
         this.keko = new Pubiobjekti[koko];
@@ -115,21 +120,6 @@ public class Minimikeko {
         keko[mihin] = valiaikainen;
     }
     
-    /**
-     * Tarkistaa josko haettava pubiobjekti on jo keossa.
-     * @param etsittava on pubiobjekti jonka olemassaoloa keossa halutaan
-     * selvittää
-     * @return palauttaa totuusarvon
-     */
-    public boolean onkoKeossa(Pubiobjekti etsittava) {
-        for (int i = 0; i < solmuja; i++) {
-            if (keko[i].equals(etsittava)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * metodi palauttaa solmun vanhemman indeksinumeron keossa
      *

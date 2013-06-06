@@ -202,17 +202,6 @@ public class MinimikekoTest {
     }
     
     /**
-     * Kokeillaan, että objekti löydetään keosta.
-     */
-    @Test
-    public void loytyykoObjektiKeosta() {
-        Pubiobjekti p100 = new Pubiobjekti();
-        p100.setSijainti(new Sijainti(15, 15));
-        assertTrue(mk.onkoKeossa(p100) == false);
-        assertTrue(mk.onkoKeossa(p1));
-    }
-    
-    /**
      * Kahden objektin paikkojen vaihtaminen keskenään keossa.
      */
     @Test

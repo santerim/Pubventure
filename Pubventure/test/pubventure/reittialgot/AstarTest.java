@@ -119,7 +119,14 @@ public class AstarTest {
         tulostaReitinSolmujenSijainnit();
         
         assertTrue("Reitistä löytyi testatessa null-arvo", reitti[0] != null);
-        assertTrue("Reitistä löytyi testatessa null-arvo", reitti[1] != null);
+        if (reitti.length > 1) {
+            assertTrue("Reitistä löytyi testatessa null-arvo", reitti[1] != null);
+        }
+    }
+    
+    @Test
+    public void suorituskyky() {
+        
     }
     
     @Test

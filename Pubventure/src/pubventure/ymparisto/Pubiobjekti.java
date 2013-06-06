@@ -75,6 +75,10 @@ public class Pubiobjekti {
      * nykyiseen
      */
     private Pubiobjekti edellinen;
+    
+    private boolean avoimissa;
+    
+    private boolean tutkituissa;
 
     /**
      * Luo uuden pubiobjektin kaikilla sille kuuluvilla määreillä
@@ -214,6 +218,22 @@ public class Pubiobjekti {
     
     public Pubiobjekti getEdellinen() {
         return this.edellinen;
+    }
+    
+    public boolean getAvoimissa() {
+        return this.avoimissa;
+    }
+    
+    public boolean getTutkituissa() {
+        return this.tutkituissa;
+    }
+    
+    public void setAvoimissa(boolean totuusarvo) {
+        this.avoimissa = totuusarvo;
+    }
+    
+    public void setTutkituissa(boolean totuusarvo) {
+        this.tutkituissa = totuusarvo;
     }
     
     // TARKISTETTAVA!
