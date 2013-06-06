@@ -176,8 +176,7 @@ public class Pubi {
     /**
      * Tutkitaan onko annetuissa koordinaateissa este
      *
-     * @param x on leveyssuuntainen koordinaatti
-     * @param y on korkeussuuntainen koordinaatti
+     * @param sijainti on tutkittava sijainti
      * @return palauttaa true, mikäli parametrien mukaisessa paikassa on este,
      * muuten false
      */
