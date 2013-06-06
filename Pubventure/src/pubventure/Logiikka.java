@@ -134,6 +134,7 @@ public class Logiikka {
                 kl.setInehmotNakymattomiksi();
                 kl.piirraAlue();
                 this.reititNakyvilla = true;
+                System.gc();
                 break;
             case DIJKSTRA:
                 if (reititNakyvilla) {
@@ -149,6 +150,7 @@ public class Logiikka {
                 kl.setInehmotNakymattomiksi();
                 kl.piirraAlue();
                 this.reititNakyvilla = true;
+                System.gc();
                 break;
             case PYYHI:
                 if (reititNakyvilla) {

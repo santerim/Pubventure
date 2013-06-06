@@ -183,7 +183,10 @@ public class Astar {
     }
 
     /**
-     * Laskee solmun h-arvon, eli arvioidun etäisyyden maaliin.
+     * Laskee solmun h-arvon, eli arvioidun etäisyyden maaliin. Tässä
+     * projektissa etäisyys arvioidaan diagonaalisesti, eli voimme liikkua sekä
+     * pää- että väli-ilmansuuntiin.
+     * 
      * @param mista on solmu jonka h-arvoa kaivataan
      * @param mihin on maali
      * @return palauttaa h-arvon kokonaislukuna
