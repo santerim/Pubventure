@@ -100,6 +100,32 @@ public class Astar {
      * muodostaa
      */
     public Pubiobjekti[] etsiReitti(Pubiobjekti lahto, Pubiobjekti maali) {
+        
+        reitinhaunAlkutoimet(lahto, maali);
+        
+        while (avoimet.getSolmujenLKM() > 0) {
+            Pubiobjekti nykyinen = (Pubiobjekti) avoimet.annaJaPoistaPienin();
+            nykyinen.setAvoimissa(false);
+            kasiteltyja++;
+
+            if (nykyinen.equals(maali)) {
+                return reitti = muodostaReitti(nykyinen);
+            }
+
+            kasitteleViereiset(nykyinen);
+            tutkitut.lisaaKekoon(nykyinen);
+            nykyinen.setTutkituissa(true);
+        }
+        return null;
+    }
+    
+    /**
+     * Metodi suorittaa reitinhaun alkutoimet puhdistamalla keot ja asettamalla
+     * muuttujat lähtöarvoihinsa.
+     * @param lahto on reitinhaun lähtösolmu
+     * @param maali on reitinhaun maalisolmu
+     */
+    private void reitinhaunAlkutoimet(Pubiobjekti lahto, Pubiobjekti maali) {
         this.avoimet.nollaa();
         this.tutkitut.nollaa();
         this.kasiteltyja = 0;
@@ -113,23 +139,6 @@ public class Astar {
         asetaFGjaHArvot(lahto);
         avoimet.lisaaKekoon(lahto);
         lahto.setAvoimissa(true);
-
-        while (avoimet.getSolmujenLKM() > 0) {
-            Pubiobjekti nykyinen = (Pubiobjekti) avoimet.annaJaPoistaPienin();
-            nykyinen.setAvoimissa(false);
-            kasiteltyja++;
-//            System.out.println(kasiteltyja);
-            if (nykyinen.equals(maali)) {
-                return reitti = muodostaReitti(nykyinen);
-            }
-
-            kasitteleViereiset(nykyinen);
-            tutkitut.lisaaKekoon(nykyinen);
-            nykyinen.setTutkituissa(true);
-        }
-//        System.out.println("Käsiteltiin " + kasiteltyja + " solmua.");
-//        System.out.println("Reittiä ei löydy.");
-        return null;
     }
 
     /**
@@ -226,8 +235,6 @@ public class Astar {
      * @param minka on tutkittava solmu
      */
     private void kasitteleViereiset(Pubiobjekti minka) {
-//        System.out.println("Käsitellään viereiset");
-        
         // otetaan koodin selkeyden vuoksi pubiobjektin x- ja y-koordinaatit
         // talteen
         int x = minka.getX();
@@ -256,28 +263,66 @@ public class Astar {
                 return;
             }
             if (viereinen.equals(maali)) {
-                viereinen.setF(0);
-                viereinen.setEdellinen(minka);
-                avoimet.lisaaKekoon(viereinen);
-                viereinen.setAvoimissa(true);
+                vieruskasittely_1_Maali(minka, viereinen);
             }
-            
             if (!viereinen.getAvoimissa() && !viereinen.getTutkituissa()) {
-                viereinen.setEdellinen(minka);
-                viereinen.setG(laskeG(viereinen));
-                viereinen.setF(laskeF(viereinen));
-                viereinen.setVAUlkonako(".");
-                avoimet.lisaaKekoon(viereinen);
-                viereinen.setAvoimissa(true);
+                vieruskasittely_2_uusi(minka, viereinen);
             } else {
-                if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
-                    viereinen.setEdellinen(minka);
-                    viereinen.setG(laskeG(viereinen));
-                    viereinen.setF(laskeF(viereinen));
-                }
+                vieruskasittely_3_muu(minka, viereinen);
             }
 //            kasiteltyja++;
 //            kl.piirraAlue();
+        }
+    }
+    
+    /**
+     * kasitteleViereinen-metodi kutsuu tätä, mikäli käsiteltävä solmu on
+     * maalisolmu
+     * 
+     * @param minka on solmu jonka vierussolmua käsitellään
+     * @param viereinen on käsiteltävä vierussolmu
+     * 
+     * @see #kasitteleViereinen(pubventure.ymparisto.Pubiobjekti, pubventure.ymparisto.Pubiobjekti) 
+     */
+    private void vieruskasittely_1_Maali(Pubiobjekti minka, Pubiobjekti viereinen) {
+        viereinen.setF(0);
+        viereinen.setEdellinen(minka);
+        avoimet.lisaaKekoon(viereinen);
+        viereinen.setAvoimissa(true);
+    }
+    
+    /**
+     * kasitteleViereinen-metodi kutsuu tätä, mikäli käsiteltävä solmu ei ole
+     * avoimissa tai tutkituissa
+     * 
+     * @param minka on solmu jonka vierussolmua käsitellään
+     * @param viereinen on käsiteltävä vierussolmu
+     * 
+     * @see #kasitteleViereinen(pubventure.ymparisto.Pubiobjekti, pubventure.ymparisto.Pubiobjekti) 
+     */
+    private void vieruskasittely_2_uusi(Pubiobjekti minka, Pubiobjekti viereinen) {
+        viereinen.setEdellinen(minka);
+        viereinen.setG(laskeG(viereinen));
+        viereinen.setF(laskeF(viereinen));
+        viereinen.setVAUlkonako(".");
+        avoimet.lisaaKekoon(viereinen);
+        viereinen.setAvoimissa(true);
+    }
+    
+    /**
+     * kasitteleViereinen-metodi kutsuu tätä, mikäli käsiteltävä solmu on joko
+     * avoimissa tai tutkituissa
+     * 
+     * @param minka on solmu jonka vierussolmua käsitellään
+     * @param viereinen on käsiteltävä vierussolmu
+     * 
+     * @see #kasitteleViereinen(pubventure.ymparisto.Pubiobjekti, pubventure.ymparisto.Pubiobjekti) 
+     */
+    private void vieruskasittely_3_muu(Pubiobjekti minka, Pubiobjekti viereinen) {
+        if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
+            viereinen.setEdellinen(minka);
+            viereinen.setG(laskeG(viereinen));
+            viereinen.setF(laskeF(viereinen));
         }
     }
 
@@ -297,6 +342,10 @@ public class Astar {
         return this.reitti;
     }
 
+    /**
+     * Asettaa pubiobjektien muuttujat niin, ettei niillä ole kekoihin
+     * kuulumisen merkintöjä.
+     */
     private void nollaaKuulumisetKekoihin() {
         for (int i = 0; i < pubi.getKorkeus(); i++) {
             for (int j = 0; j < pubi.getLeveys(); j++) {
