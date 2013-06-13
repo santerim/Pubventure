@@ -3,8 +3,10 @@ package pubventure.ihmiset;
 
 import java.util.Random;
 import pubventure.Sijainti;
+import pubventure.enumit.AieEnum;
 import pubventure.enumit.InehmoEnum;
 import pubventure.enumit.KomentoEnum;
+import pubventure.ymparisto.Pubiobjekti;
 
 /**
  *
@@ -79,6 +81,14 @@ public class Inehmo {
     private InehmoEnum sukupuoli;
     
     private boolean nakyvyys;
+    private AieEnum aie;
+    private boolean kusettaa;
+    private boolean janottaa;
+    private double rahat;
+    private boolean tekeeJotain;
+    private double juomatVatsassa;
+    private double jano;
+    private Pubiobjekti[] reitti;
 
     public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus, InehmoEnum sukupuoli) {
         this.sijainti = sijainti;
@@ -91,7 +101,8 @@ public class Inehmo {
 
         this.humala = (double) arpoja.nextInt(51);
         this.rakko = (double) arpoja.nextInt(76);
-        this.asenne = (double) arpoja.nextInt(51);
+        this.asenne = (double) arpoja.nextInt(86);
+        this.juomatVatsassa = (double) arpoja.nextInt(50);
     }
 
     /**
@@ -237,8 +248,20 @@ public class Inehmo {
         }
     }
 
+    /**
+     * Asettaa rakon arvolle muutoksen.
+     * @param uusiArvo on lisäys aiempaan arvoon.
+     */
     public void setRakko(double uusiArvo) {
-        this.rakko = uusiArvo;
+        if (this.rakko + uusiArvo > 100) {
+            this.rakko = 100;
+        } else {
+            this.rakko = this.rakko + uusiArvo;
+        }
+        
+        if (this.rakko > 99) {
+            this.kusettaa = true;
+        }
     }
     
     /**
@@ -278,6 +301,47 @@ public class Inehmo {
     public void setSijainti(Sijainti uusiSijainti) {
         this.sijainti = uusiSijainti;
     }
+    
+    public void setAieEnum(AieEnum aie) {
+        this.aie = aie;
+    }
+    
+    public AieEnum getAieEnum() {
+        return this.aie;
+    }
+    
+    public void setJanottaa(boolean arvo) {
+        this.janottaa = arvo;
+    }
+    
+    public void setKusettaa(boolean arvo) {
+        this.kusettaa = arvo;
+    }
+    
+    public boolean getJanottaa() {
+        return this.janottaa;
+    }
+    
+    public boolean getKusettaa() {
+        return this.kusettaa;
+    }
+    
+    public void setTekeeJotain(boolean arvo) {
+        this.tekeeJotain = arvo;
+    }
+    
+    public boolean getTekeeJotain() {
+        return this.tekeeJotain;
+    }
+    
+    public void setJano(double jano) {
+        this.jano = jano;
+    }
+    
+    public double getJano() {
+        return this.jano;
+    }
+            
     // tarkastamatta...eikä kenties tulekaan käyttöön
 //    @Override
 //    public boolean equals(Object obj) {

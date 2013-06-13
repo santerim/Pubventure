@@ -42,6 +42,7 @@ public class Logiikka {
     private InehmojenHallinnointi ih;
     private Pubiobjekti maali;
     private Pubiobjekti lahto;
+    private boolean paivita = true;
 
     public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat, boolean kansoitettu) {
         this.siirtoja = siirtoja;
@@ -51,7 +52,7 @@ public class Logiikka {
 
         this.pubi = new Pubi(asiakkaita, inehmot);
         
-        this.ih = new InehmojenHallinnointi(pubi, asiakkaita, inehmot, asiakkaatLiikkuvat);
+        this.ih = new InehmojenHallinnointi(pubi, asiakkaita, inehmot, asiakkaatLiikkuvat, this);
         if (kansoitettu) {
             ih.luoHahmot();
         }
@@ -175,10 +176,22 @@ public class Logiikka {
                 }
                 break;
             case TIEDOT:
-                kl.setViestiKentanSisalto("X: " + sankari.getSijainti().getX() + "<br>Y: " + sankari.getSijainti().getY());
+                kl.setViestiKentanSisalto("Oma sijainti &nbsp;&nbsp;&nbsp;&nbsp;"
+                        + "X: " + sankari.getSijainti().getX() + " "
+                        + "Y: " + sankari.getSijainti().getY()
+                        + "<br>"
+                        + "Maalin sijainti &nbsp;"
+                        + "X: " + maali.getSijainti().getX() + " "
+                        + "Y: " + maali.getSijainti().getX());
+                this.paivita = false;
                 break;
         }
-        paivita();
+        if (paivita) {
+            paivita();
+        } else {
+            this.paivita = true;
+        }
+        
     }
 
     /**

@@ -2,7 +2,9 @@ package pubventure.ihmiset;
 
 import java.util.ArrayList;
 import java.util.List;
+import pubventure.Logiikka;
 import pubventure.Sijainti;
+import pubventure.enumit.AieEnum;
 import pubventure.enumit.InehmoEnum;
 import pubventure.enumit.PubiobjektiEnum;
 import pubventure.ymparisto.Pubi;
@@ -31,16 +33,51 @@ public class InehmojenHallinnointi {
     private boolean inehmojenNakyvyys;
     
     private boolean asiakkaatLiikkuvat;
+    private Logiikka log;
 
-    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot, boolean asiakkaatLiikkuvat) {
+    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot, boolean asiakkaatLiikkuvat, Logiikka log) {
         this.pubi = pubi;
         this.asiakkaita = asiakkaita;
         this.inehmot = inehmot;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
+        this.log = log;
         this.inehmoEnumit = InehmoEnum.values();
         this.inehmojenNakyvyys = true;
     }
 
+    private void paivitaAikeet() {
+        for (Inehmo inehmo : inehmot) {
+            if (inehmo.getTyyppi() == InehmoEnum.ASIAKAS) {
+                if (inehmo.getKusettaa()) {
+                    inehmo.setAieEnum(AieEnum.KAYVESSASSA);
+                    continue;
+                } else if (inehmo.getJanottaa()) {
+                    inehmo.setAieEnum(AieEnum.KAYTISKILLA);
+                    continue;
+                } else {
+                    inehmo.setAieEnum(AieEnum.ISTU);
+                }
+            }
+        }
+    }
+    
+    public void paivitaInehmot() {
+        paivitaAikeet();
+        
+    }
+    
+    private void paivitaArvot() {
+        for (Inehmo inehmo : inehmot) {
+            if (inehmo.getTyyppi() == InehmoEnum.ASIAKAS) {
+                
+            }
+        }
+    }
+    
+    private void paivitaRakko(Inehmo inehmo) {
+        
+    }
+    
     /**
      * Luo pubissa olevat ihmiset. Sankari asetetaan uloskäyntiin ikäänkuin
      * vasta paikalle saapuneeksi. Tarjoilija luodaan sellaisen pubiobjektin
@@ -113,7 +150,7 @@ public class InehmojenHallinnointi {
         }
         return null;
     }
-
+    
     public InehmoEnum arvoIka() {
         int satunnainen = pubi.arvoLuku(3);
         return inehmoEnumit[satunnainen];
