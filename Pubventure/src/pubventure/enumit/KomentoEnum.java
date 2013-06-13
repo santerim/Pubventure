@@ -36,5 +36,6 @@ public enum KomentoEnum {
     ASTAR,
     DIJKSTRA,
     PYYHI,
-    TIEDOT;
+    TIEDOT,
+    MAALI;
 }

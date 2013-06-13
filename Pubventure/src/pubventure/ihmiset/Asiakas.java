@@ -1,8 +1,11 @@
 
 package pubventure.ihmiset;
 
+import java.util.ArrayList;
 import pubventure.Sijainti;
 import pubventure.enumit.InehmoEnum;
+import pubventure.enumit.PubiobjektiEnum;
+import pubventure.ymparisto.Pubiobjekti;
 
 /**
  *
@@ -18,6 +21,22 @@ public class Asiakas extends Inehmo {
      * @see Pubventure.enumit.InehmoEnum
      */
     private InehmoEnum ika;
+    
+    /**
+     * Asiakkaan tuntemat henkilöt, tai sellaiset joiden seuraan tämä hakeutuu.
+     */
+    private ArrayList<Inehmo> tutut;
+    
+    /**
+     * Kun tulee tarve siirtyä jonnekin, etsitään reitti johonkin tiettyyn
+     * kohteeseen (baaritiski, vessa jne).
+     */
+    private Pubiobjekti kohde;
+    
+    /**
+     * Paikka, jonne asiakas siirtyy takaisin käytyään jossain.
+     */
+    private Pubiobjekti paikka;
     
     public Asiakas(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva, InehmoEnum sukupuoli, InehmoEnum ika) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva, sukupuoli);
@@ -64,5 +83,33 @@ public class Asiakas extends Inehmo {
     
     public InehmoEnum getIka() {
         return this.ika;
+    }
+    
+    public void setKohde(Pubiobjekti kohde) {
+        this.kohde = kohde;
+    }
+    
+    public Pubiobjekti getKohde() {
+        return this.kohde;
+    }
+    
+    public void setPaikka(Pubiobjekti paikka) {
+        this.paikka = paikka;
+    }
+    
+    public Pubiobjekti getPaikka() {
+        return this.paikka;
+    }
+    
+    public ArrayList<Inehmo> getTutut() {
+        return this.tutut;
+    }
+    
+    public void lisaaTuttu(Inehmo inehmo) {
+        this.tutut.add(inehmo);
+    }
+    
+    public void poistaTuttu(Inehmo inehmo) {
+            this.tutut.remove(inehmo);
     }
 }

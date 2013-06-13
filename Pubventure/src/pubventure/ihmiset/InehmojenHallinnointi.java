@@ -29,11 +29,14 @@ public class InehmojenHallinnointi {
      */
     private InehmoEnum[] inehmoEnumit;
     private boolean inehmojenNakyvyys;
+    
+    private boolean asiakkaatLiikkuvat;
 
-    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot) {
+    public InehmojenHallinnointi(Pubi pubi, int asiakkaita, ArrayList<Inehmo> inehmot, boolean asiakkaatLiikkuvat) {
         this.pubi = pubi;
         this.asiakkaita = asiakkaita;
         this.inehmot = inehmot;
+        this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
         this.inehmoEnumit = InehmoEnum.values();
         this.inehmojenNakyvyys = true;
     }
@@ -138,5 +141,13 @@ public class InehmojenHallinnointi {
 
     public boolean getInehmojenNakyvyys() {
         return this.inehmojenNakyvyys;
+    }
+    
+    public int getAsiakkaita() {
+        return this.asiakkaita;
+    }
+    
+    public ArrayList<Inehmo> getInehmot() {
+        return this.inehmot;
     }
 }

@@ -131,6 +131,10 @@ public class NappaimistonKuuntelija implements KeyListener {
                 komento = KomentoEnum.VONKAA;
                 setOdotetaanSuuntaKomentoa(true);
                 kl.valitaKomento(KomentoEnum.SUUNTA);
+            } else if (ke.getKeyCode() == KeyEvent.VK_M) {
+                komento = KomentoEnum.MAALI;
+                setOdotetaanSuuntaKomentoa(true);
+                kl.valitaKomento(KomentoEnum.SUUNTA);
             }
 
 

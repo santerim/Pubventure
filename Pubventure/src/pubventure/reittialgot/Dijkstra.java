@@ -17,17 +17,58 @@ import pubventure.ymparisto.Pubiobjekti;
  */
 public class Dijkstra {
 
-    Minimikeko tutkitut;
-    Minimikeko avoimet;
-    Pubi pubi;
-    Pubiobjekti lahto;
-    Pubiobjekti maali;
-    Pubiobjekti[][] kentta;
-    Pubiobjekti[] reitti;
-    int leveys;
-    int korkeus;
-    int kasiteltyja;
-    int reitinSolmuja;
+    /**
+     * Tutkitut solmut.
+     */
+    private Minimikeko tutkitut;
+    /**
+     * Tutkittavat solmut.
+     */
+    private Minimikeko avoimet;
+    /**
+     * Logiikka-luokalta saadaan viite Pubi-luokkaan, jota tarvitaan sen
+     * tarjoamiin metodeihin kiinnipääsemiseksi
+     */
+    private Pubi pubi;
+    /**
+     * Etsittäessä reittiä meillä on jokin mistä etsintää lähdetään
+     * suorittamaan. Tässä tapauksessa se on jokin Pubiobjekti-luokan
+     * olio
+     */
+    private Pubiobjekti lahto;
+    /**
+     * Etsittävä reitti päättyy maaliin
+     */
+    private Pubiobjekti maali;
+    /**
+     * Pubi-luokka tarjoaa metodin, jolla saadaan pelikenttä kaksiulotteiseen
+     * taulukkoon. Tämän avulla voidaan käydä kenttää läpi tarpeen vaatiessa
+     * käyttämällä sisäkkäisiä for-silmukoita.
+     */
+    private Pubiobjekti[][] kentta;
+    /**
+     * Kun reitti lähtöpisteestä kohteeseen on löydetty, se otetaan talteen
+     * Pubiobjekteista koostuvaan taulukkoon.
+     */
+    private Pubiobjekti[] reitti;
+    /**
+     * Pelikentän leveys
+     */
+    private int leveys;
+    /**
+     * Pelikentän korkeus
+     */
+    private int korkeus;
+    /**
+     * Debuggaus-apumuuttuja, jolla lasketaan käsiteltyjä solmuja
+     * (pubiobjekteja).
+     */
+    private int kasiteltyja;
+    /**
+     * Debuggaus-apumuuttuja, jolla pidetään kirjaa siitä, montako solmua
+     * (pubiobjektia) löydetyssä reitissä on.
+     */
+    private int reitinSolmuja;
     
     /**
      * nämä kaksi muuttujaa pitävät sisällään x- ja y-koordinaatit, joita
@@ -82,7 +123,7 @@ public class Dijkstra {
         this.tutkitut.nollaa();
         this.kasiteltyja = 0;
         this.reitinSolmuja = 0;
-        this.reitti = new Pubiobjekti[37];
+        this.reitti = new Pubiobjekti[50];
         this.lahto = lahto;
         this.maali = maali;
         nollaaViittauksetEdellisiin();
@@ -129,12 +170,6 @@ public class Dijkstra {
             kasiteltava = kasiteltava.getEdellinen();
         }
         return matka;
-    }
-
-    private int laskeH(Pubiobjekti mista, Pubiobjekti mihin) {
-        return Math.max(
-                Math.abs(mista.getX() - mihin.getX()),
-                Math.abs(mista.getY() - mihin.getY()));
     }
 
     private void asetaFGjaHArvot(Pubiobjekti lahto) {

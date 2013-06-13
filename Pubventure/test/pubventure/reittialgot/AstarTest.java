@@ -1,6 +1,7 @@
 
 package pubventure.reittialgot;
 
+import java.util.ArrayList;
 import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pubventure.enumit.PubiobjektiEnum;
+import pubventure.ihmiset.Inehmo;
 import pubventure.ymparisto.Pubi;
 import pubventure.ymparisto.Pubiobjekti;
 
@@ -36,7 +38,7 @@ public class AstarTest {
     
     public AstarTest() {
         // luodaan pubi, jossa ei ole asiakkaita
-        pubi = new Pubi(0, false);
+        pubi = new Pubi(0, new ArrayList<Inehmo>());
         
         // luodaan olio testattavasta luokasta
         this.astar = new Astar(pubi);

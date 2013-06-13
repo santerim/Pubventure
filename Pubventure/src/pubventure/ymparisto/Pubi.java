@@ -47,7 +47,7 @@ public class Pubi {
     /**
      * Pelikentälle luodut hahmot kerätään ArrayListiin
      */
-    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
+    private ArrayList<Inehmo> inehmot;
     /**
      * Satunnaislukujen lähde
      */
@@ -71,9 +71,9 @@ public class Pubi {
      */
     private Kentanluoja kentanluoja;
 
-    public Pubi(int asiakkaita, boolean kansoitettu) {
+    public Pubi(int asiakkaita, ArrayList<Inehmo> inehmot) {
         this.asiakkaita = asiakkaita;
-        this.kansoitettu = kansoitettu;
+        this.inehmot = inehmot;
         this.tiedostonLukija = new TiedostonLukija();
 
         //yritetään lukea tiedosto kutsumalla TiedostonLukija-luokan metodia
@@ -95,10 +95,10 @@ public class Pubi {
 
         // luodaan inehmojen hallinnointi ja käsketään sitä luomaan hahmot,
         // mikäli niin halutaan
-        this.ih = new InehmojenHallinnointi(this, asiakkaita, inehmot);
-        if (kansoitettu) {
-            ih.luoHahmot();
-        }
+//        this.ih = new InehmojenHallinnointi(this, asiakkaita, inehmot);
+//        if (kansoitettu) {
+//            ih.luoHahmot();
+//        }
     }
 
     /**
@@ -206,13 +206,13 @@ public class Pubi {
         }
     }
 
-    public void setInehmojenNakyvyys(boolean arvo) {
-        ih.setInehmojenNakyvyys(arvo);
-    }
-
-    public boolean getInehmojenNakyvyys() {
-        return ih.getInehmojenNakyvyys();
-    }
+//    public void setInehmojenNakyvyys(boolean arvo) {
+//        ih.setInehmojenNakyvyys(arvo);
+//    }
+//
+//    public boolean getInehmojenNakyvyys() {
+//        return ih.getInehmojenNakyvyys();
+//    }
 
     /**
      * Toimii luokan satunnaislukugeneraattorina
@@ -256,5 +256,9 @@ public class Pubi {
 
     public Pubiobjekti[][] getKentta() {
         return this.kentta;
+    }
+    
+    public InehmojenHallinnointi getInehmojenHallinnointi() {
+        return this.ih;
     }
 }

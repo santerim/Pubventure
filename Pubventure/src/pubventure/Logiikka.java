@@ -9,6 +9,7 @@ import pubventure.enumit.KomentoEnum;
 import pubventure.enumit.PubiobjektiEnum;
 import pubventure.gui.Kayttoliittyma;
 import pubventure.ihmiset.Inehmo;
+import pubventure.ihmiset.InehmojenHallinnointi;
 import pubventure.ihmiset.Sankari;
 import pubventure.reittialgot.Astar;
 import pubventure.reittialgot.Dijkstra;
@@ -28,7 +29,7 @@ public class Logiikka {
     private Pubi pubi;
     private int siirtoja;
     private boolean asiakkaatLiikkuvat;
-    private ArrayList<Inehmo> inehmot;
+    private ArrayList<Inehmo> inehmot = new ArrayList<Inehmo>();
     private Random arpoja = new Random();
     private Kayttoliittyma kl;
     private KomentoEnum[] komennot;
@@ -37,19 +38,32 @@ public class Logiikka {
     private Dijkstra dijkstra;
     private Pubiobjekti[] reitti;
     private boolean reititNakyvilla;
+    private boolean kansoitettu;
+    private InehmojenHallinnointi ih;
+    private Pubiobjekti maali;
+    private Pubiobjekti lahto;
 
-    public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat) {
+    public Logiikka(int asiakkaita, int siirtoja, boolean asiakkaatLiikkuvat, boolean kansoitettu) {
         this.siirtoja = siirtoja;
         this.asiakkaatLiikkuvat = asiakkaatLiikkuvat;
+        this.kansoitettu = kansoitettu;
         this.komennot = KomentoEnum.values();
 
-        this.pubi = new Pubi(asiakkaita, true);
-        this.inehmot = pubi.getInehmot();
+        this.pubi = new Pubi(asiakkaita, inehmot);
+        
+        this.ih = new InehmojenHallinnointi(pubi, asiakkaita, inehmot, asiakkaatLiikkuvat);
+        if (kansoitettu) {
+            ih.luoHahmot();
+        }
+        
+        this.inehmot = ih.getInehmot();
         this.sankari = (Sankari) inehmot.get(0);
 
-        this.kl = new Kayttoliittyma(pubi, inehmot, sankari, this);
+        this.kl = new Kayttoliittyma(pubi, inehmot, sankari, ih, this);
         this.astar = new Astar(pubi);
         this.dijkstra = new Dijkstra(pubi);
+        
+        this.maali = pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI);
     }
 
     /**
@@ -77,7 +91,7 @@ public class Logiikka {
             if (reititNakyvilla) {
                 pubi.palautaPOUlkomuodot();
             }
-            if (!pubi.getInehmojenNakyvyys()) {
+            if (!ih.getInehmojenNakyvyys()) {
                 kl.setInehmotNakyviksi();
             }
             kl.setViestiKentanSisalto(KomentoEnum.LIIKE, "");
@@ -124,11 +138,11 @@ public class Logiikka {
                 if (reititNakyvilla) {
                     pubi.palautaPOUlkomuodot();
                 }
-                Pubiobjekti lahto = pubi.getObjekti(sankari.getSijainti());
                 long aikaAlussa = System.currentTimeMillis();
-                this.astar.etsiReitti(
-                        lahto,
-                        pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
+                
+                this.lahto = pubi.getObjekti(sankari.getSijainti());
+                this.astar.etsiReitti(lahto, maali);
+
                 long aikaLopussa = System.currentTimeMillis();
                 kl.setViestiKentanSisalto("A*: " + (aikaLopussa - aikaAlussa) + "ms");
                 kl.setInehmotNakymattomiksi();
@@ -140,11 +154,11 @@ public class Logiikka {
                 if (reititNakyvilla) {
                     pubi.palautaPOUlkomuodot();
                 }
-                Pubiobjekti dLahto = pubi.getObjekti(sankari.getSijainti());
                 long dAikaAlussa = System.currentTimeMillis();
-                this.dijkstra.etsiReitti(
-                        dLahto,
-                        pubi.etsiPubiobjekti(PubiobjektiEnum.PISUAARI));
+                
+                this.lahto = pubi.getObjekti(sankari.getSijainti());
+                this.dijkstra.etsiReitti(lahto, maali);
+                
                 long dAikaLopussa = System.currentTimeMillis();
                 kl.setViestiKentanSisalto("Dijkstra: " + (dAikaLopussa - dAikaAlussa) + "ms");
                 kl.setInehmotNakymattomiksi();
@@ -156,7 +170,7 @@ public class Logiikka {
                 if (reititNakyvilla) {
                     pubi.palautaPOUlkomuodot();
                 }
-                if (!pubi.getInehmojenNakyvyys()) {
+                if (!ih.getInehmojenNakyvyys()) {
                     kl.setInehmotNakyviksi();
                 }
                 break;
@@ -204,6 +218,9 @@ public class Logiikka {
                 break;
             case VONKAA:
                 komentoVonkaa(kohde);
+                break;
+            case MAALI:
+                komentoAsetaMaali(sijainti);
                 break;
 //            case ANNA:
 //                break;
@@ -407,6 +424,11 @@ public class Logiikka {
         }
     }
 
+    private void komentoAsetaMaali(Sijainti kohde) {
+        this.maali = pubi.getObjekti(kohde);
+        kl.setViestiKentanSisalto("Asetit reitinhaulle uuden maalin.");
+    }
+    
     /**
      * Tutkii josko on hätä
      *

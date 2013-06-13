@@ -11,6 +11,7 @@ import pubventure.enumit.InehmoEnum;
 import pubventure.enumit.KomentoEnum;
 import pubventure.ihmiset.Asiakas;
 import pubventure.ihmiset.Inehmo;
+import pubventure.ihmiset.InehmojenHallinnointi;
 import pubventure.ihmiset.Sankari;
 import pubventure.ymparisto.Pubi;
 
@@ -74,12 +75,15 @@ public class Kayttoliittyma implements Runnable {
      * @see Pubventure.gui.Kayttoliittyma#kirjoitaPelaajanTiedot()
      */
     private Sankari sankari;
+    
+    private InehmojenHallinnointi ih;
 
-    public Kayttoliittyma(Pubi pubi, ArrayList<Inehmo> inehmot, Sankari sankari, Logiikka log) {
+    public Kayttoliittyma(Pubi pubi, ArrayList<Inehmo> inehmot, Sankari sankari, InehmojenHallinnointi ih, Logiikka log) {
         this.pubi = pubi;
         this.inehmot = inehmot;
         this.logiikka = log;
         this.sankari = sankari;
+        this.ih = ih;
 
         this.sb = new StringBuilder();
 
@@ -357,10 +361,10 @@ public class Kayttoliittyma implements Runnable {
     }
     
     public void setInehmotNakymattomiksi() {
-        pubi.setInehmojenNakyvyys(false);
+        ih.setInehmojenNakyvyys(false);
     }
     
     public void setInehmotNakyviksi() {
-        pubi.setInehmojenNakyvyys(true);
+        ih.setInehmojenNakyvyys(true);
     }
 }

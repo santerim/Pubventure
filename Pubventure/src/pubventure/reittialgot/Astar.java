@@ -15,65 +15,59 @@ public class Astar {
     /**
      * Tutkitut solmut.
      */
-    Minimikeko tutkitut;
-    
+    private Minimikeko tutkitut;
     /**
      * Tutkittavat solmut.
      */
-    Minimikeko avoimet;
-    
+    private Minimikeko avoimet;
     /**
      * Logiikka-luokalta saadaan viite Pubi-luokkaan, jota tarvitaan sen
      * tarjoamiin metodeihin kiinnipääsemiseksi
      */
-    Pubi pubi;
-    
+    private Pubi pubi;
     /**
      * Etsittäessä reittiä meillä on jokin mistä etsintää lähdetään
      * suorittamaan. Tässä tapauksessa se on jokin Pubiobjekti-luokan
      * olio
      */
-    Pubiobjekti lahto;
-    
+    private Pubiobjekti lahto;
     /**
      * Etsittävä reitti päättyy maaliin
      */
-    Pubiobjekti maali;
-    
+    private Pubiobjekti maali;
     /**
      * Pubi-luokka tarjoaa metodin, jolla saadaan pelikenttä kaksiulotteiseen
      * taulukkoon. Tämän avulla voidaan käydä kenttää läpi tarpeen vaatiessa
      * käyttämällä sisäkkäisiä for-silmukoita.
      */
-    Pubiobjekti[][] kentta;
-    
+    private Pubiobjekti[][] kentta;
     /**
      * Kun reitti lähtöpisteestä kohteeseen on löydetty, se otetaan talteen
      * Pubiobjekteista koostuvaan taulukkoon.
      */
-    Pubiobjekti[] reitti;
+    private Pubiobjekti[] reitti;
     
     /**
      * Pelikentän leveys
      */
-    int leveys;
+    private int leveys;
     
     /**
      * Pelikentän korkeus
      */
-    int korkeus;
+    private int korkeus;
     
     /**
      * Debuggaus-apumuuttuja, jolla lasketaan käsiteltyjä solmuja
      * (pubiobjekteja).
      */
-    int kasiteltyja;
+    private int kasiteltyja;
     
     /**
      * Debuggaus-apumuuttuja, jolla pidetään kirjaa siitä, montako solmua
      * (pubiobjektia) löydetyssä reitissä on.
      */
-    int reitinSolmuja;
+    private int reitinSolmuja;
     
     /**
      * nämä kaksi muuttujaa pitävät sisällään x- ja y-koordinaatit, joita
@@ -266,9 +260,9 @@ public class Astar {
                 vieruskasittely_1_Maali(minka, viereinen);
             }
             if (!viereinen.getAvoimissa() && !viereinen.getTutkituissa()) {
-                vieruskasittely_2_uusi(minka, viereinen);
+                vieruskasittely_2_Uusi(minka, viereinen);
             } else {
-                vieruskasittely_3_muu(minka, viereinen);
+                vieruskasittely_3_Muu(minka, viereinen);
             }
 //            kasiteltyja++;
 //            kl.piirraAlue();
@@ -300,7 +294,7 @@ public class Astar {
      * 
      * @see #kasitteleViereinen(pubventure.ymparisto.Pubiobjekti, pubventure.ymparisto.Pubiobjekti) 
      */
-    private void vieruskasittely_2_uusi(Pubiobjekti minka, Pubiobjekti viereinen) {
+    private void vieruskasittely_2_Uusi(Pubiobjekti minka, Pubiobjekti viereinen) {
         viereinen.setEdellinen(minka);
         viereinen.setG(laskeG(viereinen));
         viereinen.setF(laskeF(viereinen));
@@ -318,7 +312,7 @@ public class Astar {
      * 
      * @see #kasitteleViereinen(pubventure.ymparisto.Pubiobjekti, pubventure.ymparisto.Pubiobjekti) 
      */
-    private void vieruskasittely_3_muu(Pubiobjekti minka, Pubiobjekti viereinen) {
+    private void vieruskasittely_3_Muu(Pubiobjekti minka, Pubiobjekti viereinen) {
         if (minka.getG() + viereinen.getHidastearvo() < viereinen.getG()) {
             viereinen.setEdellinen(minka);
             viereinen.setG(laskeG(viereinen));
