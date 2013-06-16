@@ -96,14 +96,14 @@ public class InehmojenHallinnointi {
             switch (inehmo.getAieEnum()) {
                 case KAYTISKILLA:
                     // etsitään reitti satunnaiseen kohtaan tiskillä
-                    System.out.println("Tiskille");
+//                    System.out.println("Tiskille");
                     inehmo.setReitti(astar.etsiReitti(
                             pubi.getObjekti(inehmo.getSijainti()),
                             pubi.getObjekti(tiski.get(pubi.arvoLuku(tiski.size())))));
                     inehmo.setSeuraaReittia(true);
                     break;
                 case MENEISTUMAAN:
-                    System.out.println("Istumaan");
+//                    System.out.println("Istumaan");
                     // etsitään reitti takaisin sinne, mistä tultiinkin
                     inehmo.setReitti(astar.etsiReitti(
                             pubi.getObjekti(inehmo.getSijainti()),
