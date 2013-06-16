@@ -34,6 +34,7 @@ public class AstarTest {
     private Pubiobjekti lahto;
     private Pubiobjekti maali;
     private Astar astar;
+    private Dijkstra dijkstra;
     private Pubiobjekti[] reitti;
     
     public AstarTest() {
@@ -42,6 +43,7 @@ public class AstarTest {
         
         // luodaan olio testattavasta luokasta
         this.astar = new Astar(pubi);
+        this.dijkstra = new Dijkstra(pubi);
         
         leveys = pubi.getLeveys();
         korkeus = pubi.getKorkeus();
@@ -129,6 +131,35 @@ public class AstarTest {
     
     @Test
     public void suorituskyky() {
+        int testiajoja = 100000;
+        long aikaAlussa;
+        long aikaLopussa;
+        
+        System.out.println("A*:n viemä aika satunnaisilla reitinhauilla,\n"
+                + "kun toistokertoja on " + testiajoja + " kpl:");
+        
+        aikaAlussa = System.currentTimeMillis();
+        
+        for (int i = 0; i < testiajoja; i++) {
+            arvoLahtoJaMaali();
+            astar.etsiReitti(lahto, maali);
+        }
+        
+        aikaLopussa = System.currentTimeMillis();
+        System.out.println(aikaLopussa - aikaAlussa + " ms");
+        
+        System.out.println("\nDijkstran viemä aika satunnaisilla reitinhauilla,\n"
+                + "kun toistokertoja on " + testiajoja + " kpl:");
+        
+        aikaAlussa = System.currentTimeMillis();
+        
+        for (int i = 0; i < testiajoja; i++) {
+            arvoLahtoJaMaali();
+            dijkstra.etsiReitti(lahto, maali);
+        }
+        
+        aikaLopussa = System.currentTimeMillis();
+        System.out.println(aikaLopussa - aikaAlussa + " ms");
         
     }
     
