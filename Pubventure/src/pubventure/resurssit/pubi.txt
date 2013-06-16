@@ -8,9 +8,9 @@ X|###..-----|ttt.......BYYYY|.......|
 X|ttt..ttt|X|###..J....BYYYY|-------|
 X|.....###|X|ttt.|--|..BYYYYoXXXXXXX|
 X|t#t..ttt|-----o|--|..-------------|
-X|t#t.....|LLLMMM||tt..t#|wNoNLLLNow|
+X|t#t.....|LLLMMM||tt..t#|WNoNLLLNoW|
 X|---..---|MMMM|o||##...t|---NNNNN--|
-X|#t...t#t|ppp||w||tt.......oNNNNNow|
+X|#t...t#t|ppp||w||tt.......oNNNNNoW|
 X|----....|------||.........--------|
 X|t.t|....|.t#t..||#t...........tttt|
 X|.#.o.................t...####.####|

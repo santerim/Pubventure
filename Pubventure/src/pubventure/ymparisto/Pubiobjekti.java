@@ -16,7 +16,7 @@ public class Pubiobjekti {
      * Se, että onko jokin pubiobjekti este vai ei, on oleellista törmäysten
      * selville saamisessa
      */
-    private boolean onkoEste;
+    private boolean onkoEste = false;
     
     /**
      * Pubiobjektilla on yleensä yksilöllinen ulkonäkö, joka tulostetaan
@@ -79,6 +79,12 @@ public class Pubiobjekti {
     private boolean avoimissa;
     
     private boolean tutkituissa;
+    
+    /**
+     * Tämän tarkoitus on tuoda julki, josko tuoli, wc-pytty, tai tiski on
+     * varattu.
+     */
+    private boolean varattu;
 
     /**
      * Luo uuden pubiobjektin kaikilla sille kuuluvilla määreillä
@@ -234,6 +240,14 @@ public class Pubiobjekti {
     
     public void setTutkituissa(boolean totuusarvo) {
         this.tutkituissa = totuusarvo;
+    }
+    
+    public void setVarattu(boolean arvo) {
+        this.varattu = arvo;
+    }
+    
+    public boolean getVarattu() {
+        return this.varattu;
     }
     
     // TARKISTETTAVA!

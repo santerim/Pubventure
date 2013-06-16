@@ -8,9 +8,9 @@ import pubventure.enumit.PubiobjektiEnum;
 /**
  *
  * @author Santeri
- * 
+ *
  * Tämä luokka hoitaa kentta-objektin täyttämisen Pubiobjekteilla.
- * 
+ *
  * @see Pubi
  * @see TiedostonLukija
  * @see Pubiobjekti
@@ -28,8 +28,8 @@ public class Kentanluoja {
 
     /**
      * Pubi-luokan antama merkkijono luetaan, ja sen pohjalta luodaan
-     * pubiobjektit kaksiulotteiseen taulukkoon, joka tulee sisältämään
-     * kaikki pelialueen ei-ihmisobjektit.
+     * pubiobjektit kaksiulotteiseen taulukkoon, joka tulee sisältämään kaikki
+     * pelialueen ei-ihmisobjektit.
      *
      * Pubiobjektien saamat parametrit järjestyksessä: 1. Ulkonäkö, 2. onko
      * este, 3. Enum-tyyppi, 4. kuvaus, 5. sijainti, 6. hidastearvo
@@ -72,7 +72,10 @@ public class Kentanluoja {
                         kentta[rivi][i] = new Pubiobjekti("<font color='#8B4513'>¤</font>", false, PubiobjektiEnum.TUOLI, "tuoli", uusiSijainti, 2);
                         break;
                     case 'w':
-                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTY, "wc-pytty", uusiSijainti, 1000);
+                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTYM, "wc-pytty", uusiSijainti, 1000);
+                        break;
+                    case 'W':
+                        kentta[rivi][i] = new Pubiobjekti("w", true, PubiobjektiEnum.WCPYTTYN, "wc-pytty", uusiSijainti, 1000);
                         break;
                     case 'p':
                         kentta[rivi][i] = new Pubiobjekti("p", true, PubiobjektiEnum.PISUAARI, "pisuaari", uusiSijainti, 1000);

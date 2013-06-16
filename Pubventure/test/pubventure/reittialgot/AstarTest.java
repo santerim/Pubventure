@@ -116,9 +116,10 @@ public class AstarTest {
         astar.etsiReitti(lahto, maali);
         reitti = astar.getReitti();
         
-        System.out.println("Lähtö: (" + lahto.getSijainti().getX() + ", " + lahto.getSijainti().getY() + ")");
-        System.out.println("Maali: (" + maali.getSijainti().getX() + ", " + maali.getSijainti().getY() + ")");
-        tulostaReitinSolmujenSijainnit();
+//        System.out.println("Päätepisteiden ja reitin solmujen tulostus\n");
+//        System.out.println("Lähtö: (" + lahto.getSijainti().getX() + ", " + lahto.getSijainti().getY() + ")");
+//        System.out.println("Maali: (" + maali.getSijainti().getX() + ", " + maali.getSijainti().getY() + ")");
+//        tulostaReitinSolmujenSijainnit();
         
         assertTrue("Reitistä löytyi testatessa null-arvo", reitti[0] != null);
         if (reitti.length > 1) {

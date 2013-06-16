@@ -10,6 +10,7 @@ package pubventure.enumit;
  */
 public enum AieEnum {
     ISTU,
+    MENEISTUMAAN,
     VAELLA,
     SEISO,
     KAYVESSASSA,

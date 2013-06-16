@@ -13,7 +13,7 @@ public class Main {
     // siirtomäärällä ei nykyisellään merkitystä
     public static void main(String[] args) {
 //        System.out.println(System.getProperty("java.classpath"));
-        Logiikka log = new Logiikka(30, 999, true, true);
+        Logiikka log = new Logiikka(1, 999, true, true);
         log.aloita();
     }
 }

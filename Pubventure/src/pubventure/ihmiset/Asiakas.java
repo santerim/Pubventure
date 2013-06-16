@@ -33,10 +33,7 @@ public class Asiakas extends Inehmo {
      */
     private Pubiobjekti kohde;
     
-    /**
-     * Paikka, jonne asiakas siirtyy takaisin käytyään jossain.
-     */
-    private Pubiobjekti paikka;
+    
     
     public Asiakas(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuva, InehmoEnum sukupuoli, InehmoEnum ika) {
         super(sijainti, ulkomuoto, tyyppi, liikkuva, sukupuoli);
@@ -91,14 +88,6 @@ public class Asiakas extends Inehmo {
     
     public Pubiobjekti getKohde() {
         return this.kohde;
-    }
-    
-    public void setPaikka(Pubiobjekti paikka) {
-        this.paikka = paikka;
-    }
-    
-    public Pubiobjekti getPaikka() {
-        return this.paikka;
     }
     
     public ArrayList<Inehmo> getTutut() {

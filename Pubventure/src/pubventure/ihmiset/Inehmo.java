@@ -1,4 +1,3 @@
-
 package pubventure.ihmiset;
 
 import java.util.Random;
@@ -79,16 +78,21 @@ public class Inehmo {
      * konstruktio, ja siksi tällä ei ole setteriä.
      */
     private InehmoEnum sukupuoli;
-    
+    /**
+     * Paikka, jonne inehmo siirtyy takaisin käytyään jossain.
+     */
+    private Pubiobjekti paikka;
     private boolean nakyvyys;
     private AieEnum aie;
     private boolean kusettaa;
     private boolean janottaa;
     private double rahat;
     private boolean tekeeJotain;
+    private boolean seuraaReittia;
     private double juomatVatsassa;
     private double jano;
     private Pubiobjekti[] reitti;
+    private int odotus;
 
     public Inehmo(Sijainti sijainti, String ulkomuoto, InehmoEnum tyyppi, boolean liikkuvuus, InehmoEnum sukupuoli) {
         this.sijainti = sijainti;
@@ -103,18 +107,13 @@ public class Inehmo {
         this.rakko = (double) arpoja.nextInt(76);
         this.asenne = (double) arpoja.nextInt(86);
         this.juomatVatsassa = (double) arpoja.nextInt(50);
+        this.jano = (double) arpoja.nextInt(76);
+        this.rahat = (double) arpoja.nextInt(101);
+        this.odotus = arpoja.nextInt(81);
     }
 
-    /**
-     * Luo satunnaisluvun
-     *
-     * @param maksimi on maksimiarvo + 1 halutulle tulokselle
-     * @return palauttaa arvotun kokonaisluvun
-     */
-    private int arvoLuku(int maksimi) {
-        return arpoja.nextInt(maksimi);
-    }
-
+    
+    
     public Sijainti getSijainti() {
         return this.sijainti;
     }
@@ -150,7 +149,7 @@ public class Inehmo {
     public double getAsenne() {
         return this.asenne;
     }
-    
+
     public String getAsenneKuvaus() {
         if (this.asenne < 20) {
             return "Hän vaikuttaa vihamieliseltä.";
@@ -204,11 +203,11 @@ public class Inehmo {
     public boolean getVosuus() {
         return this.vosu;
     }
-    
+
     public boolean getNakyvyys() {
         return this.nakyvyys;
     }
-    
+
     public void setNakyvyys(boolean arvo) {
         this.nakyvyys = arvo;
     }
@@ -250,20 +249,22 @@ public class Inehmo {
 
     /**
      * Asettaa rakon arvolle muutoksen.
+     *
      * @param uusiArvo on lisäys aiempaan arvoon.
      */
     public void setRakko(double uusiArvo) {
-        if (this.rakko + uusiArvo > 100) {
-            this.rakko = 100;
-        } else {
-            this.rakko = this.rakko + uusiArvo;
-        }
-        
-        if (this.rakko > 99) {
-            this.kusettaa = true;
-        }
+        this.rakko = uusiArvo;
+//        if (this.rakko + uusiArvo > 100) {
+//            this.rakko = 100;
+//        } else {
+//            this.rakko = this.rakko + uusiArvo;
+//        }
+//        
+//        if (this.rakko > 99) {
+//            this.kusettaa = true;
+//        }
     }
-    
+
     /**
      * Muutetaan asennetta (tai itsetuntoa, mikäli kyseessä on sankari). Jos
      * muutos saisi arvon menemään yli 100:n tai alle 0:n, asetetaan arvo sen
@@ -285,7 +286,7 @@ public class Inehmo {
     public void setUlkomuoto(String ulkomuoto) {
         this.ulkomuoto = ulkomuoto;
     }
-    
+
     public void setVAUlkomuoto(String ulkomuoto) {
         this.vaulkomuoto = ulkomuoto;
     }
@@ -301,47 +302,86 @@ public class Inehmo {
     public void setSijainti(Sijainti uusiSijainti) {
         this.sijainti = uusiSijainti;
     }
-    
+
     public void setAieEnum(AieEnum aie) {
         this.aie = aie;
     }
-    
+
     public AieEnum getAieEnum() {
         return this.aie;
     }
-    
+
     public void setJanottaa(boolean arvo) {
         this.janottaa = arvo;
     }
-    
+
     public void setKusettaa(boolean arvo) {
         this.kusettaa = arvo;
     }
-    
+
     public boolean getJanottaa() {
         return this.janottaa;
     }
-    
+
     public boolean getKusettaa() {
         return this.kusettaa;
     }
-    
+
     public void setTekeeJotain(boolean arvo) {
         this.tekeeJotain = arvo;
     }
-    
+
     public boolean getTekeeJotain() {
         return this.tekeeJotain;
     }
-    
+
     public void setJano(double jano) {
         this.jano = jano;
     }
-    
+
     public double getJano() {
         return this.jano;
     }
-            
+
+    public void setRahat(double uusiArvo) {
+        this.rahat = uusiArvo;
+    }
+
+    public double getRahat() {
+        return this.rahat;
+    }
+
+    public void setOdotus(int arvo) {
+        this.odotus = arvo;
+    }
+
+    public int getOdotus() {
+        return this.odotus;
+    }
+
+    public void setReitti(Pubiobjekti[] reitti) {
+        this.reitti = reitti;
+    }
+
+    public Pubiobjekti[] getReitti() {
+        return this.reitti;
+    }
+
+    public void setSeuraaReittia(boolean arvo) {
+        this.seuraaReittia = arvo;
+    }
+
+    public boolean getSeuraaReittia() {
+        return this.seuraaReittia;
+    }
+
+    public void setPaikka(Pubiobjekti paikka) {
+        this.paikka = paikka;
+    }
+
+    public Pubiobjekti getPaikka() {
+        return this.paikka;
+    }
     // tarkastamatta...eikä kenties tulekaan käyttöön
 //    @Override
 //    public boolean equals(Object obj) {

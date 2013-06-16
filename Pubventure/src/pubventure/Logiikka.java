@@ -168,9 +168,9 @@ public class Logiikka {
                 System.gc();
                 break;
             case PYYHI:
-                if (reititNakyvilla) {
+//                if (reititNakyvilla) {
                     pubi.palautaPOUlkomuodot();
-                }
+//                }
                 if (!ih.getInehmojenNakyvyys()) {
                     kl.setInehmotNakyviksi();
                 }
@@ -275,7 +275,8 @@ public class Logiikka {
      */
     private void komentoKuse(Sijainti sijainti) {
         if (pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.PISUAARI
-                || pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.WCPYTTY) {
+                || pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.WCPYTTYM
+                || pubi.getObjekti(sijainti).getTyyppi() == PubiobjektiEnum.WCPYTTYN) {
             if (sankari.getRakko() > 20) {
                 sankari.setRakko(0);
                 sankari.setRakkoTaynna(false);
@@ -469,7 +470,8 @@ public class Logiikka {
     public void paivita() {
         //liikutetaan muita kuin sankaria, mikäli ei odoteta jatkokomentoa
         if (!kl.getNappaimistonKuuntelija().getOdotetaanSuuntaKomentoa()) {
-            liikutaHahmoja();
+            ih.paivita();
+//            liikutaHahmoja();
         }
         //päivitetään sankarin muuttujia, kuten humala, rakko jne
         sankari.paivitaMuuttujat();

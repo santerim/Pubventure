@@ -89,6 +89,7 @@ public class Sankari extends Inehmo {
         }
     }
 
+    @Override
     public double getRahat() {
         return this.rahat;
     }
